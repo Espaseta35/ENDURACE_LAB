@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Inscripción - Endurace Lab</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="index.html"><img src="logo.svg" alt="Endurace Lab" width="56" height="56"></a>
+    <div><a href="index.html#que-hacemos">Qué hacemos</a><a href="index.html#precios">Precios</a></div>
+  </nav>
+  <h1 style="font-size:clamp(2.4rem,6vw,3.8rem)">Inscripción</h1>
+  <p class="note" style="max-width:56ch;margin-bottom:36px">Cuéntame tu objetivo y tu disponibilidad. Te respondo en menos de 48 horas para concretar el plan. Rellenar el formulario no te compromete a nada.</p>
+
+  <form id="f" action="https://formspree.io/f/TU_ID" method="POST">
+    <label>Nombre y apellidos<input name="nombre" required autocomplete="name"></label>
+    <label>Email<input type="email" name="email" required autocomplete="email"></label>
+    <label>Teléfono o WhatsApp<input type="tel" name="telefono" autocomplete="tel"></label>
+    <label>Plan que te interesa
+      <select name="plan">
+        <option value="basico">Básico - 39 €/mes</option>
+        <option value="pro" selected>Pro - 69 €/mes</option>
+        <option value="premium">Premium - 109 €/mes</option>
+        <option value="carrera">Plan de carrera 12 semanas - 129 €</option>
+        <option value="sesion">Videollamada suelta - 30 €</option>
+      </select>
+    </label>
+    <label>Tu nivel
+      <select name="nivel">
+        <option>Estoy empezando</option>
+        <option>Llevo entrenando un tiempo</option>
+        <option>Compito con regularidad</option>
+      </select>
+    </label>
+    <label>Prueba objetivo y fecha<span>Si todavía no tienes una, déjalo en blanco.</span><input name="prueba"></label>
+    <label>Horas que puedes entrenar por semana<input name="horas" inputmode="numeric"></label>
+    <label>Reloj o plataforma que usas<span>Garmin, Polar, Coros, Strava...</span><input name="dispositivo"></label>
+    <label>Cuéntame tu objetivo<span>Qué quieres conseguir y cualquier cosa que deba tener en cuenta.</span><textarea name="mensaje" rows="5"></textarea></label>
+    <label class="check"><input type="checkbox" name="privacidad" required> Acepto que se traten mis datos para responder a mi solicitud, según la política de privacidad.</label>
+    <div><button class="btn" type="submit">Enviar inscripción</button></div>
+  </form>
+</div>
+
+<footer style="margin-top:56px"><div class="wrap">
+  <p>El entrenamiento físico conlleva riesgos. Consulta con tu médico antes de empezar.</p>
+</div></footer>
+
+<script>
+const f=document.getElementById('f');
+const p=new URLSearchParams(location.search).get('plan');
+if(p&&[...f.plan.options].some(o=>o.value===p))f.plan.value=p;
+// Mientras el formulario no tenga un ID de Formspree, se abre el correo con los datos.
+f.addEventListener('submit',e=>{
+  if(!f.action.includes('TU_ID'))return;
+  e.preventDefault();
+  const body=[...new FormData(f)].map(([k,v])=>k+': '+v).join('\n');
+  location.href='mailto:[EMAIL]?subject='+encodeURIComponent('Inscripción asesoría')+'&body='+encodeURIComponent(body);
+});
+</script>
+</body>
+</html>
