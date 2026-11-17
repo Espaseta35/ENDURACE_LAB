@@ -1,0 +1,27 @@
+ENDURACE LAB - WEB
+==================
+
+Archivos:
+- index.html: página principal.
+- inscripcion.html: formulario de contacto/solicitud.
+- style.css: estilos responsive.
+- assets/logo.svg: logotipo SVG provisional.
+- assets/hero-triatlon.png: imagen principal generada para esta web.
+- privacidad.html y aviso-legal.html: plantillas que deben completarse y revisarse antes de publicar.
+
+ANTES DE PUBLICAR:
+1. Sustituye [EMAIL] por tu correo real en index.html.
+2. Configura Formspree: crea un formulario, sustituye TU_ID en inscripcion.html por el identificador real y prueba el envío. Sin ello el formulario no enviará solicitudes.
+3. Completa tu titulación/acreditación deportiva real y define con precisión qué servicio puedes prestar legalmente. No publiques una titulación que no tengas.
+4. Completa y revisa aviso-legal.html y privacidad.html con tus datos reales y los tratamientos de datos que efectivamente realices.
+5. Revisa precios, plazos de respuesta, disponibilidad y condiciones antes de aceptar clientes.
+6. Sustituye el logo provisional si ya tienes un logo oficial de ENDURACE LAB.
+
+Datos personales/deportivos incluidos en la presentación:
+- Joan, científico de datos.
+- Grado en Estadística Empresarial y Máster en Inteligencia Artificial.
+- Mejor marca de maratón: 3:12.
+- Triatlón de media distancia completado en menos de 5 horas.
+- Más de 117 sesiones analizadas en TrainingPeaks durante tu preparación.
+
+La web evita presentarte como entrenador titulado porque esa acreditación no está confirmada en la información disponible.
