@@ -5,8 +5,8 @@ Archivos:
 - index.html: página principal.
 - inscripcion.html: formulario de contacto/solicitud.
 - style.css: estilos responsive.
-- assets/logo.svg: logotipo SVG provisional.
-- assets/hero-triatlon.png: imagen principal generada para esta web.
+- logo.svg: logotipo SVG provisional.
+- hero-triatlon.png: imagen principal generada para esta web.
 - privacidad.html y aviso-legal.html: plantillas que deben completarse y revisarse antes de publicar.
 
 ANTES DE PUBLICAR:
