@@ -163,3 +163,13 @@ h1,h2,h3{font-family:var(--font-head);line-height:.96;margin:0;text-transform:up
  .form-layout{padding-top:45px}.form-aside{margin-top:28px}.signup-form{padding:20px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+.billing{display:inline-flex;border:1px solid #3a4148;margin:34px 0 28px}
+.billing-btn{background:transparent;color:var(--muted);border:0;padding:12px 20px;font:600 .88rem var(--font-body);cursor:pointer}
+.billing-btn small{color:var(--orange);margin-left:6px;font-weight:700}
+.billing-btn.active{background:var(--orange);color:#111}
+.billing-btn.active small{color:#111}
+.billing-btn:focus-visible{outline:2px solid var(--white);outline-offset:-4px}
+.price-card .price{margin-bottom:6px}
+.price-sub{font-size:.8rem;color:#aeb3b7;margin:0 0 23px;min-height:2.6em}
+@media(max-width:560px){.billing{display:flex}.billing-btn{flex:1;padding:12px 6px;font-size:.8rem}}
