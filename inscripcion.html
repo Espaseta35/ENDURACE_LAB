@@ -25,11 +25,14 @@
       <label>Teléfono / WhatsApp<input type="tel" name="telefono" autocomplete="tel"></label>
       <label>¿Qué servicio te interesa?
         <select name="plan" id="plan">
-          <option value="basico">Básico · 39 €/mes</option><option value="pro" selected>Pro · 69 €/mes</option><option value="premium">Premium · 109 €/mes</option><option value="carrera">Plan de carrera · 129 €</option><option value="sesion">Videollamada · 30 €</option><option value="no-se">Necesito orientación</option>
+          <option value="esencial">Esencial · 39 €/mes</option><option value="pro" selected>Pro · 69 €/mes</option><option value="premium">Premium · 109 €/mes</option><option value="carrera">Plan de carrera · 129 €</option><option value="sesion">Videollamada · 30 €</option><option value="no-se">Necesito orientación</option>
         </select>
       </label>
-      <label>Periodo de pago<span>Solo para los planes mensuales (Básico, Pro y Premium).</span>
+      <label>Periodo de pago<span>Solo para los planes mensuales (Esencial, Pro y Premium).</span>
         <select name="periodo" id="periodo"><option value="mensual" selected>Mensual</option><option value="trimestral">Trimestral (-10 %)</option><option value="semestral">Semestral (-15 %)</option></select>
+      </label>
+      <label>¿Usas TrainingPeaks?<span>Trabajamos con esta plataforma; si no la conoces, te ayudo a empezar.</span>
+        <select name="trainingpeaks"><option>No lo he usado</option><option>Sí, con cuenta gratuita</option><option>Sí, con cuenta Premium</option></select>
       </label>
       <label>Tu experiencia
         <select name="nivel"><option>Estoy empezando</option><option>Llevo entrenando un tiempo</option><option>Compito con regularidad</option><option>Preparo triatlón de media o larga distancia</option></select>
@@ -53,7 +56,7 @@
     const per = new URLSearchParams(location.search).get('periodo');
     if (per && [...form.periodo.options].some(o => o.value === per)) form.periodo.value = per;
     const syncPeriod = () => {
-      const monthly = ['basico', 'pro', 'premium'].includes(form.plan.value);
+      const monthly = ['esencial', 'pro', 'premium'].includes(form.plan.value);
       form.periodo.disabled = !monthly;
       if (!monthly) form.periodo.value = 'mensual';
     };
