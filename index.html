@@ -17,6 +17,11 @@
     .method-icon{font-size:1.05rem;line-height:1;margin:0}
     .method-card h3{margin:52px 0 13px}
     @media(max-width:650px){.method-card h3{margin:28px 0 10px}}
+    /* Foto de "Quién está detrás" */
+    .about-photo{margin:0;position:relative;background:#0c1014}
+    .about-photo img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+    .about-photo figcaption{padding:16px 20px;background:#0c1014;font:700 .95rem/1.35 var(--font-head);letter-spacing:.12em;color:#f4f4f1}
+    @media(min-width:901px){.about-photo{position:sticky;top:96px}}
   </style>
 </head>
 <body>
@@ -137,7 +142,7 @@
 
     <section class="section section-light" id="sobre-mi">
       <div class="container about-grid">
-        <div class="about-mark"><img src="logo.svg" alt="Símbolo de Endurace Lab"><span>BUILT ON DATA.<br>DRIVEN BY ENDURANCE.</span></div>
+        <figure class="about-photo"><img src="sobre-mi.jpg" alt="Joan corriendo por un puente con Toledo al fondo" width="960" height="1200" loading="lazy"><figcaption>BUILT ON DATA.<br>DRIVEN BY ENDURANCE.</figcaption></figure>
         <div class="about-copy">
           <p class="eyebrow">04 / QUIÉN ESTÁ DETRÁS</p>
           <h2>SOY JOAN.<br><span class="orange">ME MUEVEN LOS DATOS Y EL DEPORTE.</span></h2>
