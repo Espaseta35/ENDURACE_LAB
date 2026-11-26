@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Informe de laboratorio | ENDURACE LAB</title>
+  <meta name="description" content="Sube tus entrenamientos y recibe un análisis de carga y una guía de nutrición para entrenar. Todo se procesa en tu navegador.">
+  <meta name="theme-color" content="#090b0e">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+  <link rel="stylesheet" href="lab.css?v=1">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html" aria-label="ENDURACE LAB, inicio">
+        <img src="logo.svg" alt="" width="46" height="46">
+        <span>ENDURACE<span class="orange">_LAB</span></span>
+      </a>
+      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="index.html#metodo">Método</a><a href="index.html#servicios">Servicios</a><a href="index.html#sobre-mi">Sobre mí</a><a href="index.html#faq">FAQ</a><a href="laboratorio.html" aria-current="page">Laboratorio</a><a href="blog.html">Blog</a>
+        <a class="nav-cta" href="inscripcion.html">Hablemos <span>↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section section-dark"><div class="container lab">
+<p class="eyebrow">LABORATORIO</p><h1>INFORME DE <span class="orange">LABORATORIO</span></h1>
+<p>Sube tus entrenamientos y mira cómo estás cargando. Obtendrás tu reparto por disciplina, la regularidad, los picos de carga y una guía de hidratos de carbono para cada tipo de día.</p>
+<p class="mute">Tus datos se analizan en tu navegador y no se envían a ningún servidor.</p>
+
+<section class="drop">
+<label>Archivo CSV exportado de TrainingPeaks (últimos 60–90 días)
+<input id="file" type="file" accept=".csv,text/csv"></label>
+<div class="row">
+<label>Tu peso (kg), para calcular gramos<input id="kg" type="number" min="30" max="200" step="0.5" placeholder="75"></label>
+<button class="alt" id="demo" type="button">Probar con datos de ejemplo</button>
+</div>
+<p id="err" role="alert"></p>
+<p class="mute" style="font-size:.9rem;margin-bottom:0">En TrainingPeaks: Panel de entrenamientos → Exportar. El archivo debe incluir fecha, tipo de entreno y duración.</p>
+</section>
+
+<section id="out" hidden>
+<h2>Resumen</h2>
+<div class="stats" id="stats"></div>
+<h2>Horas por semana</h2>
+<div class="scroll"><div id="chart"></div></div>
+<p id="spikes"></p>
+<h2>Reparto por disciplina</h2>
+<div class="scroll"><table id="disc"></table></div>
+<h2>Nutrición para entrenar</h2>
+<p>Hidratos de carbono diarios según las horas que entrenaste cada día. Son pautas deportivas generales y no sustituyen a un dietista.</p>
+<div class="scroll"><table id="fuel"></table></div>
+<p id="fuelnote"></p>
+<div class="cta"><h3 style="margin:0 0 .5rem">¿Quieres que lo interprete un entrenador?</h3>
+<p style="margin-top:0">Con tus datos reales planificamos cada semana en TrainingPeaks.</p>
+<a class="button button-orange" href="inscripcion.html">Ver planes e inscribirme ↗</a></div>
+</section>
+</div></section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-top">
+      <a class="brand" href="index.html"><img src="logo.svg" alt="" width="40" height="40"><span>ENDURACE<span class="orange">_LAB</span></span></a>
+      <div class="footer-links"><a href="index.html#metodo">Método</a><a href="index.html#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="mailto:[EMAIL]">Contacto</a></div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© <span id="year"></span> ENDURACE LAB. Todos los derechos reservados.</p>
+      <p>El entrenamiento físico conlleva riesgos. La información de esta web no sustituye una valoración médica, fisioterapéutica ni nutricional. Consulta con profesionales sanitarios cuando corresponda.</p>
+      <p><a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a></p>
+    </div>
+  </footer>
+  <script>
+document.getElementById("year").textContent=new Date().getFullYear();
+const tg=document.querySelector(".menu-toggle"),nv=document.querySelector(".main-nav");
+tg.addEventListener("click",()=>{const o=tg.getAttribute("aria-expanded")==="true";tg.setAttribute("aria-expanded",String(!o));nv.classList.toggle("open",!o)});
+
+const $=s=>document.querySelector(s);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[^a-z]/g,"");
+function parseCSV(t){const d=(t.split("\n")[0].match(/;/g)||[]).length>(t.split("\n")[0].match(/,/g)||[]).length?";":",";const rows=[];let r=[],c="",q=false;
+for(let i=0;i<t.length;i++){const ch=t[i];
+if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}
+else if(ch=='"')q=true;else if(ch==d){r.push(c);c=""}
+else if(ch=="\n"){r.push(c);rows.push(r);r=[];c=""}else if(ch!="\r")c+=ch}
+if(c||r.length){r.push(c);rows.push(r)}return rows}
+const num=v=>parseFloat(String(v||"").replace(",","."))||0;
+function pdate(s){s=String(s).trim();let m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+const d=m?new Date(+m[3],+m[2]-1,+m[1]):new Date(s.slice(0,10)+"T00:00:00");return isNaN(d)?null:d}
+const dkey=d=>d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+function monday(d){const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));x.setHours(0,0,0,0);return x}
+function disc(t){t=norm(t);return/swim|nat|pool/.test(t)?"Natación":/bike|cycl|ciclis|bici|ride/.test(t)?"Bici":/run|carrera|correr|trail/.test(t)?"Carrera":"Otros"}
+function analyze(text){
+const rows=parseCSV(text).filter(r=>r.length>1);if(rows.length<2)throw"El archivo está vacío o no es un CSV válido.";
+const h=rows[0].map(norm),f=n=>h.findIndex(x=>n.includes(x));
+const iD=f(["workoutday","date","fecha"]),iT=f(["workouttype","type","sport","tipo","deporte"]),iH=f(["timetotalinhours","durationhours"]);
+if(iD<0||iH<0)throw"No encuentro las columnas de fecha y duración. Necesito “WorkoutDay” y “TimeTotalInHours”.";
+const S=[];for(const r of rows.slice(1)){const d=pdate(r[iD]),hr=num(r[iH]);if(d&&hr>0)S.push({d,h:hr,t:disc(r[iT]||"")})}
+if(S.length<5)throw"Hay muy pocos entrenamientos con datos válidos para hacer un análisis.";
+S.sort((a,b)=>a.d-b.d);return S}
+function render(S){
+const kg=num($("#kg").value),first=monday(S[0].d),last=monday(S[S.length-1].d);
+const W=[];for(let d=new Date(first);d<=last;d.setDate(d.getDate()+7))W.push({d:new Date(d),h:0});
+const idx=d=>Math.round((monday(d)-first)/6048e5);const days={},by={};
+for(const s of S){W[idx(s.d)].h+=s.h;days[dkey(s.d)]=(days[dkey(s.d)]||0)+s.h;by[s.t]=(by[s.t]||0)+s.h}
+const tot=S.reduce((a,s)=>a+s.h,0),act=W.filter(w=>w.h>0).length;
+const sp=[];W.forEach((w,i)=>{if(i<4)return;const a=(W[i-1].h+W[i-2].h+W[i-3].h+W[i-4].h)/4;w.s=a>0&&w.h>a*1.3;if(w.s)sp.push({w,a})});
+$("#stats").innerHTML=`<div><b>${S.length}</b>entrenos</div><div><b>${(tot/W.length).toFixed(1)}</b>horas por semana</div><div><b>${Math.round(act/W.length*100)} %</b>semanas con entreno</div><div><b>${sp.length}</b>picos de carga</div>`;
+const mx=Math.max(...W.map(w=>w.h)),bw=Math.max(14,Math.min(40,560/W.length)),H=150;
+let svg=`<svg role="img" aria-label="Horas de entrenamiento por semana" width="${W.length*bw+30}" height="${H+30}">`;
+W.forEach((w,i)=>{const bh=w.h/mx*H;svg+=`<rect x="${i*bw+24}" y="${H-bh}" width="${bw-4}" height="${bh}" fill="${w.s?"#f4f4f1":"#ff5a00"}"><title>${w.h.toFixed(1)} h</title></rect>`;
+if(i%Math.ceil(W.length/8)==0)svg+=`<text x="${i*bw+24}" y="${H+16}">${w.d.getDate()}/${w.d.getMonth()+1}</text>`});
+svg+=`<text x="0" y="10">${mx.toFixed(0)} h</text></svg>`;$("#chart").innerHTML=svg;
+$("#spikes").innerHTML=sp.length?`Las barras negras son semanas con más de un 30 % de horas sobre tu media de las 4 anteriores. Es un salto de carga que conviene vigilar: ${sp.map(x=>`${x.w.d.getDate()}/${x.w.d.getMonth()+1} (${x.w.h.toFixed(1)} h frente a ${x.a.toFixed(1)} h)`).join(", ")}.`:"No hay saltos bruscos de carga en este periodo: tu progresión es estable.";
+$("#disc").innerHTML="<tr><th>Disciplina</th><th>Horas</th><th>Reparto</th></tr>"+Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<tr><td>${k}</td><td>${v.toFixed(1)}</td><td>${Math.round(v/tot*100)} %</td></tr>`).join("");
+const B=[["Descanso o menos de 30 min",0,.5,3,5],["De 30 a 60 min",.5,1,5,6],["De 1 a 2 h",1,2,6,8],["De 2 a 3 h",2,3,7,9],["Más de 3 h",3,99,8,10]];
+const n=Math.round((new Date(S[S.length-1].d)-S[0].d)/864e5)+1,cnt=B.map(()=>0);
+for(let i=0;i<n;i++){const d=new Date(S[0].d);d.setDate(d.getDate()+i);const hr=days[dkey(d)]||0;cnt[B.findIndex(b=>hr>=b[1]&&hr<b[2])]++}
+const g=(a,b)=>kg?`${Math.round(a*kg)}–${Math.round(b*kg)} g`:"Añade tu peso";
+$("#fuel").innerHTML="<tr><th>Tipo de día</th><th>Tus días</th><th>g/kg de hidratos</th><th>Gramos al día</th></tr>"+B.map((b,i)=>`<tr><td>${b[0]}</td><td>${cnt[i]}</td><td>${b[3]}–${b[4]}</td><td>${g(b[3],b[4])}</td></tr>`).join("");
+$("#fuelnote").textContent=`Durante el entreno: de 30 a 60 g de hidratos por hora a partir de 1 hora, y hasta 90 g por hora en sesiones largas de más de 2,5 horas si tu estómago lo tolera. Proteína: entre 1,4 y 2 g por kg al día${kg?` (${Math.round(1.4*kg)}–${Math.round(2*kg)} g)`:""}.`;
+$("#out").hidden=false;$("#out").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})}
+function run(text){$("#err").textContent="";try{render(analyze(text))}catch(e){$("#out").hidden=true;$("#err").textContent=typeof e=="string"?e:"No he podido leer el archivo."}}
+$("#file").addEventListener("change",e=>{const f=e.target.files[0];if(f)f.text().then(run)});
+$("#demo").addEventListener("click",()=>{let o="Title,WorkoutType,WorkoutDay,TimeTotalInHours\n";const s=new Date();s.setDate(s.getDate()-84);
+const P={0:["Swim",1],1:["Run",1],3:["Bike",1.5],4:["Swim",1],5:["Bike",2.5],6:["Run",1.5]};
+for(let i=0;i<84;i++){const d=new Date(s);d.setDate(s.getDate()+i);const p=P[i%7];if(!p)continue;const w=Math.floor(i/7),k=w==8?1.7:1+w*.03;
+o+=`x,${p[0]},${d.toISOString().slice(0,10)},${(p[1]*k).toFixed(2)}\n`}run(o)});
+$("#kg").addEventListener("change",()=>{if(!$("#out").hidden){const f=$("#file").files[0];f?f.text().then(run):$("#demo").click()}});
+</script>
+</body>
+</html>
