@@ -38,6 +38,7 @@ async function contact(req, env, c) {
     const t = await req.text();
     if (t.length > MAX_BODY) return json({ error: "too_large" }, 413, c.headers);
     b = JSON.parse(t);
+    if (!b || typeof b !== "object" || Array.isArray(b)) throw new Error("not_object");
   } catch {
     return json({ error: "invalid" }, 400, c.headers);
   }
@@ -87,8 +88,8 @@ async function contact(req, env, c) {
   // El aviso por correo es secundario: la solicitud ya está guardada aunque falle.
   try {
     await env.EMAIL.send({
-      to: [{ email: env.NOTIFY_TO }],
-      from: { email: env.MAIL_FROM, name: "Endurace Lab" },
+      to: env.NOTIFY_TO,
+      from: env.MAIL_FROM,
       subject: `Nueva solicitud: plan ${d.plan}`,
       text: [
         `Nombre: ${d.nombre}`,

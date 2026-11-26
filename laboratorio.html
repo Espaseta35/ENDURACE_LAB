@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=3">
-  <link rel="stylesheet" href="lab.css?v=1">
+  <link rel="stylesheet" href="lab.css?v=2">
 </head>
 <body>
   <header class="site-header">
@@ -42,7 +42,7 @@
   <main>
     <section class="section section-dark"><div class="container lab">
 <p class="eyebrow">LABORATORIO</p><h1>INFORME DE <span class="orange">LABORATORIO</span></h1>
-<p>Sube tus entrenamientos y mira cómo estás cargando. Obtendrás tu reparto por disciplina, la regularidad, los picos de carga y una guía de hidratos de carbono para cada tipo de día.</p>
+<p>Sube tus entrenamientos y mira cómo estás cargando. Obtendrás tu forma, fatiga y frescura, cómo repartes la intensidad, si tu eficiencia aeróbica mejora, los picos de carga, el reparto por disciplina y una guía de hidratos de carbono para cada tipo de día.</p>
 <p class="mute">Tus datos se analizan en tu navegador y no se envían a ningún servidor.</p>
 
 <section class="drop">
@@ -53,7 +53,7 @@
 <button class="alt" id="demo" type="button">Probar con datos de ejemplo</button>
 </div>
 <p id="err" role="alert"></p>
-<p class="mute" style="font-size:.9rem;margin-bottom:0">En TrainingPeaks: Panel de entrenamientos → Exportar. El archivo debe incluir fecha, tipo de entreno y duración.</p>
+<p class="mute" style="font-size:.9rem;margin-bottom:0">En TrainingPeaks: Panel de entrenamientos → Exportar. El archivo debe incluir fecha, tipo de entreno y duración. Si además trae TSS, minutos por zona, pulso, distancia y potencia (vienen por defecto), verás el análisis completo.</p>
 </section>
 
 <p class="mute">¿Buscas otra cosa? Prueba también las <a href="herramientas.html">herramientas del laboratorio</a>: predictor de tiempos, zonas de entrenamiento y estrategia de nutrición en carrera.</p>
@@ -63,6 +63,15 @@
 <h2>Horas por semana</h2>
 <div class="scroll"><div id="chart"></div></div>
 <p id="spikes"></p>
+<h2>Forma, fatiga y frescura</h2>
+<p>Cómo responde tu cuerpo a la carga (TSS) día a día: la forma se construye despacio, la fatiga llega y se va rápido, y la frescura es la diferencia entre ambas.</p>
+<div id="pmc"></div>
+<h2>Distribución de intensidad</h2>
+<p>Cuánto de tu tiempo de natación, bici y carrera entrenas suave, a ritmo medio o fuerte.</p>
+<div id="int"></div>
+<h2>Factor de eficiencia</h2>
+<p>Velocidad o potencia que generas por cada pulsación en tus sesiones aeróbicas. Si sube, estás mejorando.</p>
+<div id="ef"></div>
 <h2>Reparto por disciplina</h2>
 <div class="scroll"><table id="disc"></table></div>
 <h2>Nutrición para entrenar</h2>
@@ -94,6 +103,11 @@ tg.addEventListener("click",()=>{const o=tg.getAttribute("aria-expanded")==="tru
 
 const $=s=>document.querySelector(s);
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[^a-z]/g,"");
+const hn=s=>s.toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g,"");
+const fmt=(v,d=1)=>v.toLocaleString("es-ES",{minimumFractionDigits:d,maximumFractionDigits:d});
+const ddm=d=>d.getDate()+"/"+(d.getMonth()+1);
+const med=a=>{const s=[...a].sort((x,y)=>x-y);return s.length?s[s.length>>1]:0};
+const END=["Natación","Bici","Carrera"];
 function parseCSV(t){const d=(t.split("\n")[0].match(/;/g)||[]).length>(t.split("\n")[0].match(/,/g)||[]).length?";":",";const rows=[];let r=[],c="",q=false;
 for(let i=0;i<t.length;i++){const ch=t[i];
 if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}
@@ -105,15 +119,91 @@ function pdate(s){s=String(s).trim();let m=s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4
 const d=m?new Date(+m[3],+m[2]-1,+m[1]):new Date(s.slice(0,10)+"T00:00:00");return isNaN(d)?null:d}
 const dkey=d=>d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
 function monday(d){const x=new Date(d);x.setDate(x.getDate()-((x.getDay()+6)%7));x.setHours(0,0,0,0);return x}
-function disc(t){t=norm(t);return/swim|nat|pool/.test(t)?"Natación":/bike|cycl|ciclis|bici|ride/.test(t)?"Bici":/run|carrera|correr|trail/.test(t)?"Carrera":"Otros"}
+function disc(t){t=norm(t);return/swim|nat|pool/.test(t)?"Natación":/bike|cycl|ciclis|bici|ride/.test(t)?"Bici":/run|carrera|correr|trail/.test(t)?"Carrera":/walk|hike|camin|andar|sender/.test(t)?"Caminar":"Otros"}
 function analyze(text){
 const rows=parseCSV(text).filter(r=>r.length>1);if(rows.length<2)throw"El archivo está vacío o no es un CSV válido.";
-const h=rows[0].map(norm),f=n=>h.findIndex(x=>n.includes(x));
+const h=rows[0].map(hn),f=n=>h.findIndex(x=>n.includes(x)),col=n=>h.indexOf(n);
 const iD=f(["workoutday","date","fecha"]),iT=f(["workouttype","type","sport","tipo","deporte"]),iH=f(["timetotalinhours","durationhours"]);
 if(iD<0||iH<0)throw"No encuentro las columnas de fecha y duración. Necesito “WorkoutDay” y “TimeTotalInHours”.";
-const S=[];for(const r of rows.slice(1)){const d=pdate(r[iD]),hr=num(r[iH]);if(d&&hr>0)S.push({d,h:hr,t:disc(r[iT]||"")})}
+const C={tss:col("tss"),IF:col("if"),hr:col("heartrateaverage"),v:col("velocityaverage"),dist:col("distanceinmeters"),pw:col("poweraverage")};
+const Z={hr:[],pw:[],pa:[]};for(let z=1;z<=10;z++){Z.hr.push(col("hrzone"+z+"minutes"));Z.pw.push(col("pwrzone"+z+"minutes"));Z.pa.push(col("pacezone"+z+"minutes"))}
+const S=[];for(const r of rows.slice(1)){const d=pdate(r[iD]),hr=num(r[iH]);if(!d||!(hr>0))continue;
+const g=i=>i<0?0:num(r[i]),zs=a=>a.map(g),sum=a=>a.reduce((x,y)=>x+y,0);
+let z=zs(Z.hr);if(!sum(z))z=zs(Z.pw);if(!sum(z))z=zs(Z.pa);
+const dist=g(C.dist);
+S.push({d,h:hr,t:disc(r[iT]||""),tss:g(C.tss),IF:g(C.IF),hr:g(C.hr),v:dist>0?dist/(hr*3600):g(C.v),pw:g(C.pw),z:sum(z)>0?z:null})}
 if(S.length<5)throw"Hay muy pocos entrenamientos con datos válidos para hacer un análisis.";
 S.sort((a,b)=>a.d-b.d);return S}
+/* IF medio por disciplina: si es mayor que 1,05 en sesiones normales, el umbral está mal configurado y el TSS sale inflado */
+function badIF(S){const o={};for(const t of END){const v=S.filter(s=>s.t==t&&s.IF>0&&s.h>=.5).map(s=>s.IF);if(v.length>=5&&med(v)>1.05)o[t]=med(v)}return o}
+
+/* 1. Forma, fatiga y frescura (CTL / ATL / TSB) */
+function pmc(S){
+if(S.filter(s=>s.tss>0).length<S.length*.5)return null;
+const rate={};for(const t of new Set(S.map(s=>s.t))){const r=S.filter(s=>s.t==t&&s.tss>0).map(s=>s.tss/s.h);rate[t]=r.length?med(r):50}
+const start=new Date(S[0].d);start.setHours(0,0,0,0);const n=Math.round((S[S.length-1].d-start)/864e5)+1,daily=new Array(n).fill(0);let est=0;
+for(const s of S){let t=s.tss;if(!(t>0)){t=rate[s.t]*s.h;est++}daily[Math.round((s.d-start)/864e5)]+=t}
+const k=Math.min(28,n),seed=daily.slice(0,k).reduce((a,b)=>a+b,0)/k;let ctl=seed,atl=seed;const out=[];
+for(let i=0;i<n;i++){const d=new Date(start);d.setDate(start.getDate()+i);const tsb=ctl-atl;ctl+=(daily[i]-ctl)/42;atl+=(daily[i]-atl)/7;out.push({d,ctl,atl,tsb})}
+return{out,est,ctl,atl,tsb:ctl-atl,ramp:n>7?ctl-out[n-8].ctl:0}}
+function renderPMC(S){
+const p=pmc(S);if(!p){$("#pmc").innerHTML=`<p class="need">Para calcular tu forma, fatiga y frescura necesito la columna <b>TSS</b> en al menos la mitad de los entrenos. TrainingPeaks la calcula cuando tienes configurados tus umbrales (FTP, ritmo umbral o pulso umbral).</p>`;return}
+const O=p.out,n=O.length,W=Math.max(560,n*4),H1=150,H2=70,L=34,x=i=>L+i*(W-L-6)/Math.max(1,n-1);
+const top=Math.max(...O.map(o=>Math.max(o.ctl,o.atl)))*1.1||1,y=v=>H1-v/top*H1;
+const tm=Math.max(10,...O.map(o=>Math.abs(o.tsb))),yb=v=>H1+28+H2/2-v/tm*(H2/2);
+const line=key=>O.map((o,i)=>`${x(i).toFixed(1)},${y(o[key]).toFixed(1)}`).join(" ");
+let svg=`<svg role="img" aria-label="Evolución de forma, fatiga y frescura" width="${W}" height="${H1+H2+52}">`;
+svg+=`<text x="0" y="10">${Math.round(top)}</text><line class="axis" x1="${L}" x2="${W}" y1="${H1}" y2="${H1}"/>`;
+svg+=`<polyline class="ln-atl" points="${line("atl")}"/><polyline class="ln-ctl" points="${line("ctl")}"/>`;
+svg+=`<line class="axis" x1="${L}" x2="${W}" y1="${yb(0)}" y2="${yb(0)}"/><text x="0" y="${yb(0)+4}">0</text>`;
+const bw=Math.max(1,(W-L)/n-1);O.forEach((o,i)=>{const a=yb(0),b=yb(o.tsb);svg+=`<rect class="${o.tsb<0?"tsb-neg":"tsb-pos"}" x="${(x(i)-bw/2).toFixed(1)}" y="${Math.min(a,b).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.abs(a-b).toFixed(1)}"><title>${ddm(o.d)}: frescura ${Math.round(o.tsb)}</title></rect>`});
+const step=Math.ceil(n/8);O.forEach((o,i)=>{if(i%step==0)svg+=`<text x="${x(i)}" y="${H1+H2+48}">${ddm(o.d)}</text>`});
+const bad=badIF(S),warn=Object.entries(bad).map(([t,v])=>`<p class="need"><b>Revisa tus umbrales de ${t.toLowerCase()}.</b> Tu IF medio en ${t.toLowerCase()} es ${fmt(v,2)}, cuando un entreno normal suele estar entre 0,65 y 0,85 (por encima de 1 solo se sostiene menos de una hora). Seguramente tu umbral en TrainingPeaks está desactualizado: el TSS de ${t.toLowerCase()} sale inflado y exagera tu forma y tu fatiga. Actualízalo para que estos números sean fiables.</p>`).join("");
+$("#pmc").innerHTML=`${warn}<div class="stats"><div><b>${Math.round(p.ctl)}</b>forma (CTL)</div><div><b>${Math.round(p.atl)}</b>fatiga (ATL)</div><div><b>${p.tsb>0?"+":""}${Math.round(p.tsb)}</b>frescura (TSB)</div><div><b>${p.ramp>0?"+":""}${fmt(p.ramp)}</b>forma en 7 días</div></div>
+<p class="legend"><span class="k k-ctl"></span>Forma: carga media de 42 días <span class="k k-atl"></span>Fatiga: carga media de 7 días <span class="k k-tsb"></span>Frescura: forma menos fatiga</p>
+<div class="scroll">${svg}</svg></div><p>${tsbText(p.tsb)} ${rampText(p.ramp)}</p>
+<p class="mute small">${n<90?`Como el archivo solo cubre ${n} días, la forma arranca de tu media de las primeras semanas y los valores iniciales son orientativos. `:""}${p.est?(p.est==1?"1 entreno sin TSS se ha estimado":`${p.est} entrenos sin TSS se han estimado`)+" con tu TSS por hora habitual en esa disciplina.":""}</p>`}
+function tsbText(t){return t<-30?"<b>Fatiga muy alta.</b> Estás acumulando más carga de la que asimilas; valora unos días suaves para no pasarte.":t<-10?"<b>Entrenamiento productivo.</b> Estás cargando: es la fase en la que se construye la forma, siempre que respetes la recuperación.":t<=5?"<b>Zona neutra.</b> Carga y recuperación están equilibradas.":t<=25?"<b>Estás fresco.</b> Buen momento para competir o hacer un test.":"<b>Muy descansado.</b> Si no tienes una carrera cerca, llevas suficiente tiempo descargando y empiezas a perder forma."}
+function rampText(r){return r>8?`Tu forma ha subido ${fmt(r)} puntos en una semana: es una subida muy rápida que aumenta el riesgo de lesión o sobrecarga.`:r>5?`Tu forma ha subido ${fmt(r)} puntos en una semana: progresión exigente, vigila sensaciones y descanso.`:r>=0?"Tu forma progresa a un ritmo sostenible.":"Tu forma está bajando: es normal en una descarga o después de competir."}
+
+/* 2. Distribución de intensidad (solo natación, bici y carrera) */
+function renderIntensity(S){
+const E=S.filter(s=>END.includes(s.t)),zs=E.filter(s=>s.z);
+if(!zs.length||zs.length<E.length*.3){$("#int").innerHTML=`<p class="need">Para ver cómo repartes la intensidad necesito los <b>minutos por zona</b> (columnas HRZone1Minutes, PWRZone1Minutes o PaceZone1Minutes) en tus entrenos de natación, bici o carrera.</p>`;return}
+const by={},zt=new Array(10).fill(0),add=(k,g)=>{by[k]=by[k]||[0,0,0];g.forEach((m,i)=>by[k][i]+=m)};
+for(const s of zs){const g=[0,0,0];s.z.forEach((m,i)=>{g[i<2?0:i==2?1:2]+=m;zt[i]+=m});add("Total",g);add(s.t,g)}
+const pc=g=>{const t=g[0]+g[1]+g[2]||1;return g.map(v=>v/t*100)};
+const row=(k,g)=>{const p=pc(g);return`<div class="dist-row"><span class="dist-k">${k}</span><div class="dist" role="img" aria-label="${k}: baja ${Math.round(p[0])} %, media ${Math.round(p[1])} %, alta ${Math.round(p[2])} %">${p.map((v,i)=>`<span class="z${i}" style="width:${v}%">${v>=8?Math.round(v)+" %":""}</span>`).join("")}</div></div>`};
+const [lo,mo,hi]=pc(by.Total);
+const cls=lo>=75&&hi>mo?["Polarizado","La mayor parte del tiempo suave y la intensidad concentrada en sesiones duras. Es el reparto que mejor funciona en resistencia para la mayoría de deportistas."]:lo>=70?["Piramidal","Mucho tiempo suave, algo de ritmo medio y poco trabajo alto. Es un reparto sólido, sobre todo en fases de base o preparando larga distancia."]:mo>=hi?["Mucha zona media","Pasas mucho tiempo en la «zona gris»: demasiado duro para recuperar y demasiado suave para mejorar tu techo. Suele funcionar mejor hacer los rodajes más suaves y las series más duras."]:["Intensidad alta","Gran parte de tu tiempo es intenso. Es difícil de sostener semanas seguidas; conviene aumentar el volumen suave o revisar si tus zonas están bien configuradas."];
+const last=zt.reduce((a,v,i)=>v>0?i:a,0);
+$("#int").innerHTML=`<p class="verdict"><b>${cls[0]}.</b> ${cls[1]}</p>
+${["Total",...END.filter(k=>by[k])].map(k=>row(k,by[k])).join("")}
+<p class="legend"><span class="k z0"></span>Baja (zonas 1–2) <span class="k z1"></span>Media (zona 3) <span class="k z2"></span>Alta (zona 4 o más)</p>
+<div class="scroll"><table><tr><th>Zona</th>${zt.slice(0,last+1).map((_,i)=>`<th>Z${i+1}</th>`).join("")}</tr><tr><td>Horas</td>${zt.slice(0,last+1).map(v=>`<td>${fmt(v/60)}</td>`).join("")}</tr></table></div>
+<p class="mute small">Basado en ${zs.length} entrenos de natación, bici y carrera con datos de zona (pulso; si no hay, potencia o ritmo). No cuenta paseos ni otros deportes. La agrupación en tres bloques es orientativa y depende de cómo tengas definidas tus zonas en TrainingPeaks.</p>`}
+
+/* 3. Factor de eficiencia */
+function renderEF(S){
+const R=[],bad=badIF(S);
+for(const [t,key,u] of [["Carrera","v","metros por minuto por pulsación"],["Bici","pw","vatios por pulsación"]]){
+let ss=S.filter(s=>s.t==t&&s.hr>60&&s.h>=.5&&s[key]>0);if(ss.length<6)continue;
+const hasIF=!bad[t]&&ss.filter(s=>s.IF>0).length>=ss.length*.7;let crit;
+if(hasIF){ss=ss.filter(s=>s.IF>0&&s.IF<=.8);crit="IF de 0,80 o menos"}else{const m=med(ss.map(s=>s.hr));ss=ss.filter(s=>s.hr<=m);crit="pulso medio por debajo de tu mediana"}
+if(ss.length<5)continue;
+const P=ss.map(s=>({d:s.d,ef:key=="v"?s.v*60/s.hr:s.pw/s.hr})),t0=P[0].d,X=P.map(p=>(p.d-t0)/864e5),Y=P.map(p=>p.ef);
+const mx=X.reduce((a,b)=>a+b,0)/X.length,my=Y.reduce((a,b)=>a+b,0)/Y.length;
+const sl=X.reduce((a,x,i)=>a+(x-mx)*(Y[i]-my),0)/(X.reduce((a,x)=>a+(x-mx)**2,0)||1),ic=my-sl*mx,span=X[X.length-1];
+const y0=ic,y1=ic+sl*span,chg=(y1-y0)/y0*100;R.push({t,u,P,X,Y,y0,y1,span,chg,crit})}
+if(!R.length){$("#ef").innerHTML=`<p class="need">Para medir tu eficiencia necesito al menos 6 rodajes o salidas en bici de más de 30 minutos con <b>pulso medio</b> y, además, <b>distancia</b> (carrera) o <b>potencia media</b> (bici).</p>`;return}
+$("#ef").innerHTML=R.map(r=>{
+const W=560,H=150,L=36,lo=Math.min(...r.Y)*.97,hi=Math.max(...r.Y)*1.03,x=v=>L+v/(r.span||1)*(W-L-8),y=v=>H-(v-lo)/(hi-lo||1)*H;
+let svg=`<svg role="img" aria-label="Factor de eficiencia en ${r.t.toLowerCase()}" width="${W}" height="${H+26}"><text x="0" y="10">${fmt(hi,2)}</text><text x="0" y="${H}">${fmt(lo,2)}</text><line class="axis" x1="${L}" x2="${W}" y1="${H}" y2="${H}"/>`;
+r.P.forEach((p,i)=>svg+=`<circle class="dot" cx="${x(r.X[i]).toFixed(1)}" cy="${y(p.ef).toFixed(1)}" r="4"><title>${ddm(p.d)}: ${fmt(p.ef,2)}</title></circle>`);
+svg+=`<line class="trend" x1="${x(0)}" y1="${y(r.y0)}" x2="${x(r.span)}" y2="${y(r.y1)}"/><text x="${L}" y="${H+20}">${ddm(r.P[0].d)}</text><text x="${W-40}" y="${H+20}">${ddm(r.P[r.P.length-1].d)}</text></svg>`;
+const msg=r.chg>2?`<b>Mejora del ${fmt(r.chg)} %.</b> ${r.t=="Carrera"?"Corres más rápido":"Generas más potencia"} con el mismo pulso: tu base aeróbica está creciendo.`:r.chg<-2?`<b>Baja del ${fmt(-r.chg)} %.</b> Necesitas más pulsaciones para el mismo ${r.t=="Carrera"?"ritmo":"vatiaje"}. Puede ser fatiga acumulada, calor, terreno distinto o falta de trabajo aeróbico.`:"<b>Estable.</b> Tu eficiencia se mantiene en este periodo.";
+return`<h3>${r.t}</h3><div class="scroll">${svg}</div><p>${msg}</p><p class="mute small">${r.P.length} sesiones aeróbicas (${r.crit}), en ${r.u}. El calor, el desnivel y el viento también influyen: compara tendencias, no sesiones sueltas.</p>`}).join("")}
+
 function render(S){
 const kg=num($("#kg").value),first=monday(S[0].d),last=monday(S[S.length-1].d);
 const W=[];for(let d=new Date(first);d<=last;d.setDate(d.getDate()+7))W.push({d:new Date(d),h:0});
@@ -127,7 +217,8 @@ let svg=`<svg role="img" aria-label="Horas de entrenamiento por semana" width="$
 W.forEach((w,i)=>{const bh=w.h/mx*H;svg+=`<rect x="${i*bw+24}" y="${H-bh}" width="${bw-4}" height="${bh}" class="bar${w.s?" spike":""}"><title>${w.h.toFixed(1)} h</title></rect>`;
 if(i%Math.ceil(W.length/8)==0)svg+=`<text x="${i*bw+24}" y="${H+16}">${w.d.getDate()}/${w.d.getMonth()+1}</text>`});
 svg+=`<text x="0" y="10">${mx.toFixed(0)} h</text></svg>`;$("#chart").innerHTML=svg;
-$("#spikes").innerHTML=sp.length?`Las barras negras son semanas con más de un 30 % de horas sobre tu media de las 4 anteriores. Es un salto de carga que conviene vigilar: ${sp.map(x=>`${x.w.d.getDate()}/${x.w.d.getMonth()+1} (${x.w.h.toFixed(1)} h frente a ${x.a.toFixed(1)} h)`).join(", ")}.`:"No hay saltos bruscos de carga en este periodo: tu progresión es estable.";
+$("#spikes").innerHTML=sp.length?`Las barras blancas son semanas con más de un 30 % de horas sobre tu media de las 4 anteriores. Es un salto de carga que conviene vigilar: ${sp.map(x=>`${x.w.d.getDate()}/${x.w.d.getMonth()+1} (${x.w.h.toFixed(1)} h frente a ${x.a.toFixed(1)} h)`).join(", ")}.`:"No hay saltos bruscos de carga en este periodo: tu progresión es estable.";
+renderPMC(S);renderIntensity(S);renderEF(S);
 $("#disc").innerHTML="<tr><th>Disciplina</th><th>Horas</th><th>Reparto</th></tr>"+Object.entries(by).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<tr><td>${k}</td><td>${v.toFixed(1)}</td><td>${Math.round(v/tot*100)} %</td></tr>`).join("");
 const B=[["Descanso o menos de 30 min",0,.5,3,5],["De 30 a 60 min",.5,1,5,6],["De 1 a 2 h",1,2,6,8],["De 2 a 3 h",2,3,7,9],["Más de 3 h",3,99,8,10]];
 const n=Math.round((new Date(S[S.length-1].d)-S[0].d)/864e5)+1,cnt=B.map(()=>0);
@@ -136,13 +227,22 @@ const g=(a,b)=>kg?`${Math.round(a*kg)}–${Math.round(b*kg)} g`:"Añade tu peso"
 $("#fuel").innerHTML="<tr><th>Tipo de día</th><th>Tus días</th><th>g/kg de hidratos</th><th>Gramos al día</th></tr>"+B.map((b,i)=>`<tr><td>${b[0]}</td><td>${cnt[i]}</td><td>${b[3]}–${b[4]}</td><td>${g(b[3],b[4])}</td></tr>`).join("");
 $("#fuelnote").textContent=`Durante el entreno: de 30 a 60 g de hidratos por hora a partir de 1 hora, y hasta 90 g por hora en sesiones largas de más de 2,5 horas si tu estómago lo tolera. Proteína: entre 1,4 y 2 g por kg al día${kg?` (${Math.round(1.4*kg)}–${Math.round(2*kg)} g)`:""}.`;
 $("#out").hidden=false;$("#out").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth"})}
-function run(text){$("#err").textContent="";try{render(analyze(text))}catch(e){$("#out").hidden=true;$("#err").textContent=typeof e=="string"?e:"No he podido leer el archivo."}}
+function run(text){$("#err").textContent="";try{render(analyze(text))}catch(e){$("#out").hidden=true;$("#err").textContent=typeof e=="string"?e:"No he podido leer el archivo.";console.error(e)}}
 $("#file").addEventListener("change",e=>{const f=e.target.files[0];if(f)f.text().then(run)});
-$("#demo").addEventListener("click",()=>{let o="Title,WorkoutType,WorkoutDay,TimeTotalInHours\n";const s=new Date();s.setDate(s.getDate()-84);
-const P={0:["Swim",1],1:["Run",1],3:["Bike",1.5],4:["Swim",1],5:["Bike",2.5],6:["Run",1.5]};
+function demoCSV(){let sd=7;const rnd=()=>(sd=sd*16807%2147483647)/2147483647-.5;
+let o="Title,WorkoutType,WorkoutDay,TimeTotalInHours,DistanceInMeters,HeartRateAverage,PowerAverage,IF,TSS,HRZone1Minutes,HRZone2Minutes,HRZone3Minutes,HRZone4Minutes,HRZone5Minutes\n";
+const s=new Date();s.setDate(s.getDate()-84);
+const P={0:["Swim",1,.7],1:["Run",1,.88],3:["Bike",1.5,.72],4:["Swim",1,.7],5:["Bike",2.5,.7],6:["Run",1.5,.73]};
 for(let i=0;i<84;i++){const d=new Date(s);d.setDate(s.getDate()+i);const p=P[i%7];if(!p)continue;const w=Math.floor(i/7),k=w==8?1.7:1+w*.03;
-o+=`x,${p[0]},${d.toISOString().slice(0,10)},${(p[1]*k).toFixed(2)}\n`}run(o)});
-$("#kg").addEventListener("change",()=>{if(!$("#out").hidden){const f=$("#file").files[0];f?f.text().then(run):$("#demo").click()}});
+const h=p[1]*k,IF=p[2]+rnd()*.04,hard=IF>.8,tss=h*IF*IF*100,m=h*60;
+const hr=p[0]=="Swim"?130+rnd()*4:hard?156+rnd()*3:p[0]=="Run"?141-w*.45+rnd()*3:132-w*.3+rnd()*3;
+const v=p[0]=="Swim"?.62:p[0]=="Bike"?8.3:hard?3.4:2.85+w*.012+rnd()*.05;
+const pw=p[0]=="Bike"?(160+w*1.2+rnd()*8).toFixed(0):"";
+const z=hard?[.25,.3,.12,.25,.08]:[.3,.6,.08,.02,0];
+o+=`x,${p[0]},${d.toISOString().slice(0,10)},${h.toFixed(2)},${(v*h*3600).toFixed(0)},${hr.toFixed(0)},${pw},${IF.toFixed(2)},${tss.toFixed(0)},${z.map(f=>(f*m).toFixed(1)).join(",")}\n`}
+return o}
+$("#demo").addEventListener("click",()=>run(demoCSV()));
+$("#kg").addEventListener("change",()=>{if(!$("#out").hidden){const f=$("#file").files[0];f?f.text().then(run):run(demoCSV())}});
 </script>
 </body>
 </html>

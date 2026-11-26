@@ -28,3 +28,20 @@
 .tool{border-top:1px solid rgba(255,255,255,.25);margin-top:2rem;padding-top:.5rem}
 .tool table{margin:1rem 0}
 .lab .bar{fill:var(--orange)}.lab .bar.spike{fill:var(--white)}
+.lab h3{margin:1.5rem 0 .5rem}
+.lab .small{font-size:.9rem}
+.lab .need{border-left:4px solid var(--orange);padding:.75rem 1rem;background:rgba(255,255,255,.04)}
+.lab .axis{stroke:var(--line);stroke-width:1}
+.lab .ln-ctl{fill:none;stroke:var(--orange);stroke-width:3}
+.lab .ln-atl{fill:none;stroke:var(--white);stroke-width:1.5;opacity:.75}
+.lab .tsb-pos{fill:var(--white);opacity:.55}.lab .tsb-neg{fill:var(--muted);opacity:.35}
+.lab .dot{fill:var(--orange)}.lab .trend{stroke:var(--white);stroke-width:2;stroke-dasharray:6 4}
+.lab .legend{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem 1rem;font-size:.9rem}
+.lab .k{display:inline-block;width:1.1rem;height:.7rem;margin-right:-.6rem;vertical-align:middle}
+.lab .k-ctl{background:var(--orange)}.lab .k-atl{background:var(--white);opacity:.75}.lab .k-tsb{background:var(--muted)}
+.lab .verdict{font-size:1.1rem}
+.lab .dist-row{display:flex;align-items:center;gap:.75rem;margin:.4rem 0}
+.lab .dist-k{width:5.5rem;flex:none;font-weight:600}
+.lab .dist{display:flex;flex:1;height:1.6rem;background:var(--panel);overflow:hidden}
+.lab .dist span{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;white-space:nowrap;overflow:hidden}
+.lab .z0{background:var(--white);color:var(--black)}.lab .z1{background:var(--muted);color:var(--black)}.lab .z2{background:var(--orange);color:var(--black)}
