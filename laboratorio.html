@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Informe de laboratorio | ENDURACE LAB</title>
   <meta name="description" content="Sube tus entrenamientos y recibe un análisis de carga y una guía de nutrición para entrenar. Todo se procesa en tu navegador.">
+  <link rel="canonical" href="https://www.endurace-lab.com/laboratorio.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="ENDURACE LAB">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="Informe de laboratorio | ENDURACE LAB">
+  <meta property="og:description" content="Sube tus entrenamientos y recibe un análisis de carga y una guía de nutrición para entrenar. Todo se procesa en tu navegador.">
+  <meta property="og:url" content="https://www.endurace-lab.com/laboratorio.html">
+  <meta property="og:image" content="https://www.endurace-lab.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#090b0e">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,6 +56,7 @@
 <p class="mute" style="font-size:.9rem;margin-bottom:0">En TrainingPeaks: Panel de entrenamientos → Exportar. El archivo debe incluir fecha, tipo de entreno y duración.</p>
 </section>
 
+<p class="mute">¿Buscas otra cosa? Prueba también las <a href="herramientas.html">herramientas del laboratorio</a>: predictor de tiempos, zonas de entrenamiento y estrategia de nutrición en carrera.</p>
 <section id="out" hidden>
 <h2>Resumen</h2>
 <div class="stats" id="stats"></div>
@@ -67,7 +79,7 @@
   <footer class="footer">
     <div class="container footer-top">
       <a class="brand" href="index.html"><img src="logo.svg" alt="" width="40" height="40"><span>ENDURACE<span class="orange">_LAB</span></span></a>
-      <div class="footer-links"><a href="index.html#metodo">Método</a><a href="index.html#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="mailto:[EMAIL]">Contacto</a></div>
+      <div class="footer-links"><a href="index.html#metodo">Método</a><a href="index.html#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="herramientas.html">Herramientas</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="mailto:[EMAIL]">Contacto</a></div>
     </div>
     <div class="container footer-bottom">
       <p>© <span id="year"></span> ENDURACE LAB. Todos los derechos reservados.</p>
@@ -112,7 +124,7 @@ const sp=[];W.forEach((w,i)=>{if(i<4)return;const a=(W[i-1].h+W[i-2].h+W[i-3].h+
 $("#stats").innerHTML=`<div><b>${S.length}</b>entrenos</div><div><b>${(tot/W.length).toFixed(1)}</b>horas por semana</div><div><b>${Math.round(act/W.length*100)} %</b>semanas con entreno</div><div><b>${sp.length}</b>picos de carga</div>`;
 const mx=Math.max(...W.map(w=>w.h)),bw=Math.max(14,Math.min(40,560/W.length)),H=150;
 let svg=`<svg role="img" aria-label="Horas de entrenamiento por semana" width="${W.length*bw+30}" height="${H+30}">`;
-W.forEach((w,i)=>{const bh=w.h/mx*H;svg+=`<rect x="${i*bw+24}" y="${H-bh}" width="${bw-4}" height="${bh}" fill="${w.s?"#f4f4f1":"#ff5a00"}"><title>${w.h.toFixed(1)} h</title></rect>`;
+W.forEach((w,i)=>{const bh=w.h/mx*H;svg+=`<rect x="${i*bw+24}" y="${H-bh}" width="${bw-4}" height="${bh}" class="bar${w.s?" spike":""}"><title>${w.h.toFixed(1)} h</title></rect>`;
 if(i%Math.ceil(W.length/8)==0)svg+=`<text x="${i*bw+24}" y="${H+16}">${w.d.getDate()}/${w.d.getMonth()+1}</text>`});
 svg+=`<text x="0" y="10">${mx.toFixed(0)} h</text></svg>`;$("#chart").innerHTML=svg;
 $("#spikes").innerHTML=sp.length?`Las barras negras son semanas con más de un 30 % de horas sobre tu media de las 4 anteriores. Es un salto de carga que conviene vigilar: ${sp.map(x=>`${x.w.d.getDate()}/${x.w.d.getMonth()+1} (${x.w.h.toFixed(1)} h frente a ${x.a.toFixed(1)} h)`).join(", ")}.`:"No hay saltos bruscos de carga en este periodo: tu progresión es estable.";

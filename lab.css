@@ -4,12 +4,12 @@
 .drop{border:2px dashed currentColor;padding:1.5rem;margin:1.5rem 0;background:rgba(255,255,255,.04)}
 .row{display:flex;flex-wrap:wrap;gap:1rem;align-items:end;margin-top:1rem}
 .lab label{display:flex;flex-direction:column;gap:.25rem;font-weight:600}
-.lab input[type=number]{font:inherit;padding:.5rem;border:2px solid rgba(255,255,255,.4);background:#0c1014;color:inherit;width:8rem}
+.lab input[type=number]{font:inherit;padding:.5rem;border:2px solid rgba(255,255,255,.4);background:var(--panel);color:inherit;width:8rem}
 .lab input[type=file]{font:inherit;max-width:100%}
 .lab button.alt{background:transparent;color:inherit;border:2px solid currentColor;padding:.65rem 1.1rem;font:inherit;font-weight:700;cursor:pointer}
-.lab :focus-visible,.blog :focus-visible{outline:3px solid #ff5a00;outline-offset:2px}
+.lab :focus-visible,.blog :focus-visible{outline:3px solid var(--orange);outline-offset:2px}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:1rem;margin:1rem 0}
-.stats div{border-top:4px solid #ff5a00;padding-top:.5rem}
+.stats div{border-top:4px solid var(--orange);padding-top:.5rem}
 .stats b{display:block;font:700 2.4rem/1 var(--font-head,"Barlow Condensed",sans-serif)}
 .scroll{overflow-x:auto}.lab table{border-collapse:collapse;width:100%;min-width:30rem}
 .lab th,.lab td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid rgba(255,255,255,.18)}
@@ -19,8 +19,12 @@
 .lab .cta{border:2px solid currentColor;padding:1.25rem;margin-top:2.5rem}
 .date{opacity:.7;font-weight:600;font-size:.95rem}
 .post{display:block;padding:1.25rem 0;border-top:1px solid rgba(255,255,255,.25);color:inherit;text-decoration:none}
-.post h2{margin:.25rem 0}.post:hover h2{color:#ff5a00}.post p{margin:.25rem 0 0}
+.post h2{margin:.25rem 0}.post:hover h2{color:var(--orange)}.post p{margin:.25rem 0 0}
 .blog article img{max-width:100%;height:auto}
-.blog a:not(.post):not(.button){color:#ff5a00}
+.blog a:not(.post):not(.button){color:var(--orange)}
 .back{font-weight:700}
 [hidden]{display:none!important}
+.lab input[type=text],.lab select{font:inherit;padding:.5rem;border:2px solid rgba(255,255,255,.4);background:var(--panel);color:inherit;width:11rem;max-width:100%}
+.tool{border-top:1px solid rgba(255,255,255,.25);margin-top:2rem;padding-top:.5rem}
+.tool table{margin:1rem 0}
+.lab .bar{fill:var(--orange)}.lab .bar.spike{fill:var(--white)}

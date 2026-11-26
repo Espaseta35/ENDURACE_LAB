@@ -1,5 +1,12 @@
 [
   {
+    "slug": "calculadoras-del-laboratorio",
+    "date": "2026-11-26",
+    "title": "Tres calculadoras nuevas en el laboratorio",
+    "summary": "Predictor de tiempos, zonas de entrenamiento y estrategia de nutrición en carrera, gratis y sin registrarte.",
+    "body": "<p>Hemos ampliado el laboratorio con tres herramientas que puedes usar ahora mismo desde tu navegador, sin crear cuenta y sin que se guarde ningún dato.</p><ul><li><strong>Predictor de tiempos:</strong> parte de una marca reciente y estima tus tiempos en 5 km, 10 km, media maratón y maratón.</li><li><strong>Zonas de entrenamiento:</strong> frecuencia cardiaca, ritmo en carrera y potencia en bici a partir de tus valores.</li><li><strong>Estrategia de nutrición:</strong> hidratos, líquido y sodio orientativos según la duración de la prueba y el calor.</li></ul><p>Recuerda que son estimaciones. Úsalas como punto de partida, contrástalas con tus sensaciones y pruébalas en entrenamientos antes de aplicarlas el día de la carrera.</p><p>Las tienes en la página de <a href=\"herramientas.html\">herramientas</a>. La semana que viene contaré cómo interpretar bien tus zonas.</p>"
+  },
+  {
     "slug": "bienvenida-al-laboratorio",
     "date": "2026-11-26",
     "title": "Bienvenida al laboratorio",

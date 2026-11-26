@@ -20,7 +20,7 @@ a{color:inherit}
 .menu-toggle{display:none;background:none;border:0;color:white;font-size:1.5rem}
 .hero{min-height:690px;position:relative;display:flex;align-items:center;overflow:hidden}
 .hero-image,.hero-shade{position:absolute;inset:0}
-.hero-image{background:url("hero-triatlon.png") center 48%/cover no-repeat;filter:saturate(.8)}
+.hero-image{background:url("hero-triatlon.webp") center 48%/cover no-repeat;filter:saturate(.8)}
 .hero-shade{background:linear-gradient(90deg,rgba(9,11,14,.96) 0%,rgba(9,11,14,.78) 43%,rgba(9,11,14,.12) 100%),linear-gradient(0deg,rgba(9,11,14,.65),transparent 45%)}
 .hero-content{position:relative;z-index:1;padding-top:55px;padding-bottom:65px}
 .eyebrow{font-size:.76rem;font-weight:700;letter-spacing:.2em;color:var(--orange);margin:0 0 18px}
@@ -66,7 +66,7 @@ h1,h2,h3{font-family:var(--font-head);line-height:.96;margin:0;text-transform:up
 .service-top b{color:var(--orange)}
 .service-card h3{font-size:2rem;margin:52px 0 13px}
 .service-card p{font-size:.9rem;color:#62686d;margin:0}
-.section-photo{padding:0;background:linear-gradient(90deg,rgba(9,11,14,.97),rgba(9,11,14,.76)),url("hero-triatlon.png") center 62%/cover fixed}
+.section-photo{padding:0;background:linear-gradient(90deg,rgba(9,11,14,.97),rgba(9,11,14,.76)),url("hero-triatlon.webp") center 62%/cover}
 .photo-panel{min-height:370px;display:flex;align-items:center;justify-content:space-between;gap:60px}
 .photo-panel h2{font-size:clamp(3.1rem,6vw,5.4rem)}
 .photo-panel>p{max-width:380px;color:#d0d3d5;font-size:1.05rem}
@@ -174,3 +174,4 @@ h1,h2,h3{font-family:var(--font-head);line-height:.96;margin:0;text-transform:up
 .price-card .price{margin-bottom:6px}
 .price-sub{font-size:.8rem;color:#aeb3b7;margin:0 0 23px;min-height:2.6em}
 @media(max-width:560px){.billing{display:flex}.billing-btn{flex:1;padding:12px 6px;font-size:.8rem}}
+@media(min-width:901px) and (hover:hover){.section-photo{background-attachment:fixed}}
