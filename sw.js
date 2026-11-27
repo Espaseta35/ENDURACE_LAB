@@ -1,9 +1,9 @@
 /* ENDURACE LAB · service worker.
    Estrategia "red primero": siempre sirve la versión más reciente y, si no hay conexión,
    usa la copia guardada. Así las calculadoras funcionan sin cobertura el día de la carrera. */
-const CACHE = "endurace-v1";
+const CACHE = "endurace-v2";
 const CORE = ["./", "index.html", "laboratorio.html", "running.html", "test.html", "blog.html",
-  "style.css?v=4", "lab.css?v=5", "fx.js", "temporada.js?v=1", "pagos.js", "logo.svg", "posts.json"];
+  "style.css?v=5", "lab.css?v=5", "fx.js", "temporada.js?v=1", "pagos.js", "logo.svg", "posts.json"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(CACHE)

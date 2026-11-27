@@ -197,3 +197,4 @@ h1,h2,h3{font-family:var(--font-head);line-height:.96;margin:0;text-transform:up
 .quiz-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 30px;margin:0 0 30px;padding:18px 22px;border:1px dashed #59616a}
 .quiz-cta p{margin:0;color:#d0d3d5}
 .quiz-cta b{color:var(--white)}
+.form-status a{color:var(--orange)}

@@ -20,7 +20,7 @@
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body class="form-page">
   <header class="site-header"><div class="container nav">
@@ -64,7 +64,7 @@
       <p id="form-status" class="form-status" aria-live="polite"></p>
     </form>
   </main>
-  <footer class="footer"><div class="container footer-bottom"><p>© ENDURACE LAB · <a href="index.html">Inicio</a> · <a href="aviso-legal.html">Aviso legal</a></p></div></footer>
+  <footer class="footer"><div class="container footer-bottom"><p>© ENDURACE LAB · <a href="index.html">Inicio</a> · <a href="aviso-legal.html">Aviso legal</a> · <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a></p></div></footer>
   <script>
     const form = document.getElementById('signup-form');
     const plan = new URLSearchParams(location.search).get('plan');
@@ -90,7 +90,7 @@
       const data = Object.fromEntries(new FormData(form));
       data.privacidad = form.privacidad.checked;
       const fallo = {
-        rate_limit: 'Has enviado varias solicitudes seguidas. Espera un rato o escríbeme a info@endurace-lab.com.',
+        rate_limit: 'Has enviado varias solicitudes seguidas. Espera un rato o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.',
         validation: 'Revisa el nombre y el email e inténtalo de nuevo.',
       };
       try {
@@ -101,10 +101,10 @@
           status.textContent = 'Solicitud enviada. Te responderé para concretar el siguiente paso.';
         } else {
           const j = await r.json().catch(() => ({}));
-          status.textContent = fallo[j.error] || 'No se ha podido enviar. Inténtalo de nuevo o escríbeme a info@endurace-lab.com.';
+          status.innerHTML = fallo[j.error] || 'No se ha podido enviar. Inténtalo de nuevo o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.';
         }
       } catch (err) {
-        status.textContent = 'No se ha podido enviar. Revisa tu conexión o escríbeme a info@endurace-lab.com.';
+        status.innerHTML = 'No se ha podido enviar. Revisa tu conexión o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.';
       }
       btn.disabled = false;
     });
