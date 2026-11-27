@@ -59,7 +59,7 @@
       L.push(`<div class="sl"><p class="sk">TU MOTOR · ${st.ef.t.toUpperCase()}</p><p class="big"><b>${up ? "+" : "−"}${ES(Math.abs(st.ef.chg), 1)}</b><small>%</small></p><p class="unit">DE EFICIENCIA</p><p class="sub">${up ? (st.ef.t === "Carrera" ? "Corres más rápido con el mismo pulso." : "Mueves más vatios con el mismo pulso.") + " Tu base aeróbica ha crecido." : "Tu eficiencia ha bajado: calor, fatiga o poco trabajo suave. Hay margen para la próxima."}</p></div>`);
     }
     L.push(`<div class="sl sl-type"><p class="sk">TU TIPO DE ATLETA</p><h2 class="word">${st.type[0]}</h2><p class="sub">${st.type[1]}</p></div>`);
-    L.push(`<div class="sl sl-share"><p class="sk">TU TEMPORADA, EN UNA IMAGEN</p><div class="share-img"><img id="tp-img" alt="Resumen de tu temporada"></div><div class="share-actions"><button type="button" class="button button-orange" id="tp-share">Compartir <span>↗</span></button><button type="button" class="button button-outline" id="tp-dl">Descargar</button></div><a class="share-next" href="inscripcion.html">¿Quieres que la próxima sea aún mejor? Hablemos ↗</a></div>`);
+    L.push(`<div class="sl sl-share"><p class="sk">TU TEMPORADA, EN UNA IMAGEN</p><div class="share-img"><img id="tp-img" alt="Resumen de tu temporada"></div><div class="share-actions"><button type="button" class="button button-orange" id="tp-share">Compartir <span>↗</span></button><button type="button" class="button button-outline" id="tp-dl">Descargar</button></div><a class="share-next" href="inscripcion">¿Quieres que la próxima sea aún mejor? Hablemos ↗</a></div>`);
     return L;
   }
 
@@ -155,7 +155,7 @@
     sb.onclick = async () => {
       const f = await file();
       if (navigator.canShare && navigator.canShare({files: [f]})) {
-        try { await navigator.share({files: [f], title: "Mi temporada", text: "Mi temporada en ENDURACE LAB. Analiza la tuya gratis: https://www.endurace-lab.com/laboratorio.html"}); } catch (e) {}
+        try { await navigator.share({files: [f], title: "Mi temporada", text: "Mi temporada en ENDURACE LAB. Analiza la tuya gratis: https://www.endurace-lab.com/laboratorio"}); } catch (e) {}
       } else dl();
     };
   }

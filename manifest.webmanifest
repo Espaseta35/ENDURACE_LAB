@@ -3,7 +3,7 @@
   "short_name": "Endurace Lab",
   "description": "Herramientas gratuitas para deportistas de resistencia: predictor de tiempos, zonas, nutrición en carrera, cuenta atrás y análisis de tus datos.",
   "lang": "es",
-  "start_url": "laboratorio.html#predictor",
+  "start_url": "laboratorio#predictor",
   "scope": "./",
   "display": "standalone",
   "background_color": "#090b0e",

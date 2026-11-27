@@ -23,7 +23,7 @@ ANTES DE PUBLICAR:
    En Cloudflare activa Email Routing en endurace-lab.com y verifica el correo de NOTIFY_TO.
    npx wrangler deploy                  -> queda publicado en https://api.endurace-lab.com
    Ver solicitudes: npx wrangler d1 execute endurace --remote --command "SELECT * FROM leads ORDER BY created_at DESC"
-   Prueba el formulario desde https://www.endurace-lab.com/inscripcion.html.
+   Prueba el formulario desde https://www.endurace-lab.com/inscripcion.
 3. Completa tu titulación/acreditación deportiva real y define con precisión qué servicio puedes prestar legalmente. No publiques una titulación que no tengas.
 4. Completa y revisa aviso-legal.html y privacidad.html con tus datos reales y los tratamientos de datos que efectivamente realices.
 5. Revisa precios, plazos de respuesta, disponibilidad y condiciones antes de aceptar clientes.
@@ -58,7 +58,7 @@ Para activarlo:
      mensual (39 / 69 / 109 €), cada 3 meses (105 / 186 / 294 €), cada 6 meses (199 / 352 / 556 €).
    - Plan de carrera (129 €) y Videollamada (30 €) como pago único.
 3. Crea un Payment Link para cada precio (11 en total). En cada uno, en
-   "Después del pago", elige redirigir a: https://www.endurace-lab.com/gracias.html
+   "Después del pago", elige redirigir a: https://www.endurace-lab.com/gracias
 4. Activa el portal de cliente (Ajustes > Facturación > Portal de clientes) y copia su enlace.
 5. Pega los enlaces en pagos.js, cambia  activo: false  por  activo: true  y publica.
 
@@ -90,3 +90,8 @@ NUEVAS PÁGINAS Y ARTÍCULOS
 Las páginas de calculadoras, el blog y el sitemap se generan con:
   python3 _build/generar_paginas.py
 Para publicar un artículo nuevo, añádelo a ARTICULOS en ese archivo, ejecútalo y sube los cambios.
+
+URLs SIN .html
+- Los enlaces internos no llevan .html (GitHub Pages sirve /laboratorio → laboratorio.html).
+  Los archivos siguen llamándose .html. Si escribes una página a mano, pasa después:
+  python3 _build/urls.py   (el generador ya lo aplica solo).

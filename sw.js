@@ -1,9 +1,9 @@
 /* ENDURACE LAB · service worker.
    Estrategia "red primero": siempre sirve la versión más reciente y, si no hay conexión,
    usa la copia guardada. Así las calculadoras funcionan sin cobertura el día de la carrera. */
-const CACHE = "endurace-v3";
-const CORE = ["./", "index.html", "laboratorio.html", "running.html", "test.html", "blog.html",
-  "calculadora-ritmo-maraton.html", "calculadora-zonas-entrenamiento.html", "calculadora-nutricion-carrera.html", "cuenta-atras-carrera.html",
+const CACHE = "endurace-v4";
+const CORE = ["./", "laboratorio", "running", "test", "blog",
+  "calculadora-ritmo-maraton", "calculadora-zonas-entrenamiento", "calculadora-nutricion-carrera", "cuenta-atras-carrera",
   "style.css?v=5", "lab.css?v=6", "fx.js", "calc.js?v=1", "temporada.js?v=1", "pagos.js", "logo.svg", "posts.json"];
 
 self.addEventListener("install", e => {

@@ -72,7 +72,7 @@ if(save)store.set("endurace-carrera",{n:name,d:ds,k});
 if(!ds){$("#co").innerHTML='<p class="ctl-help">Elige la fecha de tu carrera.</p>';return}
 const today=new Date();today.setHours(0,0,0,0);const race=new Date(ds+"T00:00:00"),days=Math.round((race-today)/864e5),wk=days/7;
 const title=esc(name||("Tu "+c.n));
-if(days<0){$("#co").innerHTML=`<div class="cd-big"><span class="rk">${title.toUpperCase()}</span><b>¡HECHO!</b><span class="rs">Fue hace ${-days} días.</span></div><p class="every"><b>¿Qué tal fue?</b> Si quieres preparar la siguiente, <a href="inscripcion.html">hablemos</a>.</p>`;return}
+if(days<0){$("#co").innerHTML=`<div class="cd-big"><span class="rk">${title.toUpperCase()}</span><b>¡HECHO!</b><span class="rs">Fue hace ${-days} días.</span></div><p class="every"><b>¿Qué tal fue?</b> Si quieres preparar la siguiente, <a href="inscripcion">hablemos</a>.</p>`;return}
 const ph=days<=7?4:wk<=c.t?3:wk<=c.t+c.s?2:wk<=c.t+c.s+c.b?1:0;
 const tot=Math.max(wk,c.t+c.s+c.b+4),seg=[tot-(c.t+c.s+c.b),c.b,c.s,c.t],pos=Math.max(0,Math.min(100,(1-wk/tot)*100));
 const W=Math.floor(days/7),D=days%7;

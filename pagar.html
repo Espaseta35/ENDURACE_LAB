@@ -31,8 +31,8 @@
 </head>
 <body class="form-page">
   <header class="site-header"><div class="container nav">
-    <a class="brand" href="index.html"><img src="logo.svg" alt="" width="46" height="46"><span>ENDURACE<span class="orange">_LAB</span></span></a>
-    <a class="back-link" href="index.html#planes">← Ver todos los planes</a>
+    <a class="brand" href="/"><img src="logo.svg" alt="" width="46" height="46"><span>ENDURACE<span class="orange">_LAB</span></span></a>
+    <a class="back-link" href="/#planes">← Ver todos los planes</a>
   </div></header>
   <main class="container form-layout">
     <div class="form-intro">
@@ -50,7 +50,7 @@
         <ul id="incl"></ul>
         <div id="pay-zone">
           <div class="pay-checks">
-            <label><input type="checkbox" id="c1"><span>He leído y acepto las <a href="condiciones.html" target="_blank">condiciones de contratación</a> y la <a href="privacidad.html" target="_blank">política de privacidad</a>.</span></label>
+            <label><input type="checkbox" id="c1"><span>He leído y acepto las <a href="condiciones" target="_blank">condiciones de contratación</a> y la <a href="privacidad" target="_blank">política de privacidad</a>.</span></label>
             <label><input type="checkbox" id="c2"><span>Solicito que el servicio empiece antes de que terminen los 14 días del derecho de desistimiento. Entiendo que, si desisto, pagaré la parte proporcional del servicio ya prestado.</span></label>
           </div>
           <a class="button button-orange pay-btn" id="pay" href="#" aria-disabled="true">Ir al pago seguro <span>↗</span></a>
@@ -60,7 +60,7 @@
       </div>
     </div>
   </main>
-  <footer class="footer"><div class="container footer-bottom"><p>© ENDURACE LAB · <a href="index.html">Inicio</a> · <a href="condiciones.html">Condiciones de contratación</a> · <a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a> · <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a></p></div></footer>
+  <footer class="footer"><div class="container footer-bottom"><p>© ENDURACE LAB · <a href="/">Inicio</a> · <a href="condiciones">Condiciones de contratación</a> · <a href="privacidad">Privacidad</a> · <a href="aviso-legal">Aviso legal</a> · <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a></p></div></footer>
   <script src="pagos.js"></script>
   <script>
     const PLANS = {
@@ -93,7 +93,7 @@
     if (!link) {
       $('pay-zone').hidden = true;
       $('pay-off').hidden = false;
-      $('pay-off').innerHTML = 'Los pagos online todavía no están disponibles. Si quieres empezar con este plan, <a href="inscripcion.html?plan=' + key + (per !== 'unico' ? '&periodo=' + per : '') + '">envíame una solicitud</a> y te contestaré con los siguientes pasos.';
+      $('pay-off').innerHTML = 'Los pagos online todavía no están disponibles. Si quieres empezar con este plan, <a href="inscripcion?plan=' + key + (per !== 'unico' ? '&periodo=' + per : '') + '">envíame una solicitud</a> y te contestaré con los siguientes pasos.';
     } else {
       const url = new URL(link), email = q.get('email');
       if (email) url.searchParams.set('prefilled_email', email);

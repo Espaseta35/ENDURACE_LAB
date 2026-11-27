@@ -11,6 +11,10 @@ import html
 import json
 import os
 import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from urls import limpia  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://www.endurace-lab.com/"
@@ -298,7 +302,7 @@ for c in CALCS:
     <section class="final-cta"><div class="container final-cta-inner"><p class="eyebrow">DEL DATO AL PLAN</p><h2>¿QUIERES UN PLAN<br>QUE USE <span>TODO ESTO?</span></h2><p>Lo llevamos a tu calendario de TrainingPeaks, semana a semana, con tus zonas y tu objetivo.</p><div class="hero-actions" style="justify-content:center"><a class="button button-orange" href="index.html#planes">Ver planes ↗</a><a class="text-link" href="test.html">Haz el test de 60 s <span>↗</span></a></div></div></section>
   </main>
 """ + footer(scripts=["calc.js?v=1"])
-    open(c["file"], "w", encoding="utf-8").write(page)
+    open(c["file"], "w", encoding="utf-8").write(limpia(page))
     print("ok", c["file"])
 
 # ---------------------------------------------------------------- blog
@@ -381,7 +385,7 @@ for i, a in enumerate(ARTICULOS):
     </div></section>
   </main>
 """ + footer("../")
-    open(path, "w", encoding="utf-8").write(page)
+    open(path, "w", encoding="utf-8").write(limpia(page))
     print("ok", path)
 
 lista = "".join(f'<a class="post" href="blog/{a["slug"]}.html"><div class="date">{fecha(a["date"])}</div><h2>{html.escape(a["title"])}</h2><p>{html.escape(a["summary"])}</p></a>' for a in ARTICULOS)
@@ -395,8 +399,8 @@ idx = head("Blog: entrenamiento con datos para triatlón y running | ENDURACE LA
     </div></section>
   </main>
 """ + footer()
-open("blog.html", "w", encoding="utf-8").write(idx)
-json.dump([{k: a[k] for k in ("slug", "date", "title", "summary")} | {"url": f"blog/{a['slug']}.html"} for a in ARTICULOS],
+open("blog.html", "w", encoding="utf-8").write(limpia(idx))
+json.dump([{k: a[k] for k in ("slug", "date", "title", "summary")} | {"url": f"blog/{a['slug']}"} for a in ARTICULOS],
           open("posts.json", "w", encoding="utf-8"), ensure_ascii=False, indent=2)
 print("ok blog.html + posts.json")
 
@@ -405,5 +409,5 @@ urls = ["", "running.html", "laboratorio.html"] + [c["file"] for c in CALCS] + [
 lastmod = {f"blog/{a['slug']}.html": a["date"] for a in ARTICULOS}
 sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(
     f"  <url><loc>{SITE}{u}</loc><lastmod>{lastmod.get(u, '2026-11-27')}</lastmod></url>\n" for u in urls) + "</urlset>\n"
-open("sitemap.xml", "w", encoding="utf-8").write(sm)
+open("sitemap.xml", "w", encoding="utf-8").write(limpia(sm))
 print("ok sitemap.xml")
