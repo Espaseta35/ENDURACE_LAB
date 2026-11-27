@@ -31,8 +31,9 @@
     <div class="form-intro"><p class="eyebrow">START YOUR NEXT CHAPTER</p><h1>VAMOS A<br><span class="orange">POR TU OBJETIVO.</span></h1><p>Cuéntame dónde estás y qué quieres conseguir. Revisaré tu solicitud y te responderé para concretar el siguiente paso. Rellenar el formulario no te compromete a contratar.</p>
       <div class="form-aside"><strong>ANTES DE ENVIAR</strong><p>Cuanto más contexto compartas sobre tu experiencia, disponibilidad y objetivo, mejor podremos valorar si el servicio encaja contigo.</p></div>
     </div>
-    <form id="signup-form" class="signup-form" action="https://api.endurace-lab.com/contact" method="POST">
-      <div class="hp" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>Empresa<input name="empresa" tabindex="-1" autocomplete="off"></label></div>
+    <form id="signup-form" class="signup-form" action="https://formspree.io/f/meaggkvp" method="POST">
+      <input type="hidden" name="_subject" value="Nueva inscripción - Endurace Lab">
+      <div class="hp" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden"><label>No rellenar<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div>
       <label>Nombre y apellidos<input name="nombre" autocomplete="name" required></label>
       <label>Email<input type="email" name="email" autocomplete="email" required></label>
       <label>Teléfono / WhatsApp<input type="tel" name="telefono" autocomplete="tel"></label>
@@ -87,21 +88,17 @@
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
       status.textContent = 'Enviando...';
-      const data = Object.fromEntries(new FormData(form));
-      data.privacidad = form.privacidad.checked;
-      const fallo = {
-        rate_limit: 'Has enviado varias solicitudes seguidas. Espera un rato o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.',
-        validation: 'Revisa el nombre y el email e inténtalo de nuevo.',
-      };
+      const data = new FormData(form);
+      data.set('deporte', form.deporte.selectedOptions[0].text);
+      data.set('privacidad', 'Aceptada');
       try {
-        const r = await fetch(form.action, {method: 'POST', body: JSON.stringify(data), headers: {'Content-Type': 'application/json'}});
+        const r = await fetch(form.action, {method: 'POST', body: data, headers: {Accept: 'application/json'}});
         if (r.ok) {
           form.reset();
           syncPeriod();
           status.textContent = 'Solicitud enviada. Te responderé para concretar el siguiente paso.';
         } else {
-          const j = await r.json().catch(() => ({}));
-          status.innerHTML = fallo[j.error] || 'No se ha podido enviar. Inténtalo de nuevo o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.';
+          status.innerHTML = 'No se ha podido enviar. Inténtalo de nuevo o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.';
         }
       } catch (err) {
         status.innerHTML = 'No se ha podido enviar. Revisa tu conexión o escríbeme a <a href="mailto:info@endurace-lab.com">info@endurace-lab.com</a>.';

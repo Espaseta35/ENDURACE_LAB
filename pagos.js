@@ -2,7 +2,7 @@
   Configuración de pagos de ENDURACE LAB (Stripe).
   Mientras "activo" sea false, la web no muestra ningún pago ni el enlace al portal.
   Para activarlo: pega aquí los enlaces de pago (Payment Links) y el portal de cliente
-  de Stripe, cambia "activo" a true y publica. Instrucciones en LEEME.txt.
+  de Stripe, cambia "activo" a true y publica. Instrucciones en _build/LEEME.txt.
 */
 window.ENDURACE_PAGOS = {
   activo: false,

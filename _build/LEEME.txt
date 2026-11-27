@@ -11,7 +11,11 @@ Archivos:
 
 ANTES DE PUBLICAR:
 1. Sustituye [EMAIL] por tu correo real en index.html.
-2. Despliega la mensajería propia (carpeta api/, Cloudflare Worker + base de datos D1):
+2. FORMULARIO: ahora usa Formspree (formspree.io/f/meaggkvp). Los avisos llegan al correo de tu
+   cuenta de Formspree; cámbialo a info@endurace-lab.com en los ajustes del formulario.
+   OPCIONAL, para más adelante: mensajería propia (carpeta api/, Cloudflare Worker + base de datos D1).
+   Si la despliegas, cambia el action del formulario en inscripcion.html a https://api.endurace-lab.com/contact
+   y vuelve a enviar JSON:
    cd api && npm install && npx wrangler login
    npx wrangler d1 create endurace      -> copia el database_id en api/wrangler.jsonc
    npx wrangler d1 migrations apply endurace --remote

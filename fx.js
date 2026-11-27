@@ -2,7 +2,7 @@
    instalación como app (PWA). Sin librerías. Respeta "reducir movimiento". */
 (() => {
   /* Analítica sin cookies (Cloudflare Web Analytics). Pega aquí tu token para activarla.
-     Instrucciones en LEEME.txt. Mientras esté vacío, no se carga nada. */
+     Instrucciones en _build/LEEME.txt. Mientras esté vacío, no se carga nada. */
   const ANALYTICS_TOKEN = "";
   if (ANALYTICS_TOKEN && location.protocol === "https:") {
     const s = document.createElement("script");
