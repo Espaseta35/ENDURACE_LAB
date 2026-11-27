@@ -30,6 +30,17 @@
     .method-icon{font-size:1.05rem;line-height:1;margin:0}
     .method-card h3{margin:52px 0 13px}
     @media(max-width:650px){.method-card h3{margin:28px 0 10px}}
+    .faq-list details p a{color:var(--orange)}
+    /* Selector de deporte */
+    .sport-links{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .sport-link{display:flex;flex-direction:column;min-height:300px;padding:30px 27px;border:1px solid #3a4148;background:#101419;text-decoration:none;transition:.2s}
+    .sport-link:hover{border-color:var(--orange);background:#191512;transform:translateY(-3px)}
+    .sport-link h3{font-size:2.6rem;margin:46px 0 12px}
+    .sport-link p:not(.plan-kicker){color:var(--muted);font-size:.92rem;margin:0;flex:1}
+    .sport-link .go{margin-top:26px;font-weight:700;font-size:.9rem}
+    .sport-link .go span{color:var(--orange);padding-left:8px}
+    @media(max-width:900px){.sport-links{grid-template-columns:1fr}.sport-link{min-height:0}.sport-link h3{margin-top:26px}}
+    @media(prefers-reduced-motion:reduce){.sport-link:hover{transform:none}}
     /* Foto de "Quién está detrás" */
     .about-photo{margin:0;position:relative;background:#0c1014}
     .about-photo img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
@@ -46,7 +57,7 @@
       </a>
       <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
       <nav class="main-nav" aria-label="Navegación principal">
-        <a href="#metodo">Método</a><a href="#servicios">Servicios</a><a href="#sobre-mi">Sobre mí</a><a href="#faq">FAQ</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a>
+        <a href="#metodo">Método</a><a href="#servicios">Servicios</a><a href="running.html">Running</a><a href="#sobre-mi">Sobre mí</a><a href="#faq">FAQ</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a>
         <a class="nav-cta" href="inscripcion.html">Hablemos <span>↗</span></a>
       </nav>
     </div>
@@ -109,6 +120,21 @@
       </div>
     </section>
 
+    <section class="section section-dark" id="deportes">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">TU DEPORTE</p>
+          <h2>NO SOLO<br><span class="orange">TRIATLÓN.</span></h2>
+          <p class="section-intro">El método es el mismo para cualquier deporte de resistencia: conocer, planificar, medir y ajustar. Elige el tuyo.</p>
+        </div>
+        <div class="sport-links">
+          <a class="sport-link" href="#planes"><p class="plan-kicker">SWIM / BIKE / RUN</p><h3>TRIATLÓN</h3><p>Natación, ciclismo, carrera y fuerza en un único plan que encaja en tu semana. De sprint a larga distancia.</p><span class="go">Ver planes <span>↗</span></span></a>
+          <a class="sport-link" href="running.html"><p class="plan-kicker">5K / 10K / 21K / 42K / TRAIL</p><h3>RUNNING</h3><p>Ritmos reales, carga progresiva y rodajes suaves de verdad. Del primer 10K al maratón.</p><span class="go">Planes para corredores <span>↗</span></span></a>
+          <a class="sport-link" href="inscripcion.html?deporte=bike"><p class="plan-kicker">CICLISMO / REMO / ESQUÍ DE FONDO</p><h3>OTROS DEPORTES</h3><p>Ciclismo por potencia y zonas, u otros deportes de resistencia. Cuéntame tu objetivo y vemos cómo plantearlo.</p><span class="go">Cuéntame tu objetivo <span>↗</span></span></a>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-photo">
       <div class="container photo-panel">
         <div><p class="eyebrow">THE LONG GAME</p><h2>EL PROGRESO<br>SE CONSTRUYE<br><span class="orange">SEMANA A SEMANA.</span></h2></div>
@@ -164,7 +190,7 @@
           <p>Mi formación incluye un grado en Estadística Empresarial y un máster en Inteligencia Artificial. En mi preparación he analizado más de un centenar de entrenamientos exportados de TrainingPeaks para estudiar carga, ritmos y necesidades de entrenamiento.</p>
           <p>ENDURACE LAB nace de esa filosofía: utilizar los datos para tomar mejores decisiones, sin olvidar que detrás de cada métrica hay una persona, una agenda y unas sensaciones.</p>
           <div class="about-facts"><div><strong>3:12</strong><span>Mejor marca personal en maratón</span></div><div><strong>&lt;5 h</strong><span>Triatlón de media distancia</span></div><div><strong>117+</strong><span>Sesiones analizadas en mi preparación</span></div></div>
-          <p class="small-note">La experiencia deportiva y la formación en análisis de datos no equivalen por sí solas a una titulación oficial de entrenador. Consulta el apartado de acreditación antes de publicar la web y define el alcance del servicio conforme a la normativa aplicable.</p>
+          <p class="small-note">ENDURACE LAB ofrece planificación y análisis de datos de entrenamiento. La experiencia deportiva y la formación en análisis de datos no equivalen a una titulación oficial de entrenador.</p>
         </div>
       </div>
     </section>
@@ -185,12 +211,13 @@
       <div class="container faq-wrap">
         <div class="section-heading"><p class="eyebrow">06 / PREGUNTAS FRECUENTES</p><h2>ANTES DE<br><span class="orange">EMPEZAR.</span></h2></div>
         <div class="faq-list">
+          <details><summary>¿Solo corro (o solo voy en bici). ¿Es para mí?</summary><p>Sí. Los planes funcionan igual para running, ciclismo y otros deportes de resistencia: el plan se centra en tu disciplina y en tu objetivo. Tienes más detalles en la <a href="running.html">página para corredores</a>.</p></details>
           <details><summary>¿Necesito experiencia previa en triatlón?</summary><p>No. La planificación parte de tu nivel actual. Es importante explicar con honestidad tu experiencia en cada disciplina y cualquier limitación relevante.</p></details>
           <details><summary>¿Tengo que entrenar muchas horas?</summary><p>No hay un mínimo universal. El plan se construye a partir de tu disponibilidad real y del objetivo. Si el tiempo disponible no encaja con la prueba, lo hablaremos antes de empezar.</p></details>
           <details><summary>¿Qué reloj o plataforma necesito?</summary><p>Trabajamos con TrainingPeaks: recibes tu plan en su calendario (web y app). No necesitas un dispositivo concreto, pero Garmin, Polar, Coros, Wahoo o Suunto aportan datos útiles, y con una cuenta Premium puedes sincronizar los entrenos con tu reloj.</p></details>
           <details><summary>¿Tengo que pagar TrainingPeaks?</summary><p>Puedes empezar con una cuenta gratuita, aunque algunas funciones requieren Premium. En el plan Pro necesitas una cuenta Premium, que se contrata aparte, y en el plan Premium la cuenta va incluida. Los precios de TrainingPeaks los fija TrainingPeaks y pueden cambiar.</p></details>
           <details><summary>¿El plan incluye nutrición?</summary><p>Podemos trabajar pautas generales de estrategia de carrera e hidratación dentro del alcance del servicio. No sustituye una consulta con un dietista-nutricionista ni incluye tratamiento dietético clínico.</p></details>
-          <details><summary>¿Puedo cancelar?</summary><p>El plan mensual no tiene permanencia: se cancela avisando con 7 días de antelación. Los planes trimestral y semestral se abonan por adelantado por todo el periodo; las condiciones se facilitarán antes de contratar.</p></details>
+          <details><summary>¿Puedo cancelar?</summary><p>Sí, cuando quieras y sin permanencia. La suscripción deja de renovarse al final del periodo ya pagado (mes, trimestre o semestre). Tienes todos los detalles, incluido el derecho de desistimiento, en las <a href="condiciones.html">condiciones de contratación</a>.</p></details>
           <details><summary>¿Cuándo recibo mi planificación?</summary><p>El primer bloque se entrega en un máximo de 5 días laborables desde que se completa la valoración inicial y se dispone de la información necesaria.</p></details>
         </div>
       </div>
@@ -201,7 +228,7 @@
         <div class="section-heading">
           <p class="eyebrow">NUEVO / LABORATORIO</p>
           <h2>SUBE TUS DATOS.<br><span class="orange">MIRA TU CARGA.</span></h2>
-          <p class="section-intro">Analiza gratis tus entrenamientos de TrainingPeaks: reparto por disciplina, picos de carga y una guía de hidratos por tipo de día. Se procesa en tu navegador y no guardamos nada.</p>
+          <p class="section-intro">Analiza gratis tus entrenamientos de TrainingPeaks: forma y fatiga, distribución de intensidad, si tu eficiencia aeróbica mejora y una guía de hidratos por tipo de día. Para triatlón, running y ciclismo. Se procesa en tu navegador y no guardamos nada.</p>
         </div>
         <div class="hero-actions">
           <a class="button button-orange" href="laboratorio.html">Probar el informe <span>↗</span></a>
@@ -219,14 +246,15 @@
   <footer class="footer">
     <div class="container footer-top">
       <a class="brand" href="#"><img src="logo.svg" alt="" width="40" height="40"><span>ENDURACE<span class="orange">_LAB</span></span></a>
-      <div class="footer-links"><a href="#metodo">Método</a><a href="#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="herramientas.html">Herramientas</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="mailto:espasa35@gmail.com">Contacto</a></div>
+      <div class="footer-links"><a href="#metodo">Método</a><a href="#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="herramientas.html">Herramientas</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="running.html">Running</a><a href="mailto:espasa35@gmail.com">Contacto</a></div>
     </div>
     <div class="container footer-bottom">
       <p>© <span id="year"></span> ENDURACE LAB. Todos los derechos reservados.</p>
       <p>El entrenamiento físico conlleva riesgos. La información de esta web no sustituye una valoración médica, fisioterapéutica ni nutricional. Consulta con profesionales sanitarios cuando corresponda.</p>
-      <p><a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a></p>
+      <p><a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a> · <a href="condiciones.html">Condiciones de contratación</a><span data-portal hidden> · <a href="#">Gestionar mi suscripción</a></span></p>
     </div>
   </footer>
+  <script src="pagos.js" defer></script>
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
     const toggle = document.querySelector('.menu-toggle');

@@ -34,6 +34,9 @@
       <label>Nombre y apellidos<input name="nombre" autocomplete="name" required></label>
       <label>Email<input type="email" name="email" autocomplete="email" required></label>
       <label>Teléfono / WhatsApp<input type="tel" name="telefono" autocomplete="tel"></label>
+      <label>Deporte principal
+        <select name="deporte" id="deporte"><option value="tri">Triatlón</option><option value="run">Running</option><option value="bike">Ciclismo</option><option value="otro">Otro deporte de resistencia</option></select>
+      </label>
       <label>¿Qué servicio te interesa?
         <select name="plan" id="plan">
           <option value="esencial">Esencial · 39 €/mes</option><option value="pro" selected>Pro · 69 €/mes</option><option value="premium">Premium · 109 €/mes</option><option value="carrera">Plan de carrera · 129 €</option><option value="sesion">Videollamada · 30 €</option><option value="no-se">Necesito orientación</option>
@@ -64,6 +67,8 @@
     const form = document.getElementById('signup-form');
     const plan = new URLSearchParams(location.search).get('plan');
     if (plan && [...form.plan.options].some(o => o.value === plan)) form.plan.value = plan;
+    const dep = new URLSearchParams(location.search).get('deporte');
+    if (dep && [...form.deporte.options].some(o => o.value === dep)) form.deporte.value = dep;
     const per = new URLSearchParams(location.search).get('periodo');
     if (per && [...form.periodo.options].some(o => o.value === per)) form.periodo.value = per;
     const syncPeriod = () => {

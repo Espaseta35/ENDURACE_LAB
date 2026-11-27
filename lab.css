@@ -28,20 +28,103 @@
 .tool{border-top:1px solid rgba(255,255,255,.25);margin-top:2rem;padding-top:.5rem}
 .tool table{margin:1rem 0}
 .lab .bar{fill:var(--orange)}.lab .bar.spike{fill:var(--white)}
-.lab h3{margin:1.5rem 0 .5rem}
-.lab .small{font-size:.9rem}
-.lab .need{border-left:4px solid var(--orange);padding:.75rem 1rem;background:rgba(255,255,255,.04)}
-.lab .axis{stroke:var(--line);stroke-width:1}
-.lab .ln-ctl{fill:none;stroke:var(--orange);stroke-width:3}
-.lab .ln-atl{fill:none;stroke:var(--white);stroke-width:1.5;opacity:.75}
-.lab .tsb-pos{fill:var(--white);opacity:.55}.lab .tsb-neg{fill:var(--muted);opacity:.35}
-.lab .dot{fill:var(--orange)}.lab .trend{stroke:var(--white);stroke-width:2;stroke-dasharray:6 4}
-.lab .legend{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem 1rem;font-size:.9rem}
-.lab .k{display:inline-block;width:1.1rem;height:.7rem;margin-right:-.6rem;vertical-align:middle}
-.lab .k-ctl{background:var(--orange)}.lab .k-atl{background:var(--white);opacity:.75}.lab .k-tsb{background:var(--muted)}
-.lab .verdict{font-size:1.1rem}
-.lab .dist-row{display:flex;align-items:center;gap:.75rem;margin:.4rem 0}
-.lab .dist-k{width:5.5rem;flex:none;font-weight:600}
-.lab .dist{display:flex;flex:1;height:1.6rem;background:var(--panel);overflow:hidden}
-.lab .dist span{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;white-space:nowrap;overflow:hidden}
-.lab .z0{background:var(--white);color:var(--black)}.lab .z1{background:var(--muted);color:var(--black)}.lab .z2{background:var(--orange);color:var(--black)}
+:is(.lab,.lab-report) h3{margin:1.5rem 0 .5rem}
+:is(.lab,.lab-report) .small{font-size:.9rem}
+:is(.lab,.lab-report) .need{border-left:4px solid var(--orange);padding:.75rem 1rem;background:rgba(255,255,255,.04)}
+:is(.lab,.lab-report) .axis{stroke:var(--line);stroke-width:1}
+:is(.lab,.lab-report) .ln-ctl{fill:none;stroke:var(--orange);stroke-width:3}
+:is(.lab,.lab-report) .ln-atl{fill:none;stroke:var(--white);stroke-width:1.5;opacity:.75}
+:is(.lab,.lab-report) .tsb-pos{fill:var(--white);opacity:.55}:is(.lab,.lab-report) .tsb-neg{fill:var(--muted);opacity:.35}
+:is(.lab,.lab-report) .efdot{fill:var(--orange)}:is(.lab,.lab-report) .trend{stroke:var(--white);stroke-width:2;stroke-dasharray:6 4}
+:is(.lab,.lab-report) .legend{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem 1rem;font-size:.9rem}
+:is(.lab,.lab-report) .k{display:inline-block;width:1.1rem;height:.7rem;margin-right:-.6rem;vertical-align:middle}
+:is(.lab,.lab-report) .k-ctl{background:var(--orange)}:is(.lab,.lab-report) .k-atl{background:var(--white);opacity:.75}:is(.lab,.lab-report) .k-tsb{background:var(--muted)}
+:is(.lab,.lab-report) .verdict{font-size:1.1rem}
+:is(.lab,.lab-report) .dist-row{display:flex;align-items:center;gap:.75rem;margin:.4rem 0}
+:is(.lab,.lab-report) .dist-k{width:5.5rem;flex:none;font-weight:600}
+:is(.lab,.lab-report) .dist{display:flex;flex:1;height:1.6rem;background:var(--panel);overflow:hidden}
+:is(.lab,.lab-report) .dist span{display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;white-space:nowrap;overflow:hidden}
+:is(.lab,.lab-report) .z0{background:var(--white);color:var(--black)}:is(.lab,.lab-report) .z1{background:var(--muted);color:var(--black)}:is(.lab,.lab-report) .z2{background:var(--orange);color:var(--black)}
+
+/* ===== Laboratorio v3: pasos, selector de deporte, zona de subida e informe ===== */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.lab-page .section-heading h1{font-size:clamp(3.6rem,8vw,6.6rem);letter-spacing:.01em}
+.lab-top{padding-bottom:70px}
+.lab-private{display:flex;align-items:center;font-size:.85rem;color:#c2c6c9;margin:22px 0 0}
+.lab-steps{display:grid;border:1px solid var(--line)}
+.step{position:relative;padding:30px 30px 32px 110px;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step-n{position:absolute;left:30px;top:24px;font:700 2.6rem/1 var(--font-head);color:var(--orange)}
+.step h2{font-size:1.9rem;margin:0 0 20px}
+.step h2 small{font:500 .78rem var(--font-body);letter-spacing:.12em;color:var(--muted);margin-left:10px;vertical-align:middle;text-transform:uppercase}
+.sport-picker{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.sport{cursor:pointer;display:block}
+.sport input{position:absolute;opacity:0;pointer-events:none}
+.sport span{display:flex;flex-direction:column;gap:4px;height:100%;padding:16px 15px;border:1px solid #3a4148;background:#101419;transition:.2s}
+.sport i{font-style:normal;font-size:.62rem;font-weight:700;letter-spacing:.16em;color:var(--orange)}
+.sport b{font:700 1.45rem/1 var(--font-head);text-transform:uppercase;margin-top:8px}
+.sport small{font-size:.76rem;color:var(--muted);line-height:1.35}
+.sport:hover span{border-color:#59616a}
+.sport input:checked+span{border-color:var(--orange);background:#191512;box-shadow:inset 0 0 0 1px var(--orange)}
+.sport input:focus-visible+span{outline:2px solid var(--white);outline-offset:2px}
+.detected{margin:16px 0 0;font-size:.88rem;color:#c2c6c9}
+.detected b{color:var(--orange)}
+.dropzone{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;min-height:170px;padding:28px;border:1px dashed #59616a;background:#0e1115;cursor:pointer;transition:.2s}
+.dropzone:hover,.dropzone.over{border-color:var(--orange);background:#191512}
+.dropzone:focus-within{outline:2px solid var(--orange);outline-offset:2px}
+.dz-icon{display:grid;place-items:center;width:46px;height:46px;border:1px solid var(--orange);color:var(--orange);font-size:1.3rem;margin-bottom:8px;transition:.2s}
+.dropzone.over .dz-icon{background:var(--orange);color:#111}
+.dropzone b{font-size:1rem}
+.dropzone small{font-size:.8rem;color:var(--muted)}
+.dropzone.has-file{border-style:solid;border-color:var(--orange)}
+.dropzone.has-file .dz-icon{background:var(--orange);color:#111}
+.howto{margin-top:16px;font-size:.88rem;color:#c2c6c9}
+.howto summary{cursor:pointer;font-weight:600;list-style:none}
+.howto summary::-webkit-details-marker{display:none}
+.howto summary:before{content:"+";color:var(--orange);font-weight:700;margin-right:10px}
+.howto[open] summary:before{content:"−"}
+.howto ol{margin:12px 0 0;padding-left:22px}.howto li{margin:4px 0}.howto p{margin:10px 0 0;color:var(--muted)}
+.step-row{display:flex;flex-wrap:wrap;align-items:end;gap:18px}
+.lab-page .field{display:grid;gap:7px;font-size:.83rem;font-weight:600;color:#e9ebec}
+.lab-page .field input{width:11rem;background:#090c0f;border:1px solid #454e56;border-radius:0;padding:12px 13px;color:var(--white);font:inherit}
+.lab-page .field input:focus{outline:2px solid var(--orange);outline-offset:1px}
+.lab-page #err{margin:18px 0 0}
+.lab-more{margin:26px 0 0;color:var(--muted);font-size:.9rem}
+.lab-more a{color:var(--white)}.lab-more a:hover{color:var(--orange)}
+.lab-report{background:#0c0f12;border-top:1px solid var(--line);padding-top:80px}
+.report-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px 30px}
+.report-head .eyebrow{flex-basis:100%;margin:0}
+.report-head h2{font-size:clamp(3rem,6vw,4.6rem)}
+.profile-tag{margin:0;padding:8px 13px;border:1px solid var(--orange);font-size:.78rem;font-weight:600;letter-spacing:.04em}
+.lab-report .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:34px 0 0;border:1px solid var(--line)}
+.lab-report .stats div{border:0;border-right:1px solid var(--line);padding:20px 22px;font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:#c2c6c9}
+.lab-report .stats div:last-child{border-right:0}
+.lab-report .stats b{color:var(--orange);font-size:2.6rem;margin-bottom:6px;letter-spacing:0}
+.block{padding:70px 0 0;margin-top:70px;border-top:1px solid var(--line)}
+.block>h2{font-size:clamp(2.4rem,5vw,3.8rem);margin-bottom:18px}
+.block>h3{font-size:1.5rem;margin:34px 0 12px}
+.block-intro{max-width:650px;color:var(--muted);margin:0 0 26px}
+.lab-report .stats+.legend,.block .stats{margin-top:20px}
+.block .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);margin-bottom:22px}
+.block .need{border-left:2px solid var(--orange);background:#11151a;padding:16px 20px;color:#d0d3d5}
+.block .verdict{font-size:1.1rem;max-width:760px}
+.block .verdict b{color:var(--orange)}
+.lab-report table{border-collapse:collapse;width:100%;min-width:30rem}
+.lab-report th,.lab-report td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);font-size:.9rem}
+.lab-report th{border-bottom:1px solid #59616a;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lab-report svg text{font:600 11px var(--font-body);fill:currentColor;opacity:.6}
+.lab-report .bar{fill:var(--orange)}.lab-report .bar.spike{fill:var(--white)}
+.lab-report .small{font-size:.82rem;color:#8d959b;opacity:1}
+.lab-report .mute{opacity:1}
+.lab-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:28px;margin-top:80px;padding:40px;border:1px solid var(--orange);background:linear-gradient(135deg,#17120f,#0c0f12 70%)}
+.lab-cta h2{font-size:clamp(2rem,4vw,3rem);max-width:640px}
+.lab-cta p:not(.eyebrow){color:#c3c7ca;margin:14px 0 0;max-width:560px}
+.lab-cta-actions{display:flex;flex-wrap:wrap;align-items:center;gap:24px}
+@media(max-width:900px){.sport-picker{grid-template-columns:repeat(3,1fr)}.lab-report .stats,.block .stats{grid-template-columns:repeat(2,1fr)}.lab-report .stats div:nth-child(2){border-right:0}.lab-report .stats div:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+@media(max-width:650px){.step{padding:24px 20px}.step-n{position:static;display:block;font-size:2rem;margin-bottom:10px}.sport-picker{grid-template-columns:1fr 1fr}.sport:first-child{grid-column:1/-1}.lab-cta{padding:26px}.block{padding-top:50px;margin-top:50px}.lab-report .stats b{font-size:2rem}}
+.lab-report svg.fit{display:block;width:100%;height:auto}
+.lab-page button.button{background:transparent;font-family:var(--font-body)}
+.lab-page button.button-outline{color:var(--white)}
+.lab-page button.button-outline:hover{color:var(--orange)}
+.lab-report .legend .li{display:inline-flex;align-items:center;gap:.45rem;white-space:nowrap}
+.lab-report .legend .k{margin:0}

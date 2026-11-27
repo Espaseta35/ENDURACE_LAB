@@ -33,3 +33,35 @@ Datos personales/deportivos incluidos en la presentación:
 - Más de 117 sesiones analizadas en TrainingPeaks durante tu preparación.
 
 La web evita presentarte como entrenador titulado porque esa acreditación no está confirmada en la información disponible.
+
+PAGOS CON STRIPE (preparado, DESACTIVADO hasta que lo actives)
+=============================================================
+La web ya tiene todo lo necesario para cobrar, pero no muestra ningún pago mientras
+en pagos.js ponga  activo: false.
+
+Antes de activarlo:
+- Darte de alta como autónomo (Hacienda y Seguridad Social) y revisar con un gestor
+  el IVA y cómo emitir facturas conforme a la normativa vigente.
+- Comprobar qué titulación exige tu comunidad autónoma para ofrecer este servicio
+  y ajustar cómo lo describes.
+- Completar [NIF] y [DOMICILIO COMPLETO] en condiciones.html, privacidad.html y
+  aviso-legal.html, y que un profesional revise las condiciones de contratación.
+
+Para activarlo:
+1. Crea tu cuenta en stripe.com con tus datos de autónomo y tu cuenta bancaria.
+2. En Stripe > Catálogo de productos, crea:
+   - Esencial, Pro y Premium, cada uno con 3 precios recurrentes:
+     mensual (39 / 69 / 109 €), cada 3 meses (105 / 186 / 294 €), cada 6 meses (199 / 352 / 556 €).
+   - Plan de carrera (129 €) y Videollamada (30 €) como pago único.
+3. Crea un Payment Link para cada precio (11 en total). En cada uno, en
+   "Después del pago", elige redirigir a: https://www.endurace-lab.com/gracias.html
+4. Activa el portal de cliente (Ajustes > Facturación > Portal de clientes) y copia su enlace.
+5. Pega los enlaces en pagos.js, cambia  activo: false  por  activo: true  y publica.
+
+Cómo se usa: tras valorar una solicitud, envía al cliente su enlace personal, por ejemplo
+  https://www.endurace-lab.com/pagar.html?plan=pro&periodo=mensual&email=correo@cliente.com
+Ahí acepta las condiciones y el inicio inmediato del servicio y pasa al pago de Stripe.
+Valores: plan = esencial | pro | premium | carrera | sesion;  periodo = mensual | trimestral | semestral.
+
+Base de datos: si ya habías desplegado la API antes, aplica la nueva migración:
+  cd api && npx wrangler d1 migrations apply endurace --remote
