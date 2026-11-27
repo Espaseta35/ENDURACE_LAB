@@ -90,7 +90,7 @@
       const data = Object.fromEntries(new FormData(form));
       data.privacidad = form.privacidad.checked;
       const fallo = {
-        rate_limit: 'Has enviado varias solicitudes seguidas. Espera un rato o escríbeme a espasa35@gmail.com.',
+        rate_limit: 'Has enviado varias solicitudes seguidas. Espera un rato o escríbeme a info@endurace-lab.com.',
         validation: 'Revisa el nombre y el email e inténtalo de nuevo.',
       };
       try {
@@ -101,10 +101,10 @@
           status.textContent = 'Solicitud enviada. Te responderé para concretar el siguiente paso.';
         } else {
           const j = await r.json().catch(() => ({}));
-          status.textContent = fallo[j.error] || 'No se ha podido enviar. Inténtalo de nuevo o escríbeme a espasa35@gmail.com.';
+          status.textContent = fallo[j.error] || 'No se ha podido enviar. Inténtalo de nuevo o escríbeme a info@endurace-lab.com.';
         }
       } catch (err) {
-        status.textContent = 'No se ha podido enviar. Revisa tu conexión o escríbeme a espasa35@gmail.com.';
+        status.textContent = 'No se ha podido enviar. Revisa tu conexión o escríbeme a info@endurace-lab.com.';
       }
       btn.disabled = false;
     });
