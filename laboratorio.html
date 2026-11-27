@@ -52,7 +52,7 @@
           <span class="tile-top"><span class="tile-n">01</span><span class="tile-go" aria-hidden="true">↗</span></span>
           <span class="tile-k">SUBE TU CSV DE TRAININGPEAKS</span>
           <span class="tile-t">Informe de tus datos</span>
-          <span class="tile-d">Forma y fatiga, cómo repartes la intensidad, si tu motor aeróbico mejora y cuánto comer cada día.</span>
+          <span class="tile-d">Forma y fatiga, cómo repartes la intensidad, si tu motor aeróbico mejora y cuánto comer cada día. Y tu temporada en historias, lista para Instagram.</span>
           <svg class="tile-art" viewBox="0 0 300 90" aria-hidden="true"><polyline points="0,70 30,66 60,68 90,58 120,60 150,48 180,50 210,38 240,40 270,26 300,22" fill="none" stroke="currentColor" stroke-width="3"/><polyline points="0,80 30,60 60,74 90,50 120,70 150,40 180,62 210,30 240,55 270,18 300,40" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/></svg>
         </button>
         <button class="tile" role="tab" id="t-predictor" data-panel="predictor" aria-controls="p-predictor" aria-selected="false">
@@ -199,6 +199,11 @@
         <p id="profile-tag" class="profile-tag"></p>
       </div>
       <div class="stats" id="stats"></div>
+      <button class="wrapped-btn" id="wrapped-open" type="button" aria-haspopup="dialog">
+        <span class="wb-play" aria-hidden="true">▶</span>
+        <span class="wb-txt"><span class="wb-k">NUEVO · HISTORIAS</span><b>Tu temporada, al estilo Wrapped</b><span>Tus horas, tus kilómetros, tu mejor mes y tu tipo de atleta. Con imagen lista para Instagram.</span></span>
+        <span class="wb-go" aria-hidden="true">↗</span>
+      </button>
 
       <article class="block">
         <p class="eyebrow">01 / FORMA Y FATIGA</p>
@@ -269,7 +274,7 @@ tri:{name:"Triatlón",end:["Natación","Ciclismo","Carrera"],ef:["Carrera","Cicl
 run:{name:"Running",end:["Carrera"],ef:["Carrera"],tip:"En running, los rodajes suaves de verdad (poder hablar mientras corres) son la base para mejorar en 10K, media o maratón."},
 bike:{name:"Ciclismo",end:["Ciclismo"],ef:["Ciclismo"],tip:"En ciclismo es fácil acumular zona media en salidas en grupo o subidas: reserva la intensidad para sesiones concretas."},
 otro:{name:"Resistencia",end:["Natación","Ciclismo","Carrera","Remo","Esquí de fondo"],ef:["Carrera","Ciclismo"],tip:"En cualquier deporte de resistencia, una base amplia de trabajo suave es lo que permite sostener y aprovechar la intensidad."}};
-let END=PROF.tri.end,P0=PROF.tri,lastText=null,lastName="";
+let END=PROF.tri.end,P0=PROF.tri,lastText=null,lastName="",lastS=null,lastEF=[],lastInt=null;
 function parseCSV(t){const d=(t.split("\n")[0].match(/;/g)||[]).length>(t.split("\n")[0].match(/,/g)||[]).length?";":",";const rows=[];let r=[],c="",q=false;
 for(let i=0;i<t.length;i++){const ch=t[i];
 if(q){if(ch=='"'){if(t[i+1]=='"'){c+='"';i++}else q=false}else c+=ch}
@@ -294,7 +299,7 @@ const S=[];for(const r of rows.slice(1)){const d=pdate(r[iD]),hr=num(r[iH]);if(!
 const g=i=>i<0?0:num(r[i]),zs=a=>a.map(g),sum=a=>a.reduce((x,y)=>x+y,0);
 let z=zs(Z.hr);if(!sum(z))z=zs(Z.pw);if(!sum(z))z=zs(Z.pa);
 const dist=g(C.dist);
-S.push({d,h:hr,t:disc(r[iT]||"",iN<0?"":r[iN]),tss:g(C.tss),IF:g(C.IF),hr:g(C.hr),v:dist>0?dist/(hr*3600):g(C.v),pw:g(C.pw),z:sum(z)>0?z:null})}
+S.push({d,h:hr,km:dist/1000,n:iN<0?"":String(r[iN]).trim(),t:disc(r[iT]||"",iN<0?"":r[iN]),tss:g(C.tss),IF:g(C.IF),hr:g(C.hr),v:dist>0?dist/(hr*3600):g(C.v),pw:g(C.pw),z:sum(z)>0?z:null})}
 if(S.length<5)throw"Hay muy pocos entrenamientos con datos válidos para hacer un análisis.";
 S.sort((a,b)=>a.d-b.d);return S}
 function detect(S){const h={};for(const s of S)h[s.t]=(h[s.t]||0)+s.h;const g=k=>h[k]||0,e=g("Natación")+g("Ciclismo")+g("Carrera")+g("Remo")+g("Esquí de fondo")||1;
@@ -340,7 +345,7 @@ const by={},zt=new Array(10).fill(0),add=(k,g)=>{by[k]=by[k]||[0,0,0];g.forEach(
 for(const s of zs){const g=[0,0,0];s.z.forEach((m,i)=>{g[i<2?0:i==2?1:2]+=m;zt[i]+=m});add("Total",g);add(s.t,g)}
 const pc=g=>{const t=g[0]+g[1]+g[2]||1;return g.map(v=>v/t*100)};
 const row=(k,g)=>{const p=pc(g);return`<div class="dist-row"><span class="dist-k">${k}</span><div class="dist" role="img" aria-label="${k}: baja ${Math.round(p[0])} %, media ${Math.round(p[1])} %, alta ${Math.round(p[2])} %">${p.map((v,i)=>`<span class="z${i}" style="width:${v}%">${v>=8?Math.round(v)+" %":""}</span>`).join("")}</div></div>`};
-const [lo,mo,hi]=pc(by.Total);
+const [lo,mo,hi]=pc(by.Total);lastInt={lo,mo,hi};
 const cls=lo>=75&&hi>mo?["Polarizado","La mayor parte del tiempo suave y la intensidad concentrada en sesiones duras. Es el reparto que mejor funciona en resistencia para la mayoría de deportistas."]:lo>=70?["Piramidal","Mucho tiempo suave, algo de ritmo medio y poco trabajo alto. Es un reparto sólido, sobre todo en fases de base o preparando larga distancia."]:mo>=hi?["Mucha zona media","Pasas mucho tiempo en la «zona gris»: demasiado duro para recuperar y demasiado suave para mejorar tu techo. Suele funcionar mejor hacer los rodajes más suaves y las series más duras."]:["Intensidad alta","Gran parte de tu tiempo es intenso. Es difícil de sostener semanas seguidas; conviene aumentar el volumen suave o revisar si tus zonas están bien configuradas."];
 const last=zt.reduce((a,v,i)=>v>0?i:a,0);
 const good=cls[0]=="Polarizado"||cls[0]=="Piramidal",rows=END.filter(k=>by[k]);
@@ -362,7 +367,7 @@ const P=ss.map(s=>({d:s.d,ef:key=="v"?s.v*60/s.hr:s.pw/s.hr})),t0=P[0].d,X=P.map
 const mx=X.reduce((a,b)=>a+b,0)/X.length,my=Y.reduce((a,b)=>a+b,0)/Y.length;
 const sl=X.reduce((a,x,i)=>a+(x-mx)*(Y[i]-my),0)/(X.reduce((a,x)=>a+(x-mx)**2,0)||1),ic=my-sl*mx,span=X[X.length-1];
 const y0=ic,y1=ic+sl*span,chg=(y1-y0)/y0*100;R.push({t,u,P,X,Y,y0,y1,span,chg,crit})}
-if(!R.length){$("#ef").innerHTML=`<p class="need">Para medir tu eficiencia necesito al menos 6 rodajes o salidas en bici de más de 30 minutos con <b>pulso medio</b> y, además, <b>distancia</b> (carrera) o <b>potencia media</b> (ciclismo).</p>`;return}
+lastEF=R;if(!R.length){$("#ef").innerHTML=`<p class="need">Para medir tu eficiencia necesito al menos 6 rodajes o salidas en bici de más de 30 minutos con <b>pulso medio</b> y, además, <b>distancia</b> (carrera) o <b>potencia media</b> (ciclismo).</p>`;return}
 $("#ef").innerHTML=R.map(r=>{
 const W=1100,H=190,L=36,lo=Math.min(...r.Y)*.97,hi=Math.max(...r.Y)*1.03,x=v=>L+v/(r.span||1)*(W-L-8),y=v=>H-(v-lo)/(hi-lo||1)*H;
 let svg=`<svg class="fit" role="img" aria-label="Factor de eficiencia en ${r.t.toLowerCase()}" viewBox="0 0 ${W} ${H+26}" style="min-width:640px"><text x="0" y="10">${fmt(hi,2)}</text><text x="0" y="${H}">${fmt(lo,2)}</text><line class="axis" x1="${L}" x2="${W}" y1="${H}" y2="${H}"/>`;
@@ -372,7 +377,7 @@ const msg=r.chg>2?`<b>Mejora del ${fmt(r.chg)} %.</b> ${r.t=="Carrera"?"Corres m
 return`<h3>${r.t}</h3><div class="scroll">${svg}</div><p>${msg}</p><p class="mute small">${r.P.length} sesiones aeróbicas (${r.crit}), en ${r.u}. El calor, el desnivel y el viento también influyen: compara tendencias, no sesiones sueltas.</p>`}).join("")}
 
 function render(S){
-const sel=(document.querySelector('input[name="sport"]:checked')||{}).value||"auto",det=detect(S),key=sel=="auto"?det.k:sel;
+lastS=S;lastInt=null;const sel=(document.querySelector('input[name="sport"]:checked')||{}).value||"auto",det=detect(S),key=sel=="auto"?det.k:sel;
 P0=PROF[key];END=P0.end;
 $("#detected").hidden=false;$("#detected").innerHTML=sel=="auto"?`Perfil detectado: <b>${P0.name}</b> (${det.txt}). Puedes cambiarlo arriba.`:`Perfil elegido: <b>${P0.name}</b>. Tu archivo: ${det.txt}.`;
 $("#profile-tag").textContent=`Perfil ${P0.name} · ${S.length} entrenos del ${ddm(S[0].d)}/${S[0].d.getFullYear()} al ${ddm(S[S.length-1].d)}/${S[S.length-1].d.getFullYear()}`;
@@ -486,5 +491,6 @@ $("#nd").addEventListener("input",nutri);chips("#nc",nutri);
 setPredRange(2700);pred();zones();nutri();
 showPanel(location.hash.slice(1));
 </script>
+  <script src="temporada.js?v=1"></script>
 </body>
 </html>
