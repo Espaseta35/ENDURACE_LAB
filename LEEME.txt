@@ -65,3 +65,24 @@ Valores: plan = esencial | pro | premium | carrera | sesion;  periodo = mensual 
 
 Base de datos: si ya habías desplegado la API antes, aplica la nueva migración:
   cd api && npx wrangler d1 migrations apply endurace --remote
+
+MEDIR LAS VISITAS (hazlo antes de empezar a promocionar la web)
+==============================================================
+1. Google Search Console (gratis): https://search.google.com/search-console
+   - Añade la propiedad "Dominio" endurace-lab.com y verifícala con el registro TXT
+     que te da Google, en la zona DNS de OVH.
+   - En "Sitemaps", envía: https://www.endurace-lab.com/sitemap.xml
+   - Revisa cada semana "Rendimiento": qué búsquedas te muestran y cuántos clics recibes.
+2. Bing Webmaster Tools (gratis): importa la propiedad desde Search Console en un clic.
+3. Analítica sin cookies, Cloudflare Web Analytics (gratis, no necesita mover el DNS):
+   - En dash.cloudflare.com > Analytics & Logs > Web Analytics > Add a site,
+     escribe www.endurace-lab.com y copia el "token" del fragmento que te da.
+   - Pégalo en fx.js, en  const ANALYTICS_TOKEN = "";  y publica.
+   - Añade a privacidad.html que mides visitas de forma agregada y sin cookies
+     con Cloudflare Web Analytics.
+
+NUEVAS PÁGINAS Y ARTÍCULOS
+==========================
+Las páginas de calculadoras, el blog y el sitemap se generan con:
+  python3 _build/generar_paginas.py
+Para publicar un artículo nuevo, añádelo a ARTICULOS en ese archivo, ejecútalo y sube los cambios.

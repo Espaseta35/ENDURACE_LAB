@@ -1,16 +1,30 @@
 [
   {
+    "slug": "forma-fatiga-frescura-ctl-atl-tsb",
+    "date": "2026-11-27",
+    "title": "Forma, fatiga y frescura: qué son el CTL, el ATL y el TSB de TrainingPeaks",
+    "summary": "Las tres líneas del gráfico más famoso de TrainingPeaks, explicadas fácil: qué miden, cómo leerlas y qué valores vigilar.",
+    "url": "blog/forma-fatiga-frescura-ctl-atl-tsb.html"
+  },
+  {
+    "slug": "como-calcular-zonas-entrenamiento",
+    "date": "2026-11-27",
+    "title": "Cómo calcular tus zonas de entrenamiento (y por qué las de tu reloj pueden fallar)",
+    "summary": "Pulso máximo, pulso en reposo, ritmo umbral y FTP: cómo medirlos bien para que tus zonas sirvan de verdad.",
+    "url": "blog/como-calcular-zonas-entrenamiento.html"
+  },
+  {
     "slug": "calculadoras-del-laboratorio",
     "date": "2026-11-26",
-    "title": "Tres calculadoras nuevas en el laboratorio",
-    "summary": "Predictor de tiempos, zonas de entrenamiento y estrategia de nutrición en carrera, gratis y sin registrarte.",
-    "body": "<p>Hemos ampliado el laboratorio con tres herramientas que puedes usar ahora mismo desde tu navegador, sin crear cuenta y sin que se guarde ningún dato.</p><ul><li><strong>Predictor de tiempos:</strong> parte de una marca reciente y estima tus tiempos en 5 km, 10 km, media maratón y maratón.</li><li><strong>Zonas de entrenamiento:</strong> frecuencia cardiaca, ritmo en carrera y potencia en bici a partir de tus valores.</li><li><strong>Estrategia de nutrición:</strong> hidratos, líquido y sodio orientativos según la duración de la prueba y el calor.</li></ul><p>Recuerda que son estimaciones. Úsalas como punto de partida, contrástalas con tus sensaciones y pruébalas en entrenamientos antes de aplicarlas el día de la carrera.</p><p>Las tienes en la página de <a href=\"laboratorio.html#predictor\">herramientas</a>. La semana que viene contaré cómo interpretar bien tus zonas.</p>"
+    "title": "Calculadoras gratis en el laboratorio",
+    "summary": "Predictor de tiempos, zonas de entrenamiento, nutrición en carrera y cuenta atrás, gratis y sin registrarte.",
+    "url": "blog/calculadoras-del-laboratorio.html"
   },
   {
     "slug": "bienvenida-al-laboratorio",
     "date": "2026-11-26",
     "title": "Bienvenida al laboratorio",
-    "summary": "Qué es Endurace Lab y qué vas a encontrar aquí cada semana.",
-    "body": "<p>Endurace Lab nace con una idea sencilla: entrenar mejor empieza por mirar tus datos con calma y tomar decisiones a partir de ellos, no de modas.</p><p>Cada semana publicaré aquí una entrada corta con una de estas cosas:</p><ul><li>un experimento propio, con sus números;</li><li>una pregunta frecuente sobre entrenamiento o nutrición, respondida con claridad;</li><li>un resultado o un aprendizaje de mi propia preparación.</li></ul><p>Si quieres ver cómo está repartida tu carga ahora mismo, prueba el <a href=\"laboratorio.html\">Informe de laboratorio</a>: lo analiza todo en tu navegador y no guardamos nada.</p><p>Nos vemos la semana que viene.</p>"
+    "summary": "Qué es ENDURACE LAB y qué vas a encontrar aquí cada semana.",
+    "url": "blog/bienvenida-al-laboratorio.html"
   }
 ]

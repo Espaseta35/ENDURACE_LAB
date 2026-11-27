@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cuaderno de laboratorio | ENDURACE LAB</title>
-  <meta name="description" content="Un experimento, una idea o un resultado cada semana sobre entrenamiento y nutrición en triatlón.">
+  <title>Blog: entrenamiento con datos para triatlón y running | ENDURACE LAB</title>
+  <meta name="description" content="Artículos sobre entrenamiento, zonas, carga y nutrición en triatlón, running y ciclismo, explicados con datos reales.">
   <link rel="canonical" href="https://www.endurace-lab.com/blog.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ENDURACE LAB">
   <meta property="og:locale" content="es_ES">
-  <meta property="og:title" content="Cuaderno de laboratorio | ENDURACE LAB">
-  <meta property="og:description" content="Un experimento, una idea o un resultado cada semana sobre entrenamiento y nutrición en triatlón.">
+  <meta property="og:title" content="Blog: entrenamiento con datos para triatlón y running | ENDURACE LAB">
+  <meta property="og:description" content="Artículos sobre entrenamiento, zonas, carga y nutrición en triatlón, running y ciclismo, explicados con datos reales.">
   <meta property="og:url" content="https://www.endurace-lab.com/blog.html">
   <meta property="og:image" content="https://www.endurace-lab.com/og-image.jpg">
   <meta property="og:image:width" content="1200">
@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=5">
-  <link rel="stylesheet" href="lab.css?v=5">
+  <link rel="stylesheet" href="lab.css?v=6">
 </head>
 <body>
   <header class="site-header">
@@ -42,9 +42,12 @@
   </header>
 
   <main>
-    <section class="section section-dark"><div class="container blog" id="app"></div></section>
+    <section class="section section-dark"><div class="container blog-index">
+      <div class="section-heading"><p class="eyebrow"><span class="dot"></span> CUADERNO DE LABORATORIO</p><h1>ENTRENA<br><span class="orange">CON DATOS.</span></h1>
+      <p class="section-intro">Un experimento, una idea o un resultado cada semana sobre entrenamiento y nutrición en triatlón, running y ciclismo.</p></div>
+      <div class="post-list"><a class="post" href="blog/forma-fatiga-frescura-ctl-atl-tsb.html"><div class="date">27 de noviembre de 2026</div><h2>Forma, fatiga y frescura: qué son el CTL, el ATL y el TSB de TrainingPeaks</h2><p>Las tres líneas del gráfico más famoso de TrainingPeaks, explicadas fácil: qué miden, cómo leerlas y qué valores vigilar.</p></a><a class="post" href="blog/como-calcular-zonas-entrenamiento.html"><div class="date">27 de noviembre de 2026</div><h2>Cómo calcular tus zonas de entrenamiento (y por qué las de tu reloj pueden fallar)</h2><p>Pulso máximo, pulso en reposo, ritmo umbral y FTP: cómo medirlos bien para que tus zonas sirvan de verdad.</p></a><a class="post" href="blog/calculadoras-del-laboratorio.html"><div class="date">26 de noviembre de 2026</div><h2>Calculadoras gratis en el laboratorio</h2><p>Predictor de tiempos, zonas de entrenamiento, nutrición en carrera y cuenta atrás, gratis y sin registrarte.</p></a><a class="post" href="blog/bienvenida-al-laboratorio.html"><div class="date">26 de noviembre de 2026</div><h2>Bienvenida al laboratorio</h2><p>Qué es ENDURACE LAB y qué vas a encontrar aquí cada semana.</p></a></div>
+    </div></section>
   </main>
-
   <footer class="footer">
     <div class="container footer-top">
       <a class="brand" href="index.html"><img src="logo.svg" alt="" width="40" height="40"><span>ENDURACE<span class="orange">_LAB</span></span></a>
@@ -57,26 +60,10 @@
     </div>
   </footer>
   <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-const tg=document.querySelector(".menu-toggle"),nv=document.querySelector(".main-nav");
-tg.addEventListener("click",()=>{const o=tg.getAttribute("aria-expanded")==="true";tg.setAttribute("aria-expanded",String(!o));nv.classList.toggle("open",!o)});
-
-const app=document.getElementById("app");
-const fmt=d=>new Date(d+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"});
-let posts=[];
-function show(){
-const slug=location.hash.slice(1),p=posts.find(x=>x.slug==slug);
-if(p){document.title=p.title+" · Endurace Lab";
-app.innerHTML=`<a class="back" href="#">Todas las entradas</a><article><h1></h1><div class="date">${fmt(p.date)}</div>${p.body}</article>`;
-app.querySelector("h1").textContent=p.title;scrollTo(0,0);return}
-document.title="Cuaderno de laboratorio · Endurace Lab";
-app.innerHTML=`<h1>Cuaderno de laboratorio</h1><p>Un experimento, una idea o un resultado cada semana sobre entrenamiento y nutrición en triatlón.</p>`+
-(posts.length?posts.map(x=>`<a class="post" href="#${x.slug}"><div class="date">${fmt(x.date)}</div><h2></h2><p></p></a>`).join(""):"<p>Todavía no hay entradas.</p>");
-app.querySelectorAll(".post").forEach((el,i)=>{el.querySelector("h2").textContent=posts[i].title;el.querySelector("p").textContent=posts[i].summary})}
-fetch("posts.json").then(r=>r.json()).then(j=>{posts=j.sort((a,b)=>b.date.localeCompare(a.date));show()})
-.catch(()=>{app.innerHTML="<h1>Cuaderno de laboratorio</h1><p>No se han podido cargar las entradas. Si abres el archivo desde tu ordenador, prueba en la web publicada.</p>"});
-addEventListener("hashchange",show);
-</script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+    const tg = document.querySelector(".menu-toggle"), nv = document.querySelector(".main-nav");
+    tg.addEventListener("click", () => { const o = tg.getAttribute("aria-expanded") === "true"; tg.setAttribute("aria-expanded", String(!o)); nv.classList.toggle("open", !o); });
+  </script>
   <script src="fx.js" defer></script>
 </body>
 </html>

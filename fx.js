@@ -1,6 +1,16 @@
 /* ENDURACE LAB · efectos compartidos: aparición al hacer scroll, cinta en movimiento,
    instalación como app (PWA). Sin librerías. Respeta "reducir movimiento". */
 (() => {
+  /* Analítica sin cookies (Cloudflare Web Analytics). Pega aquí tu token para activarla.
+     Instrucciones en LEEME.txt. Mientras esté vacío, no se carga nada. */
+  const ANALYTICS_TOKEN = "";
+  if (ANALYTICS_TOKEN && location.protocol === "https:") {
+    const s = document.createElement("script");
+    s.defer = true; s.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    s.setAttribute("data-cf-beacon", JSON.stringify({token: ANALYTICS_TOKEN}));
+    document.head.appendChild(s);
+  }
+
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* Aparición suave de bloques al entrar en pantalla */
