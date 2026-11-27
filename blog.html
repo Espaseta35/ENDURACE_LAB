@@ -18,11 +18,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#090b0e">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
-  <link rel="stylesheet" href="lab.css?v=4">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="lab.css?v=5">
 </head>
 <body>
   <header class="site-header">
@@ -75,5 +77,6 @@ fetch("posts.json").then(r=>r.json()).then(j=>{posts=j.sort((a,b)=>b.date.locale
 .catch(()=>{app.innerHTML="<h1>Cuaderno de laboratorio</h1><p>No se han podido cargar las entradas. Si abres el archivo desde tu ordenador, prueba en la web publicada.</p>"});
 addEventListener("hashchange",show);
 </script>
+  <script src="fx.js" defer></script>
 </body>
 </html>

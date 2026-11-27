@@ -18,11 +18,13 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#090b0e">
   <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
-  <link rel="stylesheet" href="lab.css?v=4">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="lab.css?v=5">
 </head>
 <body>
   <header class="site-header">
@@ -44,7 +46,8 @@
       <div class="section-heading">
         <p class="eyebrow"><span class="dot"></span> LABORATORIO / GRATIS</p>
         <h1>TUS DATOS.<br><span class="orange">TU VENTAJA.</span></h1>
-        <p class="section-intro">Cuatro herramientas para entender y preparar tu entrenamiento, en triatlón, running, ciclismo y otros deportes de resistencia. Todo se calcula en tu navegador: no guardamos nada.</p>
+        <p class="section-intro">Cinco herramientas para entender y preparar tu entrenamiento, en triatlón, running, ciclismo y otros deportes de resistencia. Todo se calcula en tu navegador: no guardamos nada.</p>
+        <button class="text-link install-btn" type="button" data-install hidden>Instalar como app en tu móvil <span>↓</span></button>
       </div>
 
       <div class="bento" role="tablist" aria-label="Herramientas del laboratorio">
@@ -67,11 +70,17 @@
           <span class="tile-t">Zonas de entrenamiento</span>
           <span class="tile-d">Tus zonas en segundos, a partir de tus valores.</span>
         </button>
-        <button class="tile tile-wide" role="tab" id="t-nutricion" data-panel="nutricion" aria-controls="p-nutricion" aria-selected="false">
+        <button class="tile" role="tab" id="t-nutricion" data-panel="nutricion" aria-controls="p-nutricion" aria-selected="false">
           <span class="tile-top"><span class="tile-n">04</span><span class="tile-go" aria-hidden="true">↗</span></span>
           <span class="tile-k">HIDRATOS · LÍQUIDO · SODIO</span>
           <span class="tile-t">Nutrición en carrera</span>
           <span class="tile-d">Qué tomar y cada cuánto, según la duración y el calor.</span>
+        </button>
+        <button class="tile" role="tab" id="t-cuenta" data-panel="cuenta" aria-controls="p-cuenta" aria-selected="false">
+          <span class="tile-top"><span class="tile-n">05</span><span class="tile-go" aria-hidden="true">↗</span></span>
+          <span class="tile-k">FECHA · FASE · QUÉ TOCA</span>
+          <span class="tile-t">Cuenta atrás</span>
+          <span class="tile-d">Cuánto falta para tu carrera y en qué fase deberías estar.</span>
         </button>
       </div>
 
@@ -190,6 +199,24 @@
         </div>
         <p class="tool-note">Pautas deportivas generales que no sustituyen a un dietista-nutricionista. Prueba tu estrategia en entrenamientos largos antes del día de la carrera, sobre todo si vas a tomar más de 60 g de hidratos por hora.</p>
       </div>
+      <!-- 05 · CUENTA ATRÁS -->
+      <div class="panel tool-panel" id="p-cuenta" role="tabpanel" aria-labelledby="t-cuenta" hidden>
+        <div class="tool-head"><p class="eyebrow">05 / CUENTA ATRÁS</p><h2>EL DÍA D<br><span class="orange">SE ACERCA.</span></h2></div>
+        <div class="tool-grid">
+          <div class="tool-controls">
+            <label class="ctl-label" for="cn">Tu carrera</label>
+            <input class="line-input" id="cn" type="text" maxlength="60" placeholder="Maratón de Valencia">
+            <label class="ctl-label" for="cd">Fecha</label>
+            <input class="line-input" id="cd" type="date">
+            <p class="ctl-label">Distancia</p>
+            <div class="chips" id="ck" role="radiogroup" aria-label="Distancia">
+              <button type="button" role="radio" data-k="corta" aria-checked="false">5K–10K</button><button type="button" role="radio" data-k="media" aria-checked="false">Media</button><button type="button" role="radio" data-k="maraton" aria-checked="true">Maratón</button><button type="button" role="radio" data-k="h70" aria-checked="false">Medio IM</button><button type="button" role="radio" data-k="im" aria-checked="false">Ironman</button>
+            </div>
+            <p class="ctl-help">Se guarda solo en este navegador para que la veas al volver.</p>
+          </div>
+          <div class="cd-out" id="co" aria-live="polite"></div>
+        </div>
+      </div>
     </div></section>
 
     <section id="out" class="section lab-report" hidden><div class="container">
@@ -268,6 +295,7 @@ const norm=s=>s.toLowerCase().normalize("NFD").replace(/[^a-z]/g,"");
 const hn=s=>s.toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g,"");
 const fmt=(v,d=1)=>v.toLocaleString("es-ES",{minimumFractionDigits:d,maximumFractionDigits:d});
 const ddm=d=>d.getDate()+"/"+(d.getMonth()+1);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const med=a=>{const s=[...a].sort((x,y)=>x-y);return s.length?s[s.length>>1]:0};
 const PROF={
 tri:{name:"Triatlón",end:["Natación","Ciclismo","Carrera"],ef:["Carrera","Ciclismo"],tip:"En triatlón, con tres disciplinas sumando fatiga, la mayor parte del volumen debería ser suave para poder asimilar las sesiones clave."},
@@ -433,7 +461,7 @@ $("#demo").addEventListener("click",()=>{$("#fname").textContent="Datos de ejemp
 $("#kg").addEventListener("change",()=>{if(lastText)run(lastText)});
 
 /* ===== Pestañas del laboratorio ===== */
-const TABS=["informe","predictor","zonas","nutricion"];
+const TABS=["informe","predictor","zonas","nutricion","cuenta"];
 function showPanel(k,focus){if(!TABS.includes(k))k="informe";
 TABS.forEach(t=>{const on=t==k;$("#t-"+t).setAttribute("aria-selected",String(on));$("#p-"+t).hidden=!on});
 $("#out").hidden=k!="informe"||!lastText;
@@ -489,8 +517,32 @@ $("#ne").innerHTML=H[1]?`<b>Cada 20 minutos:</b> ${Math.round(H[0]/3)}–${Math.
 $("#nd").addEventListener("input",nutri);chips("#nc",nutri);
 
 setPredRange(2700);pred();zones();nutri();
+/* ===== Cuenta atrás ===== */
+const CDK={corta:{n:"5K–10K",t:1,s:4,b:6},media:{n:"media maratón",t:2,s:5,b:7},maraton:{n:"maratón",t:3,s:6,b:8},h70:{n:"medio Ironman",t:2,s:6,b:8},im:{n:"Ironman",t:3,s:8,b:10}};
+const PH=[["BASE","Volumen suave y constancia: construye el motor aeróbico y la fuerza. La intensidad, con moderación."],["DESARROLLO","Sube la carga poco a poco, sin saltos de más del 10 % por semana, e introduce trabajo de umbral."],["ESPECÍFICO","Entrena a ritmo de carrera y prueba tu nutrición y tu material en las sesiones largas."],["PUESTA A PUNTO","Baja el volumen entre un 30 y un 50 % y mantén algo de intensidad corta. Duerme mucho."],["SEMANA DE CARRERA","Nada nuevo: sesiones cortas, buena hidratación y tu plan de carrera claro."]];
+const store={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+function cdInit(){const sv=store.get("endurace-carrera");const d=new Date();d.setDate(d.getDate()+84);
+$("#cn").value=sv&&sv.n||"";$("#cd").value=sv&&sv.d||d.toISOString().slice(0,10);
+const k=sv&&CDK[sv.k]?sv.k:"maraton";$("#ck").querySelectorAll("button").forEach(b=>b.setAttribute("aria-checked",String(b.dataset.k==k)));cdRender(false)}
+function cdRender(save=true){const k=chosen("#ck").dataset.k,c=CDK[k],name=$("#cn").value.trim(),ds=$("#cd").value;
+if(save)store.set("endurace-carrera",{n:name,d:ds,k});
+if(!ds){$("#co").innerHTML='<p class="ctl-help">Elige la fecha de tu carrera.</p>';return}
+const today=new Date();today.setHours(0,0,0,0);const race=new Date(ds+"T00:00:00"),days=Math.round((race-today)/864e5),wk=days/7;
+const title=esc(name||("Tu "+c.n));
+if(days<0){$("#co").innerHTML=`<div class="cd-big"><span class="rk">${title.toUpperCase()}</span><b>¡HECHO!</b><span class="rs">Fue hace ${-days} días.</span></div><p class="every"><b>¿Qué tal fue?</b> Si quieres preparar la siguiente, <a href="inscripcion.html">hablemos</a>.</p>`;return}
+const ph=days<=7?4:wk<=c.t?3:wk<=c.t+c.s?2:wk<=c.t+c.s+c.b?1:0;
+const tot=Math.max(wk,c.t+c.s+c.b+4),seg=[tot-(c.t+c.s+c.b),c.b,c.s,c.t],pos=Math.max(0,Math.min(100,(1-wk/tot)*100));
+const W=Math.floor(days/7),D=days%7;
+$("#co").innerHTML=`<div class="cd-big"><span class="rk">${title.toUpperCase()} · ${race.toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"})}</span>
+<b>${days===0?"¡HOY!":W?`${W}<small> sem</small>${D?` ${D}<small> d</small>`:""}`:`${D}<small> días</small>`}</b><span class="rs">${days===0?"Disfruta de tu carrera.":`Faltan ${days} días para la salida.`}</span></div>
+<div class="cd-line" aria-hidden="true">${seg.map((w,i)=>`<span class="ph${i}${i===Math.min(ph,3)?" on":""}" style="flex:${Math.max(w,.4)}"><em>${PH[i][0]}</em></span>`).join("")}<i style="left:${pos}%"></i></div>
+<p class="every"><b>Ahora toca: ${PH[ph][0].toLowerCase()}.</b> ${PH[ph][1]}</p>`}
+$("#cn").addEventListener("input",()=>cdRender());$("#cd").addEventListener("input",()=>cdRender());chips("#ck",()=>cdRender());
+cdInit();
+
 showPanel(location.hash.slice(1));
 </script>
   <script src="temporada.js?v=1"></script>
+  <script src="fx.js" defer></script>
 </body>
 </html>

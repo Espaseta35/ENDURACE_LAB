@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>¿Qué plan es para ti? | ENDURACE LAB</title>
+  <meta name="description" content="Responde 5 preguntas en 60 segundos y descubre qué plan de entrenamiento de ENDURACE LAB encaja contigo.">
+  <link rel="canonical" href="https://www.endurace-lab.com/test.html">
+  <meta property="og:title" content="¿Qué plan es para ti? | ENDURACE LAB">
+  <meta property="og:description" content="5 preguntas, 60 segundos: descubre el plan que encaja con tu objetivo y tu semana.">
+  <meta property="og:image" content="https://www.endurace-lab.com/og-image.jpg">
+  <meta name="theme-color" content="#090b0e">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=4">
+  <style>
+    .quiz{min-height:calc(100vh - 78px);display:flex;flex-direction:column;padding:56px 0 70px;background:radial-gradient(circle at 90% 0%,rgba(255,107,44,.18),transparent 45%)}
+    .quiz .container{max-width:860px}
+    .q-top{display:flex;align-items:center;gap:18px;margin-bottom:46px}
+    .q-prog{flex:1;height:3px;background:#262b31;overflow:hidden}
+    .q-prog i{display:block;height:100%;width:0;background:var(--orange);transition:width .4s cubic-bezier(.2,.8,.2,1)}
+    .q-count{font:700 1rem var(--font-head);letter-spacing:.1em;color:var(--muted);min-width:3.5em;text-align:right}
+    .q-back{background:none;border:0;color:var(--muted);font:600 .88rem var(--font-body);cursor:pointer;padding:6px 0}
+    .q-back:hover{color:var(--orange)}.q-back[hidden]{display:none}
+    .q-step{animation:qin .45s cubic-bezier(.2,.8,.2,1) both}
+    @keyframes qin{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+    .q-step h1,.q-step h2{font-size:clamp(2.6rem,6vw,4.4rem);margin-bottom:12px}
+    .q-sub{color:var(--muted);margin:0 0 32px;max-width:560px}
+    .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .q-opt{display:flex;flex-direction:column;gap:6px;text-align:left;padding:22px 22px 20px;background:#101419;border:1px solid #3a4148;color:var(--white);font:inherit;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}
+    .q-opt:hover{border-color:var(--orange);background:#191512;transform:translateY(-2px)}
+    .q-opt:focus-visible{outline:2px solid var(--white);outline-offset:3px}
+    .q-opt[aria-pressed="true"]{border-color:var(--orange);background:#191512;box-shadow:inset 0 0 0 1px var(--orange)}
+    .q-opt i{font-style:normal;font-size:.64rem;font-weight:700;letter-spacing:.16em;color:var(--orange)}
+    .q-opt b{font:700 1.55rem/1.05 var(--font-head);text-transform:uppercase}
+    .q-opt small{font-size:.82rem;color:var(--muted)}
+    .res{border:1px solid var(--orange);background:linear-gradient(140deg,#1d1511,#101419 55%);padding:34px;box-shadow:0 30px 90px -40px rgba(255,107,44,.5)}
+    .res .plan-kicker{margin-bottom:10px}
+    .res h2{font-size:clamp(3.4rem,8vw,5.6rem)}
+    .res .price{margin:14px 0 18px}
+    .res ul{list-style:none;padding:0;margin:0 0 28px}
+    .res li{padding:10px 0 10px 24px;border-bottom:1px solid rgba(255,255,255,.08);position:relative;color:#d1d4d6;font-size:.92rem}
+    .res li:before{content:"+";position:absolute;left:0;color:var(--orange);font-weight:700}
+    .res-actions{display:flex;flex-wrap:wrap;align-items:center;gap:22px}
+    .res-alt{margin:26px 0 0;font-size:.86rem;color:var(--muted)}
+    .res-alt a{color:var(--white)}.res-alt a:hover{color:var(--orange)}
+    .quiz [tabindex="-1"]:focus{outline:none}
+    @media(max-width:650px){.quiz{padding-top:34px}.q-opts{grid-template-columns:1fr}.q-opt{padding:18px}.res{padding:24px}}
+    @media(prefers-reduced-motion:reduce){.q-step{animation:none}.q-opt{transition:none}.q-opt:hover{transform:none}}
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a class="brand" href="index.html" aria-label="ENDURACE LAB, inicio"><img src="logo.svg" alt="" width="46" height="46"><span>ENDURACE<span class="orange">_LAB</span></span></a>
+    <a class="back-link" href="index.html#planes">Ver todos los planes →</a>
+  </div></header>
+  <main class="quiz">
+    <div class="container">
+      <div class="q-top"><button class="q-back" id="back" type="button" hidden>← Atrás</button><div class="q-prog" aria-hidden="true"><i id="bar"></i></div><span class="q-count" id="count" aria-live="polite"></span></div>
+      <div id="stage"></div>
+    </div>
+  </main>
+  <script>
+    const Q = [
+      {id: 'deporte', t: '¿CUÁL ES<br><span class="orange">TU DEPORTE?</span>', s: 'Elige el que quieres preparar.', o: [
+        ['tri', 'SWIM / BIKE / RUN', 'Triatlón', 'Natación, ciclismo y carrera'], ['run', 'RUN', 'Running', 'Del 5K al maratón y trail'],
+        ['bike', 'BIKE', 'Ciclismo', 'Carretera, MTB o rodillo'], ['otro', 'ENDURANCE', 'Otro deporte', 'Remo, esquí de fondo…']]},
+      {id: 'objetivo', t: '¿QUÉ QUIERES<br><span class="orange">CONSEGUIR?</span>', s: 'Tu objetivo principal para los próximos meses.', o: [
+        ['empezar', '01', 'Mi primera prueba', 'Terminarla con buenas sensaciones'], ['marca', '02', 'Bajar mi marca', 'Ser más rápido en mi distancia'],
+        ['prueba', '03', 'Una prueba concreta', 'Ya tengo fecha en menos de 4 meses'], ['forma', '04', 'Estar en forma', 'Entrenar con estructura, sin carrera a la vista']]},
+      {id: 'horas', t: '¿CUÁNTAS HORAS<br><span class="orange">TIENES A LA SEMANA?</span>', s: 'Sé realista: el plan se adapta a tu semana, no al revés.', o: [
+        ['h1', 'MENOS DE 4 H', 'Poco tiempo', 'Cada sesión tiene que contar'], ['h2', '4 – 7 H', 'Lo justo', 'Equilibrio con trabajo y familia'],
+        ['h3', '7 – 10 H', 'Bastante', 'Hay margen para progresar'], ['h4', 'MÁS DE 10 H', 'Mucho', 'Larga distancia a la vista']]},
+      {id: 'nivel', t: '¿CUÁL ES TU<br><span class="orange">EXPERIENCIA?</span>', s: 'En tu deporte principal.', o: [
+        ['n1', '01', 'Estoy empezando', 'Menos de un año entrenando'], ['n2', '02', 'Llevo un tiempo', 'Entre 1 y 3 años'],
+        ['n3', '03', 'Compito a menudo', 'Más de 3 años y varias pruebas'], ['n4', '04', 'Vengo de otro deporte', 'Tengo base, pero no en este']]},
+      {id: 'seguimiento', t: '¿CUÁNTO<br><span class="orange">ACOMPAÑAMIENTO?</span>', s: 'Esto es lo que más decide tu plan.', o: [
+        ['s1', 'AUTÓNOMO', 'Un buen plan', 'Con una revisión al mes me basta'], ['s2', 'DATOS', 'Ajustes semanales', 'Quiero que el plan se adapte a mis datos'],
+        ['s3', '1 A 1', 'Contacto directo', 'Seguimiento cercano y videollamadas'], ['s4', 'PUNTUAL', 'Solo para una prueba', 'Un plan cerrado, sin suscripción']]}
+    ];
+    const PLANS = {
+      esencial: {k: 'PARA EMPEZAR', n: 'ESENCIAL', p: '39 €', u: '/ mes'},
+      pro: {k: 'SEGUIMIENTO CONTINUO', n: 'PRO', p: '69 €', u: '/ mes'},
+      premium: {k: 'SEGUIMIENTO 1 A 1', n: 'PREMIUM', p: '109 €', u: '/ mes'},
+      carrera: {k: 'PAGO ÚNICO · 12 SEMANAS', n: 'PLAN DE CARRERA', p: '129 €', u: 'una vez'}
+    };
+    const DEP = {tri: 'triatlón', run: 'running', bike: 'ciclismo', otro: 'tu deporte'};
+    const A = {}; let i = 0;
+    const $ = id => document.getElementById(id);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function recommend() {
+      const s = A.seguimiento, why = [];
+      let plan = s === 's1' ? 'esencial' : s === 's2' ? 'pro' : s === 's3' ? 'premium' : 'carrera';
+      if (s === 's4' && A.objetivo === 'forma') plan = 'esencial';
+      if (s === 's1' && A.objetivo === 'prueba') { plan = 'carrera'; }
+      if (s === 's3' && A.horas === 'h1' && A.nivel === 'n1') plan = 'pro';
+      why.push(`Planificación de ${DEP[A.deporte]} en tu calendario de TrainingPeaks.`);
+      why.push({h1: 'Sesiones cortas y eficaces, pensadas para menos de 4 horas a la semana.', h2: 'Un plan que encaja en 4 a 7 horas sin robarle tiempo a tu vida.', h3: 'Con 7 a 10 horas hay margen para progresar de verdad: lo aprovecharemos.', h4: 'Con más de 10 horas, la clave es repartir bien la carga y recuperar.'}[A.horas]);
+      why.push({empezar: 'Prioridad: llegar a tu primera prueba sano, con confianza y disfrutándola.', marca: 'Ritmos y zonas calculados con tus datos para atacar tu marca.', prueba: 'Todo orientado a tu fecha: bloques, puesta a punto y estrategia de carrera.', forma: 'Estructura y progresión para que cada semana sume.'}[A.objetivo]);
+      why.push({esencial: 'Revisión mensual: ideal si eres autónomo y constante.', pro: 'Ajuste semanal según tus datos y tus sensaciones.', premium: 'Contacto directo, revisión semanal 1 a 1 y videollamadas.', carrera: 'Un plan cerrado de 12 semanas, sin suscripción.'}[plan]);
+      return {plan, why};
+    }
+    function render() {
+      $('back').hidden = i === 0;
+      $('bar').style.width = (Math.min(i, Q.length) / Q.length * 100) + '%';
+      if (i >= Q.length) return result();
+      const q = Q[i];
+      $('count').textContent = `${i + 1} / ${Q.length}`;
+      $('stage').innerHTML = `<div class="q-step"><p class="eyebrow">TEST · 60 SEGUNDOS</p><${i ? 'h2' : 'h1'}>${q.t}</${i ? 'h2' : 'h1'}><p class="q-sub">${q.s}</p><div class="q-opts" role="group" aria-label="Opciones">${q.o.map(o => `<button type="button" class="q-opt" data-v="${o[0]}" aria-pressed="${A[q.id] === o[0]}"><i>${o[1]}</i><b>${o[2]}</b><small>${o[3]}</small></button>`).join('')}</div></div>`;
+      $('stage').querySelectorAll('.q-opt').forEach(b => b.addEventListener('click', () => {
+        A[q.id] = b.dataset.v; b.setAttribute('aria-pressed', 'true');
+        setTimeout(() => { i++; render(); focusStep(); }, reduce ? 0 : 180);
+      }));
+    }
+    function focusStep() { const h = $('stage').querySelector('h1,h2'); if (h) { h.tabIndex = -1; h.focus({preventScroll: true}); } window.scrollTo({top: 0, behavior: reduce ? 'auto' : 'smooth'}); }
+    function result() {
+      const {plan, why} = recommend(), P = PLANS[plan];
+      $('count').textContent = 'LISTO';
+      const q = `inscripcion.html?plan=${plan}&deporte=${A.deporte}`;
+      $('stage').innerHTML = `<div class="q-step"><p class="eyebrow">TU RESULTADO</p><div class="res"><p class="plan-kicker">${P.k}</p><h2 tabindex="-1">${P.n}</h2><p class="price">${P.p}<small>${P.u}</small></p><ul>${why.map(w => `<li>${w}</li>`).join('')}</ul><div class="res-actions"><a class="button button-orange" href="${q}">Quiero este plan <span>↗</span></a><a class="text-link" href="index.html#planes">Comparar todos los planes <span>↗</span></a></div></div><p class="res-alt">Enviar la solicitud no te compromete a nada: primero valoro si el plan encaja contigo. ¿Prefieres probar antes? <a href="laboratorio.html">Analiza tus datos gratis</a>.</p></div>`;
+    }
+    $('back').addEventListener('click', () => { if (i > 0) { i--; render(); focusStep(); } });
+    const d = new URLSearchParams(location.search).get('deporte');
+    if (d && DEP[d]) { A.deporte = d; i = 1; }
+    render();
+  </script>
+  <script src="fx.js" defer></script>
+</body>
+</html>
