@@ -1,5 +1,6 @@
 const MAX_BODY = 20000;
 const CONSENT_VERSION = "2026-11-27";
+const DEPORTES = { tri: "Triatlón", run: "Running", bike: "Ciclismo", otro: "Otro deporte" };
 
 const clean = (v, max) =>
   String(v ?? "").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "").trim().slice(0, max);
@@ -48,6 +49,7 @@ async function contact(req, env, c) {
     nombre: clean(b.nombre, 120),
     email: clean(b.email, 254).toLowerCase(),
     telefono: clean(b.telefono, 40),
+    deporte: ["tri", "run", "bike", "otro"].includes(b.deporte) ? b.deporte : "",
     plan: clean(b.plan, 40),
     periodo: clean(b.periodo, 20),
     trainingpeaks: clean(b.trainingpeaks, 80),
@@ -78,11 +80,11 @@ async function contact(req, env, c) {
   const now = new Date().toISOString();
   await env.DB.prepare(
     `INSERT INTO leads (id, created_at, ip_hash, nombre, email, telefono, plan, periodo, trainingpeaks, nivel,
-       disciplinas, prueba, horas, dispositivo, mensaje, consent_version, consent_at)
-     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17)`
+       disciplinas, prueba, horas, dispositivo, mensaje, consent_version, consent_at, deporte)
+     VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17,?18)`
   )
     .bind(id, now, ipHash, d.nombre, d.email, d.telefono, d.plan, d.periodo, d.trainingpeaks, d.nivel,
-      d.disciplinas, d.prueba, d.horas, d.dispositivo, d.mensaje, CONSENT_VERSION, now)
+      d.disciplinas, d.prueba, d.horas, d.dispositivo, d.mensaje, CONSENT_VERSION, now, d.deporte)
     .run();
 
   // El aviso por correo es secundario: la solicitud ya está guardada aunque falle.
@@ -90,11 +92,12 @@ async function contact(req, env, c) {
     await env.EMAIL.send({
       to: env.NOTIFY_TO,
       from: env.MAIL_FROM,
-      subject: `Nueva solicitud: plan ${d.plan}`,
+      subject: `Nueva solicitud: plan ${d.plan}${d.deporte ? ` (${DEPORTES[d.deporte]})` : ""}`,
       text: [
         `Nombre: ${d.nombre}`,
         `Email: ${d.email}`,
         `Teléfono: ${d.telefono || "-"}`,
+        `Deporte: ${DEPORTES[d.deporte] || "-"}`,
         `Plan: ${d.plan} (${d.periodo || "-"})`,
         `TrainingPeaks: ${d.trainingpeaks || "-"}`,
         `Experiencia: ${d.nivel || "-"}`,

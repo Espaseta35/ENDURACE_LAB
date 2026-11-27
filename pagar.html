@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confirmar plan | ENDURACE LAB</title>
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#090b0e">
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=3">
+  <style>
+    .pay-card{background:#11151a;border:1px solid var(--orange);padding:32px}
+    .pay-card h2{font-size:3rem}
+    .pay-card .price{margin:16px 0 6px}
+    .pay-card ul{list-style:none;padding:0;margin:22px 0}
+    .pay-card li{font-size:.9rem;color:#d1d4d6;padding:9px 0 9px 22px;border-bottom:1px solid rgba(255,255,255,.08);position:relative}
+    .pay-card li:before{content:"+";position:absolute;left:0;color:var(--orange);font-weight:700}
+    .pay-checks{display:grid;gap:14px;margin:24px 0}
+    .pay-checks label{display:flex;gap:12px;align-items:start;font-size:.84rem;line-height:1.5;color:#c9ced2;cursor:pointer}
+    .pay-checks input{margin-top:4px;accent-color:var(--orange);flex:none;width:17px;height:17px}
+    .pay-checks a{color:var(--orange)}
+    .pay-btn{width:100%}
+    .pay-btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+    .pay-off{border-left:2px solid var(--orange);background:#0c0f12;padding:16px 20px;color:#d0d3d5;font-size:.92rem;margin-top:20px}
+    .pay-off a{color:var(--orange)}
+    .pay-secure{font-size:.75rem;color:#899198;margin:14px 0 0;text-align:center}
+  </style>
+</head>
+<body class="form-page">
+  <header class="site-header"><div class="container nav">
+    <a class="brand" href="index.html"><img src="logo.svg" alt="" width="46" height="46"><span>ENDURACE<span class="orange">_LAB</span></span></a>
+    <a class="back-link" href="index.html#planes">← Ver todos los planes</a>
+  </div></header>
+  <main class="container form-layout">
+    <div class="form-intro">
+      <p class="eyebrow">ÚLTIMO PASO</p>
+      <h1>CONFIRMA<br><span class="orange">TU PLAN.</span></h1>
+      <p>Revisa el plan acordado, acepta las condiciones y completa el pago de forma segura con Stripe. En cuanto se confirme, recibirás la invitación a TrainingPeaks y tu primer bloque en un máximo de 5 días laborables.</p>
+      <div class="form-aside"><strong>SIN LETRA PEQUEÑA</strong><p>Los planes mensuales no tienen permanencia: puedes cancelar cuando quieras desde el portal de cliente y la suscripción deja de renovarse al final del periodo pagado.</p></div>
+    </div>
+    <div>
+      <div class="pay-card" id="card">
+        <p class="plan-kicker" id="kicker">PLAN</p>
+        <h2 id="name">—</h2>
+        <p class="price"><span id="amount">—</span><small id="unit"></small></p>
+        <p class="price-sub" id="sub"></p>
+        <ul id="incl"></ul>
+        <div id="pay-zone">
+          <div class="pay-checks">
+            <label><input type="checkbox" id="c1"><span>He leído y acepto las <a href="condiciones.html" target="_blank">condiciones de contratación</a> y la <a href="privacidad.html" target="_blank">política de privacidad</a>.</span></label>
+            <label><input type="checkbox" id="c2"><span>Solicito que el servicio empiece antes de que terminen los 14 días del derecho de desistimiento. Entiendo que, si desisto, pagaré la parte proporcional del servicio ya prestado.</span></label>
+          </div>
+          <a class="button button-orange pay-btn" id="pay" href="#" aria-disabled="true">Ir al pago seguro <span>↗</span></a>
+          <p class="pay-secure">Pago con tarjeta, Apple Pay o Google Pay procesado por Stripe. ENDURACE LAB no ve ni guarda los datos de tu tarjeta.</p>
+        </div>
+        <div class="pay-off" id="pay-off" hidden></div>
+      </div>
+    </div>
+  </main>
+  <footer class="footer"><div class="container footer-bottom"><p>© ENDURACE LAB · <a href="index.html">Inicio</a> · <a href="condiciones.html">Condiciones de contratación</a> · <a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a></p></div></footer>
+  <script src="pagos.js"></script>
+  <script>
+    const PLANS = {
+      esencial: {name: 'Esencial', kicker: 'PARA EMPEZAR', p: {mensual: 39, trimestral: 105, semestral: 199},
+        incl: ['Plan semanal en TrainingPeaks', 'Valoración inicial por cuestionario', 'Revisión y ajuste al final de cada mes', 'Soporte por email (respuesta en 48 h)']},
+      pro: {name: 'Pro', kicker: 'SEGUIMIENTO CONTINUO', p: {mensual: 69, trimestral: 186, semestral: 352},
+        incl: ['Todo lo incluido en Esencial', 'Ajuste semanal según tu evolución y tus datos', 'Análisis de carga, ritmos y frecuencia cardiaca', 'Soporte por mensajes (respuesta en 24 h laborables)', 'Requiere cuenta Premium de TrainingPeaks, que se contrata aparte']},
+      premium: {name: 'Premium', kicker: 'SEGUIMIENTO 1 A 1', p: {mensual: 109, trimestral: 294, semestral: 556},
+        incl: ['Todo lo incluido en Pro', 'Cuenta Premium de TrainingPeaks incluida', 'Revisión semanal personalizada', 'WhatsApp directo con respuesta prioritaria', '2 videollamadas al mes', 'Estrategia de carrera para tu prueba objetivo']},
+      carrera: {name: 'Plan de carrera', kicker: 'PAGO ÚNICO · 12 SEMANAS', p: {unico: 129},
+        incl: ['Plan cerrado de 12 semanas hacia tu prueba', 'Entregado en TrainingPeaks', 'Un ajuste a mitad del plan', 'Revisión de la semana de competición']},
+      sesion: {name: 'Videollamada', kicker: 'SESIÓN INDIVIDUAL · 45 MIN', p: {unico: 30},
+        incl: ['45 minutos por videollamada', 'Dudas puntuales o revisión de tu planificación actual']}
+    };
+    const UNIT = {mensual: ' / mes', trimestral: ' / trimestre', semestral: ' / semestre', unico: ''};
+    const SUB = {mensual: 'Se renueva cada mes. Sin permanencia.', trimestral: 'Pago trimestral por adelantado (-10 %). Se renueva cada 3 meses.', semestral: 'Pago semestral por adelantado (-15 %). Se renueva cada 6 meses.', unico: 'Pago único. No se renueva.'};
+    const q = new URLSearchParams(location.search);
+    const key = PLANS[q.get('plan')] ? q.get('plan') : 'pro', plan = PLANS[key];
+    const per = plan.p.unico ? 'unico' : (plan.p[q.get('periodo')] ? q.get('periodo') : 'mensual');
+    const $ = id => document.getElementById(id);
+    $('kicker').textContent = plan.kicker;
+    $('name').textContent = plan.name;
+    $('amount').textContent = plan.p[per].toLocaleString('es-ES') + ' €';
+    $('unit').textContent = UNIT[per];
+    $('sub').textContent = SUB[per];
+    $('incl').innerHTML = plan.incl.map(t => `<li>${t}</li>`).join('');
+    document.title = `${plan.name} | Confirmar plan | ENDURACE LAB`;
+
+    const P = window.ENDURACE_PAGOS || {}, link = P.activo && P.enlaces && P.enlaces[per === 'unico' ? key : `${key}-${per}`];
+    if (!link) {
+      $('pay-zone').hidden = true;
+      $('pay-off').hidden = false;
+      $('pay-off').innerHTML = 'Los pagos online todavía no están disponibles. Si quieres empezar con este plan, <a href="inscripcion.html?plan=' + key + (per !== 'unico' ? '&periodo=' + per : '') + '">envíame una solicitud</a> y te contestaré con los siguientes pasos.';
+    } else {
+      const url = new URL(link), email = q.get('email');
+      if (email) url.searchParams.set('prefilled_email', email);
+      const sync = () => {
+        const ok = $('c1').checked && $('c2').checked;
+        $('pay').setAttribute('aria-disabled', String(!ok));
+        $('pay').href = ok ? url.toString() : '#';
+      };
+      $('c1').addEventListener('change', sync);
+      $('c2').addEventListener('change', sync);
+      $('pay').addEventListener('click', e => { if ($('pay').getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+    }
+  </script>
+</body>
+</html>
