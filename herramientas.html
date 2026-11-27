@@ -2,116 +2,13 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Herramientas | ENDURACE LAB</title>
-  <meta name="description" content="Predictor de tiempos de carrera, zonas de entrenamiento y estrategia de nutrición en carrera. Calculadoras gratuitas que funcionan en tu navegador.">
-  <link rel="canonical" href="https://www.endurace-lab.com/herramientas.html">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="ENDURACE LAB">
-  <meta property="og:locale" content="es_ES">
-  <meta property="og:title" content="Herramientas | ENDURACE LAB">
-  <meta property="og:description" content="Predictor de tiempos de carrera, zonas de entrenamiento y estrategia de nutrición en carrera. Calculadoras gratuitas que funcionan en tu navegador.">
-  <meta property="og:url" content="https://www.endurace-lab.com/herramientas.html">
-  <meta property="og:image" content="https://www.endurace-lab.com/og-image.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#090b0e">
-  <link rel="icon" type="image/svg+xml" href="logo.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=3">
-  <link rel="stylesheet" href="lab.css?v=3">
+  <title>Calculadoras | ENDURACE LAB</title>
+  <meta name="robots" content="noindex,follow">
+  <link rel="canonical" href="https://www.endurace-lab.com/laboratorio.html#predictor">
+  <meta http-equiv="refresh" content="0; url=laboratorio.html#predictor">
+  <script>location.replace("laboratorio.html#predictor")</script>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container nav">
-      <a class="brand" href="index.html" aria-label="ENDURACE LAB, inicio">
-        <img src="logo.svg" alt="" width="46" height="46">
-        <span>ENDURACE<span class="orange">_LAB</span></span>
-      </a>
-      <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
-      <nav class="main-nav" aria-label="Navegación principal">
-        <a href="index.html#metodo">Método</a><a href="index.html#servicios">Servicios</a><a href="running.html">Running</a><a href="index.html#sobre-mi">Sobre mí</a><a href="index.html#faq">FAQ</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a>
-        <a class="nav-cta" href="inscripcion.html">Hablemos <span>↗</span></a>
-      </nav>
-    </div>
-  </header>
-
-  
-  <main>
-    <section class="section section-dark"><div class="container lab">
-<p class="eyebrow">HERRAMIENTAS</p>
-<h1>CALCULADORAS DEL <span class="orange">LABORATORIO</span></h1>
-<p>Tres herramientas rápidas para planificar y prepararte. Funcionan en tu navegador y no guardamos ningún dato. Son estimaciones: tus sensaciones y tu historial siempre tienen la última palabra.</p>
-
-<section class="tool"><h2>1. Predictor de tiempos</h2>
-<p>Introduce una marca reciente en carrera a pie y estima tus tiempos en otras distancias con la fórmula de Riegel.</p>
-<div class="row"><label>Distancia de tu marca<select id="pd"><option value="5">5 km</option><option value="10" selected>10 km</option><option value="21.0975">Media maratón</option><option value="42.195">Maratón</option></select></label>
-<label>Tiempo (m:ss o h:mm:ss)<input id="pt" type="text" inputmode="numeric" placeholder="45:00"></label></div>
-<div class="scroll"><table id="pr"></table></div>
-<p class="mute" id="pn"></p></section>
-
-<section class="tool"><h2>2. Zonas de entrenamiento</h2>
-<p>Rellena lo que conozcas y obtendrás tus zonas de frecuencia cardiaca, ritmo en carrera y potencia en bici.</p>
-<div class="row"><label>FC máxima (ppm)<input id="fm" type="number" min="120" max="230" placeholder="190"></label>
-<label>FC en reposo (ppm)<input id="fr" type="number" min="30" max="100" placeholder="52"></label>
-<label>Ritmo umbral carrera (m:ss/km)<input id="rt" type="text" inputmode="numeric" placeholder="4:25"></label>
-<label>FTP en bici (W)<input id="ftp" type="number" min="50" max="600" placeholder="220"></label></div>
-<div class="scroll"><table id="zh"></table></div>
-<div class="scroll"><table id="zr"></table></div>
-<div class="scroll"><table id="zb"></table></div>
-<p class="mute">Las zonas de frecuencia cardiaca usan el método de la reserva (Karvonen), las de ritmo se calculan a partir de tu ritmo umbral y las de potencia siguen el modelo clásico sobre el FTP. Lo ideal es medir tus valores con un test.</p></section>
-
-<section class="tool"><h2>3. Estrategia de nutrición en carrera</h2>
-<p>Orientación general de hidratos, líquido y sodio según la duración de la prueba y el calor.</p>
-<div class="row"><label>Duración prevista (horas)<input id="nd" type="number" min="0.5" max="20" step="0.25" placeholder="5"></label>
-<label>Temperatura<select id="nc"><option value="0">Fresco</option><option value="1" selected>Templado</option><option value="2">Caluroso</option></select></label></div>
-<div class="scroll"><table id="nt"></table></div>
-<p class="mute">Son pautas deportivas generales y no sustituyen a un dietista-nutricionista. Prueba siempre tu estrategia en entrenamientos largos antes del día de la carrera, sobre todo si tomas más de 60 g de hidratos por hora.</p></section>
-
-<div class="cta"><h3 style="margin:0 0 .5rem">¿Quieres un plan que use todo esto?</h3>
-<p style="margin-top:0">Lo llevamos a tu calendario de TrainingPeaks, semana a semana.</p>
-<a class="button button-orange" href="inscripcion.html">Ver planes e inscribirme ↗</a></div>
-    </div></section>
-  </main>
-
-
-  <footer class="footer">
-    <div class="container footer-top">
-      <a class="brand" href="index.html"><img src="logo.svg" alt="" width="40" height="40"><span>ENDURACE<span class="orange">_LAB</span></span></a>
-      <div class="footer-links"><a href="index.html#metodo">Método</a><a href="index.html#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="running.html">Running</a><a href="mailto:espasa35@gmail.com">Contacto</a></div>
-    </div>
-    <div class="container footer-bottom">
-      <p>© <span id="year"></span> ENDURACE LAB. Todos los derechos reservados.</p>
-      <p>El entrenamiento físico conlleva riesgos. La información de esta web no sustituye una valoración médica, fisioterapéutica ni nutricional. Consulta con profesionales sanitarios cuando corresponda.</p>
-      <p><a href="privacidad.html">Privacidad</a> · <a href="aviso-legal.html">Aviso legal</a> · <a href="condiciones.html">Condiciones de contratación</a></p>
-    </div>
-  </footer>
-    <script>
-document.getElementById("year").textContent=new Date().getFullYear();
-const tg=document.querySelector(".menu-toggle"),nv=document.querySelector(".main-nav");
-tg.addEventListener("click",()=>{const o=tg.getAttribute("aria-expanded")==="true";tg.setAttribute("aria-expanded",String(!o));nv.classList.toggle("open",!o)});
-const $=s=>document.querySelector(s);
-const ps=s=>{const p=String(s).trim().split(":").map(Number);return p.length&&p.every(x=>!isNaN(x))&&String(s).trim()?p.reduce((a,v)=>a*60+v,0):0};
-const ft=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0")};
-const row=(t,c)=>"<tr>"+c.map(x=>"<"+t+">"+x+"</"+t+">").join("")+"</tr>";
-function pred(){const d=+$("#pd").value,t=ps($("#pt").value);
-if(!t){$("#pr").innerHTML="";$("#pn").textContent="";return}
-$("#pr").innerHTML=row("th",["Distancia","Tiempo estimado","Ritmo"])+[[5,"5 km"],[10,"10 km"],[21.0975,"Media maratón"],[42.195,"Maratón"]].map(([k,n])=>{const T=t*Math.pow(k/d,1.06);return row("td",[n+(k==d?" (tu marca)":""),ft(T),ft(T/k)+" /km"])}).join("");
-$("#pn").textContent="La estimación suele ser más optimista en maratón si tu volumen semanal es bajo."}
-function zones(){const fm=+$("#fm").value,fr=+$("#fr").value,rt=ps($("#rt").value),f=+$("#ftp").value;
-$("#zh").innerHTML=fm>fr&&fr>0?row("th",["Zona FC","Intensidad (reserva)","Pulsaciones"])+[[50,60,"Z1 Recuperación"],[60,70,"Z2 Aeróbica"],[70,80,"Z3 Tempo"],[80,90,"Z4 Umbral"],[90,100,"Z5 Máxima"]].map(z=>row("td",[z[2],z[0]+"–"+z[1]+" %",Math.round(fr+z[0]/100*(fm-fr))+"–"+Math.round(fr+z[1]/100*(fm-fr))])).join(""):"";
-$("#zr").innerHTML=rt?row("th",["Zona ritmo","Ritmo por km"])+[["Z1 Recuperación","más lento de "+ft(rt*1.29)],["Z2 Aeróbica",ft(rt*1.14)+" – "+ft(rt*1.29)],["Z3 Tempo",ft(rt*1.06)+" – "+ft(rt*1.13)],["Z4 Umbral",ft(rt)+" – "+ft(rt*1.05)],["Z5 Intensa","más rápido de "+ft(rt)]].map(z=>row("td",z)).join(""):"";
-$("#zb").innerHTML=f?row("th",["Zona potencia","% del FTP","Vatios"])+[[0,55,"Z1 Recuperación"],[56,75,"Z2 Resistencia"],[76,90,"Z3 Tempo"],[91,105,"Z4 Umbral"],[106,120,"Z5 VO2máx"],[121,150,"Z6 Anaeróbica"]].map(z=>row("td",[z[2],z[0]?z[0]+"–"+z[1]+" %":"hasta "+z[1]+" %",(z[0]?Math.round(f*z[0]/100)+"–":"hasta ")+Math.round(f*z[1]/100)+" W"])).join(""):""}
-function nutri(){const d=+$("#nd").value,c=+$("#nc").value;if(!d){$("#nt").innerHTML="";return}
-const h=d<1?[0,30]:d<=2.5?[30,60]:[60,90],l=[[400,500],[500,700],[600,800]][c],na=[300,600];
-const tot=(r,u)=>Math.round(r[0]*d)+"–"+Math.round(r[1]*d)+" "+u;
-$("#nt").innerHTML=row("th",["","Por hora","Total en "+String(d).replace(".",",")+" h"])+row("td",["Hidratos de carbono",h[0]+"–"+h[1]+" g",tot(h,"g")])+row("td",["Líquido",l[0]+"–"+l[1]+" ml",tot(l,"ml")])+row("td",["Sodio",na[0]+"–"+na[1]+" mg",tot(na,"mg")])}
-["pd","pt"].forEach(i=>$("#"+i).addEventListener("input",pred));
-["fm","fr","rt","ftp"].forEach(i=>$("#"+i).addEventListener("input",zones));
-["nd","nc"].forEach(i=>$("#"+i).addEventListener("input",nutri));
-</script>
+<body style="background:#090b0e;color:#f4f4f1;font-family:sans-serif;padding:40px">
+  <p>Las calculadoras ahora están en el <a href="laboratorio.html#predictor" style="color:#ff6b2c">laboratorio</a>.</p>
 </body>
 </html>

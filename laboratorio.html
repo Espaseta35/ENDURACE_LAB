@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Informe de laboratorio | ENDURACE LAB</title>
+  <title>Laboratorio | ENDURACE LAB · Herramientas gratis para deportistas de resistencia</title>
   <meta name="description" content="Informe gratuito de tus entrenamientos de TrainingPeaks: forma y fatiga, distribución de intensidad, eficiencia aeróbica y nutrición. Para triatlón, running y ciclismo. Se procesa en tu navegador.">
   <link rel="canonical" href="https://www.endurace-lab.com/laboratorio.html">
   <meta property="og:type" content="website">
@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=3">
-  <link rel="stylesheet" href="lab.css?v=3">
+  <link rel="stylesheet" href="lab.css?v=4">
 </head>
 <body>
   <header class="site-header">
@@ -33,8 +33,8 @@
       </a>
       <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
       <nav class="main-nav" aria-label="Navegación principal">
-        <a href="index.html#metodo">Método</a><a href="index.html#servicios">Servicios</a><a href="running.html">Running</a><a href="index.html#sobre-mi">Sobre mí</a><a href="index.html#faq">FAQ</a><a href="laboratorio.html" aria-current="page">Laboratorio</a><a href="blog.html">Blog</a>
-        <a class="nav-cta" href="inscripcion.html">Hablemos <span>↗</span></a>
+        <a href="index.html#planes">Planes</a><a href="laboratorio.html" aria-current="page">Laboratorio</a><a href="blog.html">Blog</a><a href="index.html#sobre-mi">Sobre mí</a>
+        <a class="nav-cta" href="inscripcion.html">Empieza <span>↗</span></a>
       </nav>
     </div>
   </header>
@@ -43,51 +43,153 @@
     <section class="section section-dark lab-top"><div class="container">
       <div class="section-heading">
         <p class="eyebrow"><span class="dot"></span> LABORATORIO / GRATIS</p>
-        <h1>TUS DATOS.<br><span class="orange">TU INFORME.</span></h1>
-        <p class="section-intro">Sube tus entrenamientos de TrainingPeaks y descubre tu forma, tu fatiga, cómo repartes la intensidad y si tu motor aeróbico está mejorando. Para triatlón, running, ciclismo y otros deportes de resistencia.</p>
-        <p class="lab-private"><span class="dot"></span>Se procesa en tu navegador. Tus datos no se envían ni se guardan.</p>
+        <h1>TUS DATOS.<br><span class="orange">TU VENTAJA.</span></h1>
+        <p class="section-intro">Cuatro herramientas para entender y preparar tu entrenamiento, en triatlón, running, ciclismo y otros deportes de resistencia. Todo se calcula en tu navegador: no guardamos nada.</p>
       </div>
 
-      <div class="lab-steps">
-        <section class="step" aria-labelledby="s1">
-          <span class="step-n">01</span>
-          <h2 id="s1">Elige tu deporte</h2>
-          <div class="sport-picker" role="radiogroup" aria-label="Deporte principal">
-            <label class="sport"><input type="radio" name="sport" value="auto" checked><span><i>AUTO</i><b>Detectar</b><small>Lo deduzco de tu archivo</small></span></label>
-            <label class="sport"><input type="radio" name="sport" value="tri"><span><i>SWIM / BIKE / RUN</i><b>Triatlón</b><small>Tres disciplinas, un plan</small></span></label>
-            <label class="sport"><input type="radio" name="sport" value="run"><span><i>RUN</i><b>Running</b><small>Del 5K al maratón y trail</small></span></label>
-            <label class="sport"><input type="radio" name="sport" value="bike"><span><i>BIKE</i><b>Ciclismo</b><small>Carretera, MTB y rodillo</small></span></label>
-            <label class="sport"><input type="radio" name="sport" value="otro"><span><i>ENDURANCE</i><b>Otros</b><small>Remo, esquí de fondo, multideporte</small></span></label>
-          </div>
-          <p id="detected" class="detected" aria-live="polite" hidden></p>
-        </section>
-
-        <section class="step" aria-labelledby="s2">
-          <span class="step-n">02</span>
-          <h2 id="s2">Sube tu archivo</h2>
-          <label class="dropzone" id="dz">
-            <input id="file" type="file" accept=".csv,text/csv" class="sr-only">
-            <span class="dz-icon" aria-hidden="true">↑</span>
-            <b id="fname">Arrastra aquí tu CSV o haz clic para elegirlo</b>
-            <small>Resumen de entrenamientos de TrainingPeaks · mejor con 3 a 6 meses</small>
-          </label>
-          <details class="howto"><summary>¿Cómo exporto mis entrenamientos de TrainingPeaks?</summary>
-            <ol><li>Entra en TrainingPeaks desde el ordenador y abre los ajustes de tu cuenta.</li><li>Busca la opción de exportar datos (<em>Export Data</em>) y elige el resumen de entrenamientos (<em>Workout Summary</em>).</li><li>Selecciona las fechas, descarga el archivo CSV y súbelo aquí.</li></ol>
-            <p>Si trae TSS, minutos por zona, pulso, distancia y potencia (vienen por defecto), verás el informe completo.</p>
-          </details>
-        </section>
-
-        <section class="step" aria-labelledby="s3">
-          <span class="step-n">03</span>
-          <h2 id="s3">Afina el informe <small>opcional</small></h2>
-          <div class="step-row">
-            <label class="field">Tu peso en kg, para la nutrición<input id="kg" type="number" min="30" max="200" step="0.5" placeholder="75" inputmode="decimal"></label>
-            <button class="button button-outline" id="demo" type="button">Probar con datos de ejemplo <span class="orange">↗</span></button>
-          </div>
-        </section>
+      <div class="bento" role="tablist" aria-label="Herramientas del laboratorio">
+        <button class="tile tile-big" role="tab" id="t-informe" data-panel="informe" aria-controls="p-informe" aria-selected="true">
+          <span class="tile-top"><span class="tile-n">01</span><span class="tile-go" aria-hidden="true">↗</span></span>
+          <span class="tile-k">SUBE TU CSV DE TRAININGPEAKS</span>
+          <span class="tile-t">Informe de tus datos</span>
+          <span class="tile-d">Forma y fatiga, cómo repartes la intensidad, si tu motor aeróbico mejora y cuánto comer cada día.</span>
+          <svg class="tile-art" viewBox="0 0 300 90" aria-hidden="true"><polyline points="0,70 30,66 60,68 90,58 120,60 150,48 180,50 210,38 240,40 270,26 300,22" fill="none" stroke="currentColor" stroke-width="3"/><polyline points="0,80 30,60 60,74 90,50 120,70 150,40 180,62 210,30 240,55 270,18 300,40" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45"/></svg>
+        </button>
+        <button class="tile" role="tab" id="t-predictor" data-panel="predictor" aria-controls="p-predictor" aria-selected="false">
+          <span class="tile-top"><span class="tile-n">02</span><span class="tile-go" aria-hidden="true">↗</span></span>
+          <span class="tile-k">5K · 10K · MEDIA · MARATÓN</span>
+          <span class="tile-t">Predictor de tiempos</span>
+          <span class="tile-d">¿Cuánto harías en un maratón con tu marca de 10K?</span>
+        </button>
+        <button class="tile" role="tab" id="t-zonas" data-panel="zonas" aria-controls="p-zonas" aria-selected="false">
+          <span class="tile-top"><span class="tile-n">03</span><span class="tile-go" aria-hidden="true">↗</span></span>
+          <span class="tile-k">PULSO · RITMO · POTENCIA</span>
+          <span class="tile-t">Zonas de entrenamiento</span>
+          <span class="tile-d">Tus zonas en segundos, a partir de tus valores.</span>
+        </button>
+        <button class="tile tile-wide" role="tab" id="t-nutricion" data-panel="nutricion" aria-controls="p-nutricion" aria-selected="false">
+          <span class="tile-top"><span class="tile-n">04</span><span class="tile-go" aria-hidden="true">↗</span></span>
+          <span class="tile-k">HIDRATOS · LÍQUIDO · SODIO</span>
+          <span class="tile-t">Nutrición en carrera</span>
+          <span class="tile-d">Qué tomar y cada cuánto, según la duración y el calor.</span>
+        </button>
       </div>
-      <p id="err" role="alert"></p>
-      <p class="lab-more">¿Buscas otra cosa? Prueba las <a href="herramientas.html">calculadoras del laboratorio</a>: predictor de tiempos, zonas de entrenamiento y nutrición en carrera.</p>
+
+      <!-- 01 · INFORME -->
+      <div class="panel" id="p-informe" role="tabpanel" aria-labelledby="t-informe">
+        <div class="lab-steps">
+          <section class="step" aria-labelledby="s1">
+            <span class="step-n">01</span>
+            <h2 id="s1">Elige tu deporte</h2>
+            <div class="sport-picker" role="radiogroup" aria-label="Deporte principal">
+              <label class="sport"><input type="radio" name="sport" value="auto" checked><span><i>AUTO</i><b>Detectar</b><small>Lo deduzco de tu archivo</small></span></label>
+              <label class="sport"><input type="radio" name="sport" value="tri"><span><i>SWIM / BIKE / RUN</i><b>Triatlón</b><small>Tres disciplinas, un plan</small></span></label>
+              <label class="sport"><input type="radio" name="sport" value="run"><span><i>RUN</i><b>Running</b><small>Del 5K al maratón y trail</small></span></label>
+              <label class="sport"><input type="radio" name="sport" value="bike"><span><i>BIKE</i><b>Ciclismo</b><small>Carretera, MTB y rodillo</small></span></label>
+              <label class="sport"><input type="radio" name="sport" value="otro"><span><i>ENDURANCE</i><b>Otros</b><small>Remo, esquí de fondo, multideporte</small></span></label>
+            </div>
+            <p id="detected" class="detected" aria-live="polite" hidden></p>
+          </section>
+
+          <section class="step" aria-labelledby="s2">
+            <span class="step-n">02</span>
+            <h2 id="s2">Sube tu archivo</h2>
+            <label class="dropzone" id="dz">
+              <input id="file" type="file" accept=".csv,text/csv" class="sr-only">
+              <span class="dz-icon" aria-hidden="true">↑</span>
+              <b id="fname">Arrastra aquí tu CSV o haz clic para elegirlo</b>
+              <small>Resumen de entrenamientos de TrainingPeaks · mejor con 3 a 6 meses</small>
+            </label>
+            <div class="step-row step-row-under">
+              <button class="button button-outline" id="demo" type="button">Probar con datos de ejemplo <span class="orange">↗</span></button>
+              <details class="howto"><summary>¿Cómo exporto mis entrenamientos?</summary>
+                <ol><li>Entra en TrainingPeaks desde el ordenador y abre los ajustes de tu cuenta.</li><li>Busca la opción de exportar datos (<em>Export Data</em>) y elige el resumen de entrenamientos (<em>Workout Summary</em>).</li><li>Selecciona las fechas, descarga el archivo CSV y súbelo aquí.</li></ol>
+              </details>
+            </div>
+          </section>
+
+          <section class="step" aria-labelledby="s3">
+            <span class="step-n">03</span>
+            <h2 id="s3">Tu peso <small>opcional</small></h2>
+            <label class="field">En kg, para calcular tus gramos de hidratos<input id="kg" type="number" min="30" max="200" step="0.5" placeholder="75" inputmode="decimal"></label>
+          </section>
+        </div>
+        <p id="err" role="alert"></p>
+      </div>
+
+      <!-- 02 · PREDICTOR -->
+      <div class="panel tool-panel" id="p-predictor" role="tabpanel" aria-labelledby="t-predictor" hidden>
+        <div class="tool-head"><p class="eyebrow">02 / PREDICTOR</p><h2>¿CUÁNTO HARÍAS EN<br><span class="orange">OTRA DISTANCIA?</span></h2></div>
+        <div class="tool-grid">
+          <div class="tool-controls">
+            <p class="ctl-label">Distancia de tu marca</p>
+            <div class="chips" id="pd" role="radiogroup" aria-label="Distancia de tu marca">
+              <button type="button" role="radio" data-d="5" aria-checked="false">5K</button><button type="button" role="radio" data-d="10" aria-checked="true">10K</button><button type="button" role="radio" data-d="21.0975" aria-checked="false">Media</button><button type="button" role="radio" data-d="42.195" aria-checked="false">Maratón</button>
+            </div>
+            <label class="ctl-label" for="pt">Tu tiempo</label>
+            <div class="big-value"><input id="pt" type="text" inputmode="numeric" value="45:00" aria-describedby="pt-help"><span id="pt-pace"></span></div>
+            <input type="range" class="slider" id="ptr" aria-label="Ajusta tu tiempo" step="5">
+            <p class="ctl-help" id="pt-help">Desliza o escribe el tiempo (m:ss o h:mm:ss).</p>
+          </div>
+          <div class="result-cards" id="pr" aria-live="polite"></div>
+        </div>
+        <p class="tool-note">Estimación con la fórmula de Riegel. Suele ser optimista en maratón si tu volumen semanal es bajo o no has entrenado tiradas largas.</p>
+      </div>
+
+      <!-- 03 · ZONAS -->
+      <div class="panel tool-panel" id="p-zonas" role="tabpanel" aria-labelledby="t-zonas" hidden>
+        <div class="tool-head"><p class="eyebrow">03 / ZONAS</p><h2>TUS ZONAS<br><span class="orange">EN SEGUNDOS.</span></h2></div>
+        <div class="chips chips-wide" id="zk" role="radiogroup" aria-label="Tipo de zonas">
+          <button type="button" role="radio" data-k="hr" aria-checked="true">Pulso</button><button type="button" role="radio" data-k="pace" aria-checked="false">Ritmo de carrera</button><button type="button" role="radio" data-k="pw" aria-checked="false">Potencia en bici</button>
+        </div>
+        <div class="tool-grid">
+          <div class="tool-controls">
+            <div data-k="hr">
+              <label class="ctl-label" for="fm">Pulso máximo</label>
+              <div class="big-value small"><output id="fm-o"></output><span>ppm</span></div>
+              <input type="range" class="slider" id="fm" min="150" max="215" value="190">
+              <label class="ctl-label" for="fr">Pulso en reposo</label>
+              <div class="big-value small"><output id="fr-o"></output><span>ppm</span></div>
+              <input type="range" class="slider" id="fr" min="35" max="90" value="52">
+              <p class="ctl-help">Método de la reserva de frecuencia cardiaca (Karvonen).</p>
+            </div>
+            <div data-k="pace" hidden>
+              <label class="ctl-label" for="rt">Ritmo umbral</label>
+              <div class="big-value small"><output id="rt-o"></output><span>/km</span></div>
+              <input type="range" class="slider" id="rt" min="180" max="420" step="5" value="265">
+              <p class="ctl-help">El ritmo que podrías sostener unos 60 minutos. Lo ideal es medirlo con un test de 30 minutos.</p>
+            </div>
+            <div data-k="pw" hidden>
+              <label class="ctl-label" for="ftp">FTP</label>
+              <div class="big-value small"><output id="ftp-o"></output><span>W</span></div>
+              <input type="range" class="slider" id="ftp" min="100" max="450" step="5" value="220">
+              <p class="ctl-help">Tu potencia umbral funcional. Modelo clásico de 6 zonas sobre el FTP.</p>
+            </div>
+          </div>
+          <div class="zone-list" id="zl" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <!-- 04 · NUTRICIÓN -->
+      <div class="panel tool-panel" id="p-nutricion" role="tabpanel" aria-labelledby="t-nutricion" hidden>
+        <div class="tool-head"><p class="eyebrow">04 / NUTRICIÓN</p><h2>COMBUSTIBLE<br><span class="orange">PARA TU CARRERA.</span></h2></div>
+        <div class="tool-grid">
+          <div class="tool-controls">
+            <label class="ctl-label" for="nd">Duración prevista</label>
+            <div class="big-value small"><output id="nd-o"></output></div>
+            <input type="range" class="slider" id="nd" min="0.5" max="17" step="0.25" value="5">
+            <p class="ctl-label">Temperatura</p>
+            <div class="chips" id="nc" role="radiogroup" aria-label="Temperatura">
+              <button type="button" role="radio" data-c="0" aria-checked="false">Fresco</button><button type="button" role="radio" data-c="1" aria-checked="true">Templado</button><button type="button" role="radio" data-c="2" aria-checked="false">Calor</button>
+            </div>
+          </div>
+          <div>
+            <div class="result-cards three" id="nt" aria-live="polite"></div>
+            <p class="every" id="ne"></p>
+          </div>
+        </div>
+        <p class="tool-note">Pautas deportivas generales que no sustituyen a un dietista-nutricionista. Prueba tu estrategia en entrenamientos largos antes del día de la carrera, sobre todo si vas a tomar más de 60 g de hidratos por hora.</p>
+      </div>
     </div></section>
 
     <section id="out" class="section lab-report" hidden><div class="container">
@@ -143,7 +245,7 @@
   <footer class="footer">
     <div class="container footer-top">
       <a class="brand" href="index.html"><img src="logo.svg" alt="" width="40" height="40"><span>ENDURACE<span class="orange">_LAB</span></span></a>
-      <div class="footer-links"><a href="index.html#metodo">Método</a><a href="index.html#planes">Planes</a><a href="inscripcion.html">Inscripción</a><a href="herramientas.html">Herramientas</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="running.html">Running</a><a href="mailto:espasa35@gmail.com">Contacto</a></div>
+      <div class="footer-links"><a href="index.html#planes">Planes</a><a href="running.html">Running</a><a href="laboratorio.html">Laboratorio</a><a href="blog.html">Blog</a><a href="inscripcion.html">Inscripción</a><a href="mailto:espasa35@gmail.com">Contacto</a></div>
     </div>
     <div class="container footer-bottom">
       <p>© <span id="year"></span> ENDURACE LAB. Todos los derechos reservados.</p>
@@ -324,6 +426,65 @@ o+=`x,${p[0]},${d.toISOString().slice(0,10)},${h.toFixed(2)},${(v*h*3600).toFixe
 return o}
 $("#demo").addEventListener("click",()=>{$("#fname").textContent="Datos de ejemplo";$("#dz").classList.add("has-file");run(demoCSV(),"demo")});
 $("#kg").addEventListener("change",()=>{if(lastText)run(lastText)});
+
+/* ===== Pestañas del laboratorio ===== */
+const TABS=["informe","predictor","zonas","nutricion"];
+function showPanel(k,focus){if(!TABS.includes(k))k="informe";
+TABS.forEach(t=>{const on=t==k;$("#t-"+t).setAttribute("aria-selected",String(on));$("#p-"+t).hidden=!on});
+$("#out").hidden=k!="informe"||!lastText;
+if(location.hash.slice(1)!==k)history.replaceState(null,"","#"+k);
+if(focus){const p=$("#p-"+k);p.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"})}}
+document.querySelectorAll(".tile").forEach(b=>b.addEventListener("click",()=>showPanel(b.dataset.panel,true)));
+window.addEventListener("hashchange",()=>showPanel(location.hash.slice(1)));
+
+/* ===== Utilidades de las calculadoras ===== */
+const ps=s=>{s=String(s).trim();const p=s.split(":").map(Number);return s&&p.every(x=>!isNaN(x))?p.reduce((a,v)=>a*60+v,0):0};
+const ft=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return(h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0")};
+const fill=el=>el.style.setProperty("--p",((el.value-el.min)/(el.max-el.min)*100)+"%");
+function chips(id,cb){const box=$(id);box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{box.querySelectorAll("button").forEach(x=>x.setAttribute("aria-checked",String(x===b)));cb(b)}))}
+const chosen=id=>$(id).querySelector('[aria-checked="true"]');
+
+/* ===== Predictor de tiempos (Riegel) ===== */
+const DIST=[[5,"5K"],[10,"10K"],[21.0975,"Media maratón"],[42.195,"Maratón"]];
+const PRANGE={5:[840,3000],10:[1800,6300],21.0975:[3900,12600],42.195:[8100,25200]};
+let pdist=10;
+function setPredRange(t){const r=PRANGE[pdist],s=$("#ptr");s.min=r[0];s.max=r[1];s.value=Math.min(r[1],Math.max(r[0],t));fill(s)}
+function pred(){const t=ps($("#pt").value);
+if(!t){$("#pr").innerHTML='<p class="ctl-help">Escribe un tiempo válido, por ejemplo 45:00 o 1:39:30.</p>';$("#pt-pace").textContent="";return}
+$("#pt-pace").textContent=ft(t/pdist)+" /km";
+$("#pr").innerHTML=DIST.map(([k,n])=>{const T=t*Math.pow(k/pdist,1.06),me=k==pdist;
+return`<div class="rcard${me?" me":""}"><span class="rk">${me?"TU MARCA":n.toUpperCase()}</span><b>${ft(T)}</b><span class="rs">${me?n+" · ":""}${ft(T/k)} /km</span></div>`}).join("")}
+chips("#pd",b=>{const old=pdist,t=ps($("#pt").value);pdist=+b.dataset.d;
+const nt=t?Math.round(t*Math.pow(pdist/old,1.06)/5)*5:PRANGE[pdist][0]*1.5;$("#pt").value=ft(nt);setPredRange(nt);pred()});
+$("#ptr").addEventListener("input",e=>{fill(e.target);$("#pt").value=ft(+e.target.value);pred()});
+$("#pt").addEventListener("input",()=>{const t=ps($("#pt").value);if(t)setPredRange(t);pred()});
+
+/* ===== Zonas ===== */
+let zk="hr";
+const zrow=(name,range,w,i)=>`<div class="zrow z${i}"><span class="zn">${name}</span><span class="zbar"><i style="width:${w}%"></i></span><span class="zv">${range}</span></div>`;
+function zones(){["fm","fr","rt","ftp"].forEach(id=>fill($("#"+id)));
+const fm=+$("#fm").value,fr=+$("#fr").value,rt=+$("#rt").value,f=+$("#ftp").value;
+$("#fm-o").textContent=fm;$("#fr-o").textContent=fr;$("#rt-o").textContent=ft(rt);$("#ftp-o").textContent=f;
+let h="";
+if(zk=="hr"){h=[[50,60,"Z1 · Recuperación"],[60,70,"Z2 · Aeróbica"],[70,80,"Z3 · Tempo"],[80,90,"Z4 · Umbral"],[90,100,"Z5 · Máxima"]].map((z,i)=>zrow(z[2],Math.round(fr+z[0]/100*(fm-fr))+"–"+Math.round(fr+z[1]/100*(fm-fr))+" ppm",z[1],i)).join("")}
+else if(zk=="pace"){h=[["Z1 · Recuperación","más lento de "+ft(rt*1.29),40],["Z2 · Aeróbica",ft(rt*1.29)+" – "+ft(rt*1.14),55],["Z3 · Tempo",ft(rt*1.13)+" – "+ft(rt*1.06),70],["Z4 · Umbral",ft(rt*1.05)+" – "+ft(rt),85],["Z5 · Intensa","más rápido de "+ft(rt),100]].map((z,i)=>zrow(z[0],z[1]+" /km",z[2],i)).join("")}
+else{h=[[0,55,"Z1 · Recuperación"],[56,75,"Z2 · Resistencia"],[76,90,"Z3 · Tempo"],[91,105,"Z4 · Umbral"],[106,120,"Z5 · VO2máx"],[121,150,"Z6 · Anaeróbica"]].map((z,i)=>zrow(z[2],(z[0]?Math.round(f*z[0]/100)+"–":"hasta ")+Math.round(f*z[1]/100)+" W",z[1]/1.5,Math.min(i,4))).join("")}
+$("#zl").innerHTML=h}
+chips("#zk",b=>{zk=b.dataset.k;document.querySelectorAll("#p-zonas .tool-controls>[data-k]").forEach(d=>d.hidden=d.dataset.k!=zk);zones()});
+["fm","fr","rt","ftp"].forEach(id=>$("#"+id).addEventListener("input",()=>{if(+$("#fr").value>=+$("#fm").value-40)$("#fr").value=+$("#fm").value-40;zones()}));
+
+/* ===== Nutrición en carrera ===== */
+const dur=d=>{const h=Math.floor(d),m=Math.round((d-h)*60);return(h?h+" h":"")+(m?(h?" ":"")+m+" min":"")};
+function nutri(){const s=$("#nd");fill(s);const d=+s.value,c=+chosen("#nc").dataset.c;$("#nd-o").textContent=dur(d);
+const H=d<1?[0,30]:d<=2.5?[30,60]:[60,90],L=[[400,500],[500,700],[600,800]][c],N=[300,600];
+const tot=(r,u)=>Math.round(r[0]*d).toLocaleString("es-ES")+"–"+Math.round(r[1]*d).toLocaleString("es-ES")+" "+u;
+const card=(k,r,u)=>`<div class="rcard"><span class="rk">${k}</span><b>${r[0]}–${r[1]}<small> ${u}/h</small></b><span class="rs">Total: ${tot(r,u)}</span></div>`;
+$("#nt").innerHTML=card("HIDRATOS",H,"g")+card("LÍQUIDO",L,"ml")+card("SODIO",N,"mg");
+$("#ne").innerHTML=H[1]?`<b>Cada 20 minutos:</b> ${Math.round(H[0]/3)}–${Math.round(H[1]/3)} g de hidratos y ${Math.round(L[0]/3)}–${Math.round(L[1]/3)} ml de líquido. Empieza pronto, antes de tener hambre o sed.`:"<b>En menos de una hora</b> no suele hacer falta comer: basta con llegar bien desayunado e hidratado."}
+$("#nd").addEventListener("input",nutri);chips("#nc",nutri);
+
+setPredRange(2700);pred();zones();nutri();
+showPanel(location.hash.slice(1));
 </script>
 </body>
 </html>
